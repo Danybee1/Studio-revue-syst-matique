@@ -1,0 +1,1155 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio — Revue systématique & Méta-analyse</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --paper:#f2eee4; --paper-2:#e9e3d6; --card:#fbf9f4;
+  --ink:#191713; --ink-2:#4b4640; --ink-3:#847c70;
+  --rule:#d6cebd; --rule-2:#c2b8a3;
+  --rust:#b0402a; --rust-soft:#f0d9d2;
+  --teal:#0f5d55; --teal-soft:#d3e6e2;
+  --amber:#c98a12; --amber-soft:#f6e6c4;
+  --green:#3f7a34; --grey:#9a938a;
+  --shadow:0 1px 0 var(--rule), 0 12px 28px -20px rgba(25,23,19,.5);
+  --sans:'IBM Plex Sans',ui-sans-serif,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --serif:'Fraunces',Georgia,serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);
+  background-image:
+    radial-gradient(circle at 15% -10%, rgba(176,64,42,.07), transparent 55%),
+    radial-gradient(circle at 90% 0%, rgba(15,93,85,.07), transparent 50%);
+  background-attachment:fixed;
+  color:var(--ink); font-family:var(--sans); font-size:14px; line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:999; opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+h1,h2,h3{font-family:var(--serif); font-weight:600; letter-spacing:-.015em; margin:0}
+.num{font-family:var(--mono); font-variant-numeric:tabular-nums}
+
+/* ---------- top bar ---------- */
+header{
+  position:sticky; top:0; z-index:50; background:rgba(242,238,228,.92);
+  backdrop-filter:blur(8px); border-bottom:1px solid var(--rule);
+}
+.bar{display:flex; align-items:center; gap:18px; padding:12px 26px; max-width:1420px; margin:0 auto}
+.brand{display:flex; align-items:baseline; gap:10px; flex:0 0 auto}
+.brand .mark{
+  font-family:var(--serif); font-weight:900; font-size:19px; letter-spacing:-.03em;
+  color:var(--paper); background:var(--ink); padding:2px 9px 3px; border-radius:3px;
+}
+.brand .sub{font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3)}
+#projTitle{
+  flex:1 1 auto; min-width:80px; background:transparent; border:0; border-bottom:1px dashed var(--rule-2);
+  font-family:var(--serif); font-size:16px; color:var(--ink); padding:3px 2px; outline:none;
+}
+#projTitle:focus{border-bottom-color:var(--rust)}
+.tools{display:flex; align-items:center; gap:7px; flex:0 0 auto}
+.chip{
+  font-size:11px; letter-spacing:.05em; color:var(--ink-3); font-family:var(--mono);
+  white-space:nowrap; min-width:74px; text-align:right;
+}
+button{font-family:inherit; font-size:13px; cursor:pointer}
+.btn{
+  background:var(--card); border:1px solid var(--rule-2); color:var(--ink-2);
+  padding:6px 12px; border-radius:3px; transition:.15s;
+}
+.btn:hover{border-color:var(--ink); color:var(--ink); transform:translateY(-1px)}
+.btn.solid{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.btn.solid:hover{background:var(--rust); border-color:var(--rust)}
+.btn.rust{background:var(--rust); color:#fff; border-color:var(--rust)}
+.btn.sm{padding:3px 8px; font-size:12px}
+.btn.ghost{background:transparent; border-style:dashed}
+.lang{display:flex; border:1px solid var(--rule-2); border-radius:3px; overflow:hidden}
+.lang button{background:transparent; border:0; padding:5px 9px; font-size:11px; font-weight:600; letter-spacing:.08em; color:var(--ink-3)}
+.lang button.on{background:var(--ink); color:var(--paper)}
+
+/* ---------- nav ---------- */
+nav{border-bottom:1px solid var(--rule); background:rgba(233,227,214,.6)}
+.tabs{display:flex; gap:0; max-width:1420px; margin:0 auto; padding:0 26px; overflow-x:auto}
+.tab{
+  background:transparent; border:0; border-bottom:2px solid transparent; padding:11px 16px;
+  color:var(--ink-3); font-size:13px; white-space:nowrap; display:flex; align-items:center; gap:8px;
+}
+.tab .i{font-family:var(--mono); font-size:10px; color:var(--rule-2)}
+.tab:hover{color:var(--ink)}
+.tab.on{color:var(--ink); border-bottom-color:var(--rust); font-weight:600}
+.tab.on .i{color:var(--rust)}
+
+/* ---------- layout ---------- */
+main{max-width:1420px; margin:0 auto; padding:26px}
+section{display:none; animation:fade .3s ease both}
+section.on{display:block}
+@keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+.head{margin-bottom:20px; border-bottom:1px solid var(--rule); padding-bottom:12px;
+  display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap}
+.head h2{font-size:26px}
+.head p{margin:4px 0 0; color:var(--ink-3); font-size:12.5px; max-width:70ch}
+.grid{display:grid; gap:16px}
+.card{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:16px 18px; box-shadow:var(--shadow)}
+.card > h3{font-size:15px; margin-bottom:10px; display:flex; align-items:center; gap:8px}
+.card > h3::before{content:""; width:4px; height:14px; background:var(--rust); border-radius:1px}
+label{display:block; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); margin:10px 0 4px}
+input[type=text],input[type=number],textarea,select{
+  width:100%; background:#fff; border:1px solid var(--rule-2); border-radius:3px;
+  padding:7px 9px; font-family:inherit; font-size:13px; color:var(--ink); outline:none;
+}
+textarea{resize:vertical; min-height:64px; line-height:1.5}
+input:focus,textarea:focus,select:focus{border-color:var(--rust); box-shadow:0 0 0 3px var(--rust-soft)}
+.row{display:grid; gap:12px}
+.r2{grid-template-columns:1fr 1fr} .r3{grid-template-columns:repeat(3,1fr)} .r4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.r2,.r3,.r4{grid-template-columns:1fr}}
+.hint{font-size:11.5px; color:var(--ink-3); margin:6px 0 0}
+.mono-s{font-family:var(--mono); font-size:11px}
+
+/* stats strip */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:4px; overflow:hidden}
+.stat{background:var(--card); padding:12px 14px}
+.stat b{display:block; font-family:var(--mono); font-size:22px; font-weight:500; letter-spacing:-.02em}
+.stat span{font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-3)}
+
+/* tables */
+table{width:100%; border-collapse:collapse; font-size:12.5px}
+th{text-align:left; font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3);
+   border-bottom:1px solid var(--rule-2); padding:7px 8px; font-weight:600; white-space:nowrap}
+td{border-bottom:1px solid var(--rule); padding:6px 8px; vertical-align:middle}
+tr:hover td{background:rgba(214,206,189,.18)}
+td input,td select{padding:4px 6px; font-size:12px; font-family:var(--mono)}
+.tw{overflow-x:auto; border:1px solid var(--rule); border-radius:4px; background:var(--card)}
+.tw table{min-width:640px}
+.tw th{background:var(--paper-2); position:sticky; top:0}
+
+/* screening */
+.ref{background:var(--card); border:1px solid var(--rule); border-left:3px solid var(--rule-2); border-radius:4px; padding:12px 14px; margin-bottom:9px}
+.ref.inc{border-left-color:var(--green)} .ref.exc{border-left-color:var(--rust); opacity:.72}
+.ref.may{border-left-color:var(--amber)} .ref.dup{border-left-color:var(--grey); opacity:.55}
+.ref h4{margin:0 0 3px; font-family:var(--serif); font-size:14.5px; font-weight:600; line-height:1.35}
+.ref .meta{font-family:var(--mono); font-size:11px; color:var(--ink-3)}
+.ref .abs{font-size:12.5px; color:var(--ink-2); margin:7px 0 0; max-height:60px; overflow:hidden; position:relative; cursor:pointer}
+.ref .abs.open{max-height:none}
+.ref .abs:not(.open)::after{content:""; position:absolute; inset:auto 0 0 0; height:22px; background:linear-gradient(transparent,var(--card))}
+.acts{display:flex; gap:6px; align-items:center; flex-wrap:wrap; margin-top:9px}
+.pill{border:1px solid var(--rule-2); background:#fff; border-radius:20px; padding:3px 11px; font-size:11.5px; color:var(--ink-2)}
+.pill.on-inc{background:var(--green); border-color:var(--green); color:#fff}
+.pill.on-exc{background:var(--rust); border-color:var(--rust); color:#fff}
+.pill.on-may{background:var(--amber); border-color:var(--amber); color:#fff}
+.tag{font-family:var(--mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; padding:2px 6px; border-radius:2px; background:var(--paper-2); color:var(--ink-3)}
+.filters{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:14px}
+.filters select,.filters input{width:auto; min-width:150px}
+
+/* bias */
+.dom{display:flex; align-items:center; gap:10px; padding:6px 0; border-bottom:1px dotted var(--rule)}
+.dom .lbl{flex:1; font-size:12.5px}
+.dom .lbl small{display:block; color:var(--ink-3); font-size:11px}
+.judge{display:flex; gap:4px}
+.judge button{border:1px solid var(--rule-2); background:#fff; border-radius:3px; padding:2px 8px; font-size:11px; color:var(--ink-3)}
+.judge button.on{color:#fff; border-color:transparent; font-weight:600}
+.j-low.on{background:var(--green)} .j-some.on{background:var(--amber)} .j-high.on{background:var(--rust)}
+.j-crit.on{background:#6d1d0f} .j-ni.on{background:var(--grey)}
+.dot{width:14px; height:14px; border-radius:50%; display:inline-block}
+
+.legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px; color:var(--ink-3); margin-top:10px}
+.legend i{width:10px; height:10px; border-radius:50%; display:inline-block; margin-right:5px}
+
+.svgbox{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:14px; overflow-x:auto}
+svg{display:block; max-width:100%; height:auto}
+.empty{text-align:center; padding:44px 20px; color:var(--ink-3); border:1px dashed var(--rule-2); border-radius:4px; background:rgba(251,249,244,.5)}
+.empty b{display:block; font-family:var(--serif); font-size:16px; color:var(--ink-2); margin-bottom:5px}
+.warn{background:var(--amber-soft); border:1px solid var(--amber); border-radius:3px; padding:9px 12px; font-size:12.5px; margin:10px 0}
+.ok{background:var(--teal-soft); border:1px solid var(--teal); border-radius:3px; padding:9px 12px; font-size:12.5px; margin:10px 0}
+.res{display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:4px; overflow:hidden; margin-bottom:14px}
+.res div{background:var(--card); padding:11px 13px}
+.res b{display:block; font-family:var(--mono); font-size:17px; font-weight:500}
+.res span{font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-3)}
+footer{max-width:1420px; margin:0 auto; padding:26px; color:var(--ink-3); font-size:11.5px; border-top:1px solid var(--rule)}
+@media print{
+  header,nav,.tools,.noprint{display:none!important}
+  section{display:none!important} section.on{display:block!important}
+  body{background:#fff} body::before{display:none}
+  .card,.svgbox,.tw{break-inside:avoid; box-shadow:none}
+}
+</style>
+
+<header>
+  <div class="bar">
+    <div class="brand">
+      <span class="mark">SR·MA</span>
+      <span class="sub" data-i18n="brandsub">Studio de revue systématique</span>
+    </div>
+    <input id="projTitle" placeholder="Titre du projet…">
+    <div class="tools noprint">
+      <span class="chip" id="saveChip">—</span>
+      <button class="btn sm" id="btnExport" data-i18n="exportProj">Exporter</button>
+      <button class="btn sm" id="btnImport" data-i18n="importProj">Importer</button>
+      <button class="btn sm ghost" id="btnDemo" data-i18n="demo">Démo</button>
+      <div class="lang">
+        <button data-lang="fr" class="on">FR</button><button data-lang="en">EN</button>
+      </div>
+    </div>
+  </div>
+  <nav><div class="tabs" id="tabs"></div></nav>
+</header>
+
+<main>
+<!-- ============ 1. PROJET ============ -->
+<section id="s-project" class="on">
+  <div class="head">
+    <div><h2 data-i18n="p1t">Protocole du projet</h2><p data-i18n="p1d">Définissez la question de recherche (PICO), les critères d'éligibilité et les sources. Tout est enregistré automatiquement.</p></div>
+  </div>
+  <div class="stats" id="dash" style="margin-bottom:16px"></div>
+  <div class="grid" style="grid-template-columns:1.15fr .85fr" id="projGrid">
+    <div class="card">
+      <h3 data-i18n="question">Question de recherche</h3>
+      <label data-i18n="qfull">Question complète</label>
+      <textarea id="f_question" placeholder="Ex. : Chez les travailleurs exposés aux rayonnements ionisants, la dosimétrie active réduit-elle la dose annuelle par rapport à la dosimétrie passive ?"></textarea>
+      <div class="row r2">
+        <div><label>P — <span data-i18n="pico_p">Population</span></label><input type="text" id="f_p"></div>
+        <div><label>I — <span data-i18n="pico_i">Intervention / Exposition</span></label><input type="text" id="f_i"></div>
+      </div>
+      <div class="row r2">
+        <div><label>C — <span data-i18n="pico_c">Comparateur</span></label><input type="text" id="f_c"></div>
+        <div><label>O — <span data-i18n="pico_o">Critère de jugement</span></label><input type="text" id="f_o"></div>
+      </div>
+      <div class="row r2">
+        <div><label data-i18n="incl">Critères d'inclusion</label><textarea id="f_incl"></textarea></div>
+        <div><label data-i18n="excl">Critères d'exclusion</label><textarea id="f_excl"></textarea></div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <h3 data-i18n="identity">Identification</h3>
+        <label data-i18n="authors">Auteurs / équipe</label><input type="text" id="f_authors">
+        <label data-i18n="inst">Institution</label><input type="text" id="f_inst">
+        <div class="row r2">
+          <div><label data-i18n="regno">N° d'enregistrement (PROSPERO…)</label><input type="text" id="f_reg"></div>
+          <div><label data-i18n="date">Date</label><input type="text" id="f_date"></div>
+        </div>
+        <label data-i18n="sources">Sources interrogées</label><input type="text" id="f_sources" placeholder="PubMed, Scopus, Web of Science…">
+        <label data-i18n="strategy">Équation de recherche</label><textarea id="f_strategy" class="mono-s" placeholder='("radiation protection"[MeSH] OR dosimetry) AND …'></textarea>
+      </div>
+      <div class="card">
+        <h3 data-i18n="storage">Données & sauvegarde</h3>
+        <p class="hint" data-i18n="storaged">Le projet est enregistré automatiquement dans ce navigateur. Utilisez <b>Exporter</b> pour obtenir un fichier <code>.json</code> transférable (archivage, travail à deux relecteurs, autre machine).</p>
+        <div class="acts">
+          <button class="btn sm" id="btnCsv" data-i18n="csv">Export CSV (études incluses)</button>
+          <button class="btn sm" id="btnPrint" data-i18n="print">Imprimer / PDF</button>
+          <button class="btn sm" id="btnReset" data-i18n="reset">Réinitialiser</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. SELECTION ============ -->
+<section id="s-screen">
+  <div class="head">
+    <div><h2 data-i18n="p2t">Sélection des articles</h2><p data-i18n="p2d">Importez vos références, retirez les doublons, puis criblez en deux phases : titre/résumé, puis texte intégral avec motif d'exclusion.</p></div>
+    <div class="acts noprint">
+      <button class="btn sm" id="btnDedup" data-i18n="dedup">Détecter les doublons</button>
+      <button class="btn solid sm" id="btnAdd" data-i18n="addref">+ Référence</button>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:16px">
+    <h3 data-i18n="import">Import de références</h3>
+    <p class="hint" data-i18n="importd">Collez un export <b>RIS</b> (PubMed, Scopus, Zotero), un <b>BibTeX</b>, ou une ligne par article au format : <code>Titre | Auteurs | Année | Revue | DOI</code></p>
+    <textarea id="importBox" class="mono-s" style="min-height:96px" placeholder="TY  - JOUR&#10;TI  - Natural radioactivity in building materials…&#10;AU  - Ouedraogo, A.&#10;PY  - 2023&#10;ER  -"></textarea>
+    <div class="acts">
+      <select id="importSrc" style="width:auto"><option>PubMed</option><option>Scopus</option><option>Web of Science</option><option>Google Scholar</option><option>Autre / Other</option></select>
+      <button class="btn rust sm" id="btnParse" data-i18n="parse">Analyser & importer</button>
+    </div>
+  </div>
+
+  <div class="filters noprint">
+    <select id="fPhase">
+      <option value="1" data-i18n="ph1">Phase 1 — Titre / résumé</option>
+      <option value="2" data-i18n="ph2">Phase 2 — Texte intégral</option>
+    </select>
+    <select id="fState">
+      <option value="all" data-i18n="fall">Tous les statuts</option>
+      <option value="todo" data-i18n="ftodo">À traiter</option>
+      <option value="include" data-i18n="finc">Inclus</option>
+      <option value="maybe" data-i18n="fmay">Incertains</option>
+      <option value="exclude" data-i18n="fexc">Exclus</option>
+    </select>
+    <input type="text" id="fSearch" placeholder="🔎 titre, auteur, année…">
+    <span class="chip" id="screenCount"></span>
+  </div>
+  <div id="refList"></div>
+</section>
+
+<!-- ============ 3. BIAIS ============ -->
+<section id="s-bias">
+  <div class="head">
+    <div><h2 data-i18n="p3t">Qualité & risque de biais</h2><p data-i18n="p3d">Évaluez chaque étude incluse avec l'outil adapté à son design : RoB 2, ROBINS-I ou l'échelle de Newcastle-Ottawa.</p></div>
+  </div>
+  <div id="biasList"></div>
+  <div id="tlWrap" style="margin-top:18px"></div>
+</section>
+
+<!-- ============ 4. EXTRACTION ============ -->
+<section id="s-extract">
+  <div class="head">
+    <div><h2 data-i18n="p4t">Extraction des données</h2><p data-i18n="p4d">Saisissez les données brutes des études incluses. Binaire : événements/effectifs. Continu : moyenne, écart-type, effectif.</p></div>
+    <div class="acts noprint"><span class="chip" id="extType"></span></div>
+  </div>
+  <div class="card" style="margin-bottom:14px">
+    <div class="row r3">
+      <div><label data-i18n="dtype">Type de données</label>
+        <select id="f_datatype"><option value="binary">Binaire / Binary (a/n)</option><option value="continuous">Continu / Continuous (m, SD, n)</option></select></div>
+      <div><label data-i18n="g1">Libellé groupe 1</label><input type="text" id="f_g1" placeholder="Exposés / Intervention"></div>
+      <div><label data-i18n="g2">Libellé groupe 2</label><input type="text" id="f_g2" placeholder="Témoins / Contrôle"></div>
+    </div>
+  </div>
+  <div class="tw" id="extractWrap"></div>
+</section>
+
+<!-- ============ 5. ANALYSE ============ -->
+<section id="s-analysis">
+  <div class="head">
+    <div><h2 data-i18n="p5t">Méta-analyse</h2><p data-i18n="p5d">Pondération par l'inverse de la variance, modèles à effets fixes et aléatoires (DerSimonian–Laird), hétérogénéité et biais de publication.</p></div>
+  </div>
+  <div class="card" style="margin-bottom:16px">
+    <div class="row r4">
+      <div><label data-i18n="measure">Mesure d'effet</label><select id="a_measure"></select></div>
+      <div><label data-i18n="model">Modèle</label><select id="a_model">
+        <option value="random">Effets aléatoires (DL)</option><option value="fixed">Effets fixes (IV)</option></select></div>
+      <div><label data-i18n="cc">Correction de continuité (0.5)</label><select id="a_cc"><option value="1">Auto (si zéro)</option><option value="0">Aucune</option></select></div>
+      <div><label data-i18n="sub">Analyse en sous-groupes</label><select id="a_sub"><option value="0">Non / No</option><option value="1">Oui / Yes</option></select></div>
+    </div>
+  </div>
+  <div id="anaOut"></div>
+</section>
+
+<!-- ============ 6. RAPPORT ============ -->
+<section id="s-report">
+  <div class="head">
+    <div><h2 data-i18n="p6t">Diagramme PRISMA & rapport</h2><p data-i18n="p6d">Flux de sélection généré automatiquement à partir de vos décisions, suivi d'une synthèse prête à insérer dans le manuscrit.</p></div>
+    <div class="acts noprint">
+      <button class="btn sm" id="btnSvg" data-i18n="dlsvg">Télécharger le PRISMA (SVG)</button>
+      <button class="btn solid sm" id="btnPrint2" data-i18n="print">Imprimer / PDF</button>
+    </div>
+  </div>
+  <div id="reportOut"></div>
+</section>
+</main>
+
+<footer>
+  <span data-i18n="foot">Studio SR·MA — outil d'appui méthodologique conforme à la logique PRISMA 2020. Les résultats doivent être vérifiés par un statisticien avant publication.</span>
+</footer>
+
+<input type="file" id="fileIn" accept=".json" style="display:none">
+
+<script>
+/* =========================================================================
+   0. I18N
+   ========================================================================= */
+const I18N = {
+ fr:{brandsub:"Studio de revue systématique",exportProj:"Exporter",importProj:"Importer",demo:"Démo",
+  t1:"Projet",t2:"Sélection",t3:"Qualité & biais",t4:"Extraction",t5:"Analyse",t6:"PRISMA & rapport",
+  p1t:"Protocole du projet",p1d:"Définissez la question de recherche (PICO), les critères d'éligibilité et les sources. Tout est enregistré automatiquement.",
+  question:"Question de recherche",qfull:"Question complète",pico_p:"Population",pico_i:"Intervention / Exposition",pico_c:"Comparateur",pico_o:"Critère de jugement",
+  incl:"Critères d'inclusion",excl:"Critères d'exclusion",identity:"Identification",authors:"Auteurs / équipe",inst:"Institution",
+  regno:"N° d'enregistrement (PROSPERO…)",date:"Date",sources:"Sources interrogées",strategy:"Équation de recherche",
+  storage:"Données & sauvegarde",storaged:"Le projet est enregistré automatiquement dans ce navigateur. Utilisez <b>Exporter</b> pour obtenir un fichier <code>.json</code> transférable (archivage, travail à deux relecteurs, autre machine).",
+  csv:"Export CSV (études incluses)",print:"Imprimer / PDF",reset:"Réinitialiser",
+  p2t:"Sélection des articles",p2d:"Importez vos références, retirez les doublons, puis criblez en deux phases : titre/résumé, puis texte intégral avec motif d'exclusion.",
+  dedup:"Détecter les doublons",addref:"+ Référence",import:"Import de références",
+  importd:"Collez un export <b>RIS</b> (PubMed, Scopus, Zotero), un <b>BibTeX</b>, ou une ligne par article au format : <code>Titre | Auteurs | Année | Revue | DOI</code>",
+  parse:"Analyser & importer",ph1:"Phase 1 — Titre / résumé",ph2:"Phase 2 — Texte intégral",
+  fall:"Tous les statuts",ftodo:"À traiter",finc:"Inclus",fmay:"Incertains",fexc:"Exclus",
+  p3t:"Qualité & risque de biais",p3d:"Évaluez chaque étude incluse avec l'outil adapté à son design : RoB 2, ROBINS-I ou l'échelle de Newcastle-Ottawa.",
+  p4t:"Extraction des données",p4d:"Saisissez les données brutes des études incluses. Binaire : événements/effectifs. Continu : moyenne, écart-type, effectif.",
+  dtype:"Type de données",g1:"Libellé groupe 1",g2:"Libellé groupe 2",
+  p5t:"Méta-analyse",p5d:"Pondération par l'inverse de la variance, modèles à effets fixes et aléatoires (DerSimonian–Laird), hétérogénéité et biais de publication.",
+  measure:"Mesure d'effet",model:"Modèle",cc:"Correction de continuité (0.5)",sub:"Analyse en sous-groupes",
+  p6t:"Diagramme PRISMA & rapport",p6d:"Flux de sélection généré automatiquement à partir de vos décisions, suivi d'une synthèse prête à insérer dans le manuscrit.",
+  dlsvg:"Télécharger le PRISMA (SVG)",
+  foot:"Studio SR·MA — outil d'appui méthodologique conforme à la logique PRISMA 2020. Les résultats doivent être vérifiés par un statisticien avant publication.",
+  saved:"enregistré",saving:"…",
+  include:"Inclure",exclude:"Exclure",maybe:"Incertain",reason:"Motif d'exclusion",dupl:"Doublon",undup:"Non-doublon",
+  del:"Supprimer",noref:"Aucune référence",norefd:"Importez un fichier RIS/BibTeX ou ajoutez une référence manuellement pour commencer le criblage.",
+  noinc:"Aucune étude incluse",noincd:"Terminez la phase 2 du criblage : les études incluses apparaîtront ici.",
+  tool:"Outil",overall:"Jugement global",trafficlight:"Synthèse graphique du risque de biais",
+  st_id:"Identifiées",st_dup:"Doublons",st_scr:"Criblées",st_ft:"Texte intégral",st_inc:"Incluses",st_ana:"Analysables",
+  k:"Études",eff:"Effet groupé",ci:"IC 95 %",pval:"p",het:"Hétérogénéité",
+  forest:"Forest plot",funnel:"Funnel plot (biais de publication)",subgroups:"Sous-groupes",
+  study:"Étude",weight:"Poids",favors1:"Favorise gr. 1",favors2:"Favorise gr. 2",
+  nodata:"Données insuffisantes",nodatad:"Renseignez au moins deux études incluses avec des données complètes dans l'onglet Extraction.",
+  synth:"Synthèse rédigée",prisma:"Diagramme de flux PRISMA 2020",
+  confirmReset:"Effacer définitivement tout le projet ?",
+  egger:"Test d'Egger",pi:"Intervalle de prédiction",subdiff:"Test de différence entre sous-groupes"},
+ en:{brandsub:"Systematic review studio",exportProj:"Export",importProj:"Import",demo:"Demo",
+  t1:"Project",t2:"Screening",t3:"Quality & bias",t4:"Extraction",t5:"Analysis",t6:"PRISMA & report",
+  p1t:"Project protocol",p1d:"Define the research question (PICO), eligibility criteria and sources. Everything is saved automatically.",
+  question:"Research question",qfull:"Full question",pico_p:"Population",pico_i:"Intervention / Exposure",pico_c:"Comparator",pico_o:"Outcome",
+  incl:"Inclusion criteria",excl:"Exclusion criteria",identity:"Identification",authors:"Authors / team",inst:"Institution",
+  regno:"Registration no. (PROSPERO…)",date:"Date",sources:"Databases searched",strategy:"Search string",
+  storage:"Data & saving",storaged:"The project is auto-saved in this browser. Use <b>Export</b> to get a portable <code>.json</code> file (archiving, dual-reviewer work, another machine).",
+  csv:"Export CSV (included studies)",print:"Print / PDF",reset:"Reset",
+  p2t:"Study screening",p2d:"Import your references, remove duplicates, then screen in two phases: title/abstract, then full text with exclusion reason.",
+  dedup:"Detect duplicates",addref:"+ Reference",import:"Import references",
+  importd:"Paste a <b>RIS</b> export (PubMed, Scopus, Zotero), <b>BibTeX</b>, or one line per record as: <code>Title | Authors | Year | Journal | DOI</code>",
+  parse:"Parse & import",ph1:"Phase 1 — Title / abstract",ph2:"Phase 2 — Full text",
+  fall:"All statuses",ftodo:"To do",finc:"Included",fmay:"Unsure",fexc:"Excluded",
+  p3t:"Quality & risk of bias",p3d:"Appraise each included study with the tool matching its design: RoB 2, ROBINS-I or Newcastle-Ottawa.",
+  p4t:"Data extraction",p4d:"Enter raw data of included studies. Binary: events/totals. Continuous: mean, SD, n.",
+  dtype:"Data type",g1:"Group 1 label",g2:"Group 2 label",
+  p5t:"Meta-analysis",p5d:"Inverse-variance weighting, fixed- and random-effects models (DerSimonian–Laird), heterogeneity and publication bias.",
+  measure:"Effect measure",model:"Model",cc:"Continuity correction (0.5)",sub:"Subgroup analysis",
+  p6t:"PRISMA flow & report",p6d:"Selection flow generated automatically from your decisions, followed by a manuscript-ready summary.",
+  dlsvg:"Download PRISMA (SVG)",
+  foot:"SR·MA Studio — methodological support tool following PRISMA 2020 logic. Results should be checked by a statistician before publication.",
+  saved:"saved",saving:"…",
+  include:"Include",exclude:"Exclude",maybe:"Unsure",reason:"Exclusion reason",dupl:"Duplicate",undup:"Not a duplicate",
+  del:"Delete",noref:"No references yet",norefd:"Import an RIS/BibTeX file or add a reference manually to start screening.",
+  noinc:"No included studies",noincd:"Complete phase 2 screening: included studies will appear here.",
+  tool:"Tool",overall:"Overall judgement",trafficlight:"Risk-of-bias traffic-light plot",
+  st_id:"Identified",st_dup:"Duplicates",st_scr:"Screened",st_ft:"Full text",st_inc:"Included",st_ana:"Analysable",
+  k:"Studies",eff:"Pooled effect",ci:"95% CI",pval:"p",het:"Heterogeneity",
+  forest:"Forest plot",funnel:"Funnel plot (publication bias)",subgroups:"Subgroups",
+  study:"Study",weight:"Weight",favors1:"Favours gr. 1",favors2:"Favours gr. 2",
+  nodata:"Not enough data",nodatad:"Enter at least two included studies with complete data in the Extraction tab.",
+  synth:"Written summary",prisma:"PRISMA 2020 flow diagram",
+  confirmReset:"Permanently erase the whole project?",
+  egger:"Egger's test",pi:"Prediction interval",subdiff:"Test for subgroup differences"}
+};
+let LANG='fr';
+const t=k=>(I18N[LANG][k]!==undefined?I18N[LANG][k]:(I18N.fr[k]||k));
+
+/* =========================================================================
+   1. STATE
+   ========================================================================= */
+const KEY='srma_project_v1';
+const uid=()=>Math.random().toString(36).slice(2,9);
+const blank=()=>({
+  title:'', question:'', p:'',i:'',c:'',o:'', incl:'', excl:'',
+  authors:'', inst:'', reg:'', date:new Date().toISOString().slice(0,10),
+  sources:'', strategy:'', datatype:'binary', g1:'', g2:'',
+  measure:'OR', model:'random', cc:'1', sub:'0',
+  refs:[], regOther:0
+});
+let S=blank();
+const mem={};
+/* Version autonome (hébergement web / fichier local) : persistance via localStorage.
+   Repli mémoire si le navigateur bloque le stockage (navigation privée, file:// restreint). */
+const Store={
+  async get(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null }catch(e){ return mem[k]||null } },
+  async set(k,v){ mem[k]=v; try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} },
+  async del(k){ delete mem[k]; try{ localStorage.removeItem(k); }catch(e){} }
+};
+let saveT=null;
+function save(){
+  document.getElementById('saveChip').textContent=t('saving');
+  clearTimeout(saveT);
+  saveT=setTimeout(async()=>{
+    await Store.set(KEY,S);
+    document.getElementById('saveChip').textContent='✓ '+t('saved');
+  },700);
+}
+
+/* =========================================================================
+   2. MATH
+   ========================================================================= */
+const erf=x=>{const s=x<0?-1:1;x=Math.abs(x);const a1=.254829592,a2=-.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=.3275911;
+  const tt=1/(1+p*x);const y=1-(((((a5*tt+a4)*tt)+a3)*tt+a2)*tt+a1)*tt*Math.exp(-x*x);return s*y;};
+const pnorm=z=>.5*(1+erf(z/Math.SQRT2));
+const pz=z=>2*(1-pnorm(Math.abs(z)));            // two-sided normal p
+function lgamma(x){const g=[76.18009172947146,-86.50532032941677,24.01409824083091,-1.231739572450155,.1208650973866179e-2,-.5395239384953e-5];
+  let y=x,tmp=x+5.5;tmp-=(x+.5)*Math.log(tmp);let ser=1.000000000190015;for(let j=0;j<6;j++)ser+=g[j]/++y;return -tmp+Math.log(2.5066282746310005*ser/x);}
+function betacf(a,b,x){const M=200,EPS=3e-12,FP=1e-300;let qab=a+b,qap=a+1,qam=a-1,c=1,d=1-qab*x/qap;
+  if(Math.abs(d)<FP)d=FP; d=1/d; let h=d;
+  for(let m=1;m<=M;m++){const m2=2*m;let aa=m*(b-m)*x/((qam+m2)*(a+m2));
+    d=1+aa*d; if(Math.abs(d)<FP)d=FP; c=1+aa/c; if(Math.abs(c)<FP)c=FP; d=1/d; h*=d*c;
+    aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2));
+    d=1+aa*d; if(Math.abs(d)<FP)d=FP; c=1+aa/c; if(Math.abs(c)<FP)c=FP; d=1/d; const del=d*c; h*=del;
+    if(Math.abs(del-1)<EPS)break;}
+  return h;}
+function ibeta(a,b,x){ if(x<=0)return 0; if(x>=1)return 1;
+  const bt=Math.exp(lgamma(a+b)-lgamma(a)-lgamma(b)+a*Math.log(x)+b*Math.log(1-x));
+  return x<(a+1)/(a+b+2)? bt*betacf(a,b,x)/a : 1-bt*betacf(b,a,1-x)/b;}
+const pt=(tv,df)=>{ if(!isFinite(tv)||df<1)return NaN; return ibeta(df/2,.5,df/(df+tv*tv)); }; // two-sided
+function gser(a,x){let ap=a,sum=1/a,del=sum;for(let n=0;n<400;n++){ap++;del*=x/ap;sum+=del;if(Math.abs(del)<Math.abs(sum)*1e-12)break;}return sum*Math.exp(-x+a*Math.log(x)-lgamma(a));}
+function gcf(a,x){const FP=1e-300;let b=x+1-a,c=1/FP,d=1/b,h=d;
+  for(let i=1;i<400;i++){const an=-i*(i-a);b+=2;d=an*d+b;if(Math.abs(d)<FP)d=FP;c=b+an/c;if(Math.abs(c)<FP)c=FP;d=1/d;const del=d*c;h*=del;if(Math.abs(del-1)<1e-12)break;}
+  return Math.exp(-x+a*Math.log(x)-lgamma(a))*h;}
+const pchisq=(x,df)=>{ if(x<=0||df<1)return 1; const a=df/2; return x<a+1? 1-gser(a,x/2) : gcf(a,x/2); }; // upper tail
+// inverse t : bissection sur pt (two-sided p -> critical value)
+function qt(p,df){
+  if(df<1)return qnorm(1-p/2);
+  let a=0,b=200;
+  for(let i=0;i<80;i++){const m=(a+b)/2; if(pt(m,df)>p)a=m; else b=m;}
+  return (a+b)/2;}
+function qnorm(p){ // Acklam
+  const a=[-3.969683028665376e1,2.209460984245205e2,-2.759285104469687e2,1.383577518672690e2,-3.066479806614716e1,2.506628277459239];
+  const b=[-5.447609879822406e1,1.615858368580409e2,-1.556989798598866e2,6.680131188771972e1,-1.328068155288572e1];
+  const c=[-7.784894002430293e-3,-3.223964580411365e-1,-2.400758277161838,-2.549732539343734,4.374664141464968,2.938163982698783];
+  const d=[7.784695709041462e-3,3.224671290700398e-1,2.445134137142996,3.754408661907416];
+  const pl=.02425;let q,r;
+  if(p<pl){q=Math.sqrt(-2*Math.log(p));return (((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);}
+  if(p>1-pl){q=Math.sqrt(-2*Math.log(1-p));return -(((((c[0]*q+c[1])*q+c[2])*q+c[3])*q+c[4])*q+c[5])/((((d[0]*q+d[1])*q+d[2])*q+d[3])*q+1);}
+  q=p-.5;r=q*q;return (((((a[0]*r+a[1])*r+a[2])*r+a[3])*r+a[4])*r+a[5])*q/(((((b[0]*r+b[1])*r+b[2])*r+b[3])*r+b[4])*r+1);}
+
+const MEASURES={
+  OR:{log:true,bin:true,fr:"Odds ratio (OR)",en:"Odds ratio (OR)",null:1},
+  RR:{log:true,bin:true,fr:"Risque relatif (RR)",en:"Risk ratio (RR)",null:1},
+  RD:{log:false,bin:true,fr:"Différence de risque (RD)",en:"Risk difference (RD)",null:0},
+  MD:{log:false,bin:false,fr:"Différence de moyennes (MD)",en:"Mean difference (MD)",null:0},
+  SMD:{log:false,bin:false,fr:"Diff. moyennes standardisée (g de Hedges)",en:"Standardised mean difference (Hedges' g)",null:0}
+};
+/* effect size per study -> {y, v} on the analysis scale (log for OR/RR) */
+function effect(r,m,cc){
+  const d=r.data||{}; const nm=v=>{const x=parseFloat(v);return isFinite(x)?x:null};
+  if(MEASURES[m].bin){
+    let a=nm(d.e1),n1=nm(d.n1),c=nm(d.e2),n2=nm(d.n2);
+    if(a===null||c===null||!n1||!n2)return null;
+    let b=n1-a,dd=n2-c;
+    if(a<0||b<0||c<0||dd<0)return null;
+    if(cc==='1'&&(a===0||b===0||c===0||dd===0)){a+=.5;b+=.5;c+=.5;dd+=.5;n1+=1;n2+=1;}
+    if(m==='OR'){ if(a<=0||b<=0||c<=0||dd<=0)return null;
+      return {y:Math.log((a*dd)/(b*c)), v:1/a+1/b+1/c+1/dd}; }
+    if(m==='RR'){ if(a<=0||c<=0)return null;
+      return {y:Math.log((a/n1)/(c/n2)), v:1/a-1/n1+1/c-1/n2}; }
+    if(m==='RD'){ return {y:a/n1-c/n2, v:a*b/Math.pow(n1,3)+c*dd/Math.pow(n2,3)}; }
+  } else {
+    const m1=nm(d.m1),s1=nm(d.sd1),n1=nm(d.n1),m2=nm(d.m2),s2=nm(d.sd2),n2=nm(d.n2);
+    if(m1===null||m2===null||!s1||!s2||!n1||!n2||n1<2||n2<2)return null;
+    if(m==='MD')return {y:m1-m2, v:s1*s1/n1+s2*s2/n2};
+    const sp=Math.sqrt(((n1-1)*s1*s1+(n2-1)*s2*s2)/(n1+n2-2));
+    if(!sp)return null;
+    const dd=(m1-m2)/sp, J=1-3/(4*(n1+n2)-9), g=J*dd;
+    return {y:g, v:J*J*((n1+n2)/(n1*n2)+dd*dd/(2*(n1+n2-2)))};
+  }
+  return null;
+}
+function pool(items,model){ // items:[{y,v,...}]
+  const k=items.length; if(!k)return null;
+  const wF=items.map(x=>1/x.v), sw=wF.reduce((a,b)=>a+b,0);
+  const thF=items.reduce((a,x,i)=>a+wF[i]*x.y,0)/sw;
+  const Q=items.reduce((a,x,i)=>a+wF[i]*Math.pow(x.y-thF,2),0);
+  const df=k-1;
+  const sw2=wF.reduce((a,b)=>a+b*b,0);
+  const C=sw-sw2/sw;
+  const tau2=C>0?Math.max(0,(Q-df)/C):0;
+  const I2=Q>df&&Q>0?Math.max(0,(Q-df)/Q*100):0;
+  const H=df>0?Math.sqrt(Math.max(1,Q/df)):1;
+  const w=model==='random'?items.map(x=>1/(x.v+tau2)):wF;
+  const swx=w.reduce((a,b)=>a+b,0);
+  const th=items.reduce((a,x,i)=>a+w[i]*x.y,0)/swx;
+  const se=Math.sqrt(1/swx);
+  const z=th/se, p=pz(z);
+  const wpc=w.map(x=>x/swx*100);
+  const out={k,th,se,lo:th-1.96*se,hi:th+1.96*se,z,p,Q,df,I2,tau2,tau:Math.sqrt(tau2),H,pQ:pchisq(Q,df),w:wpc,model};
+  if(model==='random'&&k>=3){const tc=qt(.05,k-2),sd=Math.sqrt(tau2+se*se);out.piLo=th-tc*sd;out.piHi=th+tc*sd;}
+  return out;
+}
+function egger(items){ // regression of y/se on 1/se
+  const k=items.length; if(k<3)return null;
+  const X=items.map(x=>1/Math.sqrt(x.v)), Y=items.map(x=>x.y/Math.sqrt(x.v));
+  const mx=X.reduce((a,b)=>a+b,0)/k, my=Y.reduce((a,b)=>a+b,0)/k;
+  let sxy=0,sxx=0; for(let i=0;i<k;i++){sxy+=(X[i]-mx)*(Y[i]-my);sxx+=Math.pow(X[i]-mx,2);}
+  if(!sxx)return null;
+  const b1=sxy/sxx, b0=my-b1*mx;
+  let sse=0; for(let i=0;i<k;i++)sse+=Math.pow(Y[i]-(b0+b1*X[i]),2);
+  const df=k-2, s2=sse/df, seB0=Math.sqrt(s2*(1/k+mx*mx/sxx));
+  const tv=b0/seB0;
+  return {b0,se:seB0,t:tv,df,p:pt(tv,df)};
+}
+const fmt=(x,d=2)=>(x===null||x===undefined||!isFinite(x))?'—':x.toFixed(d);
+const fmtP=p=>!isFinite(p)?'—':(p<0.0001?'< 0,0001':p.toFixed(4).replace('.',LANG==='fr'?',':'.'));
+const num=(x,d=2)=>fmt(x,d).replace('.',LANG==='fr'?',':'.');
+const disp=(y,m)=>MEASURES[m].log?Math.exp(y):y;
+
+/* =========================================================================
+   3. BIAS TOOLS
+   ========================================================================= */
+const J_ROB2=[{k:'low',fr:'Faible',en:'Low',c:'j-low'},{k:'some',fr:'Modéré',en:'Some concerns',c:'j-some'},{k:'high',fr:'Élevé',en:'High',c:'j-high'}];
+const J_ROBINS=[{k:'low',fr:'Faible',en:'Low',c:'j-low'},{k:'some',fr:'Modéré',en:'Moderate',c:'j-some'},{k:'high',fr:'Sérieux',en:'Serious',c:'j-high'},{k:'crit',fr:'Critique',en:'Critical',c:'j-crit'},{k:'ni',fr:'Pas d\'info',en:'No info',c:'j-ni'}];
+const J_NOS=[{k:'low',fr:'★★★ Bonne',en:'★★★ Good',c:'j-low'},{k:'some',fr:'★★ Moyenne',en:'★★ Fair',c:'j-some'},{k:'high',fr:'★ Faible',en:'★ Poor',c:'j-high'}];
+const TOOLS={
+ rob2:{name:{fr:'RoB 2 — essais randomisés',en:'RoB 2 — randomised trials'},j:J_ROB2,d:[
+   {id:'D1',fr:['D1 — Randomisation','Génération de la séquence, secret de l’attribution, comparabilité initiale'],en:['D1 — Randomisation process','Sequence generation, allocation concealment, baseline balance']},
+   {id:'D2',fr:['D2 — Écarts au protocole','Insu des participants/intervenants, analyse en intention de traiter'],en:['D2 — Deviations from intervention','Blinding of participants/staff, intention-to-treat analysis']},
+   {id:'D3',fr:['D3 — Données manquantes','Complétude des données de résultat, perdus de vue'],en:['D3 — Missing outcome data','Completeness of outcome data, attrition']},
+   {id:'D4',fr:['D4 — Mesure du critère','Méthode de mesure, insu de l’évaluateur'],en:['D4 — Measurement of the outcome','Measurement method, assessor blinding']},
+   {id:'D5',fr:['D5 — Sélection du résultat rapporté','Protocole pré-enregistré, résultats multiples'],en:['D5 — Selection of reported result','Pre-registered protocol, multiple outcomes']}]},
+ robins:{name:{fr:'ROBINS-I — études non randomisées',en:'ROBINS-I — non-randomised studies'},j:J_ROBINS,d:[
+   {id:'C1',fr:['C1 — Confusion','Facteurs de confusion identifiés et contrôlés'],en:['C1 — Confounding','Confounders identified and controlled']},
+   {id:'C2',fr:['C2 — Sélection des participants','Sélection liée à l’exposition et au résultat'],en:['C2 — Selection of participants','Selection related to exposure and outcome']},
+   {id:'C3',fr:['C3 — Classification des interventions','Définition claire, mesure indépendante du résultat'],en:['C3 — Classification of interventions','Clear definition, measured independently']},
+   {id:'C4',fr:['C4 — Écarts aux interventions prévues','Co-interventions, adhésion'],en:['C4 — Deviations from interventions','Co-interventions, adherence']},
+   {id:'C5',fr:['C5 — Données manquantes','Participants exclus de l’analyse'],en:['C5 — Missing data','Participants excluded from analysis']},
+   {id:'C6',fr:['C6 — Mesure des résultats','Erreur de mesure différentielle, insu'],en:['C6 — Measurement of outcomes','Differential misclassification, blinding']},
+   {id:'C7',fr:['C7 — Résultat rapporté sélectif','Multiplicité des analyses'],en:['C7 — Selective reporting','Multiplicity of analyses']}]},
+ nos:{name:{fr:'Newcastle-Ottawa — cohorte / cas-témoins',en:'Newcastle-Ottawa — cohort / case-control'},j:J_NOS,d:[
+   {id:'S',fr:['Sélection (max 4 ★)','Représentativité, sélection des témoins, vérification de l’exposition'],en:['Selection (max 4 ★)','Representativeness, control selection, exposure ascertainment']},
+   {id:'K',fr:['Comparabilité (max 2 ★)','Ajustement sur les facteurs de confusion'],en:['Comparability (max 2 ★)','Adjustment for confounders']},
+   {id:'E',fr:['Résultat / Exposition (max 3 ★)','Évaluation, durée de suivi, complétude'],en:['Outcome / Exposure (max 3 ★)','Assessment, follow-up length, completeness']}]}
+};
+const COLOR={low:'var(--green)',some:'var(--amber)',high:'var(--rust)',crit:'#6d1d0f',ni:'var(--grey)'};
+
+/* =========================================================================
+   4. TABS
+   ========================================================================= */
+const TABS=[['s-project','t1'],['s-screen','t2'],['s-bias','t3'],['s-extract','t4'],['s-analysis','t5'],['s-report','t6']];
+let cur=0;
+function buildTabs(){
+  document.getElementById('tabs').innerHTML=TABS.map((x,i)=>
+    `<button class="tab ${i===cur?'on':''}" data-i="${i}"><span class="i">0${i+1}</span>${t(x[1])}</button>`).join('');
+  document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+    cur=+b.dataset.i;
+    document.querySelectorAll('section').forEach((s,i)=>s.classList.toggle('on',i===cur));
+    buildTabs(); renderAll(); window.scrollTo({top:0,behavior:'smooth'});
+  });
+}
+
+/* =========================================================================
+   5. SCREENING
+   ========================================================================= */
+function counts(){
+  const all=S.refs, dup=all.filter(r=>r.dup);
+  const scr=all.filter(r=>!r.dup);
+  const e1=scr.filter(r=>r.t1==='exclude');
+  const ft=scr.filter(r=>r.t1==='include');
+  const e2=ft.filter(r=>r.t2==='exclude');
+  const inc=ft.filter(r=>r.t2==='include');
+  const ana=inc.filter(r=>effect(r,S.measure,S.cc));
+  return {id:all.length,dup:dup.length,scr:scr.length,e1:e1.length,ft:ft.length,e2:e2.length,inc:inc.length,ana:ana.length,incRefs:inc,ftRefs:ft,e2Refs:e2};
+}
+function renderDash(){
+  const c=counts();
+  document.getElementById('dash').innerHTML=[
+    ['st_id',c.id],['st_dup',c.dup],['st_scr',c.scr],['st_ft',c.ft],['st_inc',c.inc],['st_ana',c.ana]
+  ].map(([k,v])=>`<div class="stat"><b>${v}</b><span>${t(k)}</span></div>`).join('');
+}
+const norm=s=>(s||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+function dedup(){
+  const seen={};let n=0;
+  S.refs.forEach(r=>{
+    const key=(r.doi&&r.doi.trim())?('doi:'+norm(r.doi)):(norm(r.title).slice(0,60)+'|'+(r.year||''));
+    if(!key||key==='|')return;
+    if(seen[key]){r.dup=true;n++;}else{seen[key]=1;r.dup=false;}
+  });
+  save();renderAll();
+  alert(LANG==='fr'?`${n} doublon(s) marqué(s).`:`${n} duplicate(s) flagged.`);
+}
+function parseRefs(txt,src){
+  const out=[];
+  if(/^\s*TY\s+-/m.test(txt)){ // RIS
+    txt.split(/^ER\s+-.*$/m).forEach(blk=>{
+      if(!blk.trim())return;
+      const g=tag=>{const m=[...blk.matchAll(new RegExp('^'+tag+'\\s+-\\s*(.*)$','gm'))].map(x=>x[1].trim());return m;};
+      const ti=(g('TI')[0]||g('T1')[0]||'').trim(); if(!ti)return;
+      out.push({title:ti,authors:g('AU').join('; ')||g('A1').join('; '),year:(g('PY')[0]||g('Y1')[0]||'').slice(0,4),
+        journal:g('JO')[0]||g('T2')[0]||g('JF')[0]||'',doi:(g('DO')[0]||'').replace(/^https?:\/\/doi.org\//,''),abstract:g('AB').join(' ')});
+    });
+  } else if(/@\w+\s*\{/.test(txt)){ // BibTeX
+    txt.split(/@\w+\s*\{/).forEach(blk=>{
+      if(!blk.trim())return;
+      const f=k=>{const m=blk.match(new RegExp(k+'\\s*=\\s*[{"]([\\s\\S]*?)[}"]\\s*,?\\s*\\n','i'));return m?m[1].replace(/[{}]/g,'').trim():'';};
+      const ti=f('title'); if(!ti)return;
+      out.push({title:ti,authors:f('author'),year:f('year'),journal:f('journal')||f('booktitle'),doi:f('doi'),abstract:f('abstract')});
+    });
+  } else { // pipe / plain
+    txt.split(/\r?\n/).forEach(l=>{
+      if(!l.trim())return;
+      const p=l.split('|').map(x=>x.trim());
+      if(!p[0])return;
+      out.push({title:p[0],authors:p[1]||'',year:p[2]||'',journal:p[3]||'',doi:p[4]||'',abstract:p[5]||''});
+    });
+  }
+  out.forEach(r=>S.refs.push(Object.assign({id:uid(),source:src,dup:false,t1:'',t2:'',r1:'',r2:'',
+    tool:'rob2',rob:{},robOverall:'',data:{},subgroup:'',note:''},r)));
+  return out.length;
+}
+const EXC_REASONS={fr:['Population non pertinente','Intervention/exposition différente','Comparateur absent','Critère de jugement absent','Design inadapté','Doublon','Texte intégral indisponible','Données insuffisantes','Langue','Autre'],
+ en:['Wrong population','Wrong intervention/exposure','No comparator','Outcome not reported','Wrong study design','Duplicate','Full text unavailable','Insufficient data','Language','Other']};
+function renderRefs(){
+  const ph=document.getElementById('fPhase').value, st=document.getElementById('fState').value, q=norm(document.getElementById('fSearch').value);
+  let list=S.refs.filter(r=>!r.dup||st==='all');
+  if(ph==='2')list=list.filter(r=>r.t1==='include');
+  const fld=ph==='1'?'t1':'t2';
+  if(st!=='all')list=list.filter(r=>st==='todo'?!r[fld]:r[fld]===st);
+  if(q)list=list.filter(r=>norm(r.title+r.authors+r.year+r.journal).includes(q));
+  document.getElementById('screenCount').textContent=list.length+' / '+S.refs.length;
+  const box=document.getElementById('refList');
+  if(!S.refs.length){box.innerHTML=`<div class="empty"><b>${t('noref')}</b>${t('norefd')}</div>`;return;}
+  if(!list.length){box.innerHTML=`<div class="empty"><b>—</b>${LANG==='fr'?'Aucune référence pour ce filtre.':'No reference matches this filter.'}</div>`;return;}
+  const R=EXC_REASONS[LANG];
+  box.innerHTML=list.map(r=>{
+    const d=r[fld]; const cls=r.dup?'dup':(d==='include'?'inc':d==='exclude'?'exc':d==='maybe'?'may':'');
+    const rf=ph==='1'?'r1':'r2';
+    return `<div class="ref ${cls}" data-id="${r.id}">
+      <h4>${esc(r.title)}</h4>
+      <div class="meta">${esc(r.authors||'—')} · ${esc(r.year||'s.d.')} · ${esc(r.journal||'—')}${r.doi?' · doi:'+esc(r.doi):''} <span class="tag">${esc(r.source||'')}</span>${r.dup?` <span class="tag" style="background:var(--grey);color:#fff">${t('dupl')}</span>`:''}</div>
+      ${r.abstract?`<p class="abs" onclick="this.classList.toggle('open')">${esc(r.abstract)}</p>`:''}
+      <div class="acts">
+        <button class="pill ${d==='include'?'on-inc':''}" data-act="dec" data-v="include">✓ ${t('include')}</button>
+        <button class="pill ${d==='maybe'?'on-may':''}" data-act="dec" data-v="maybe">? ${t('maybe')}</button>
+        <button class="pill ${d==='exclude'?'on-exc':''}" data-act="dec" data-v="exclude">✕ ${t('exclude')}</button>
+        ${d==='exclude'?`<select data-act="reason" style="width:auto;min-width:190px"><option value="">${t('reason')}…</option>${R.map(x=>`<option ${r[rf]===x?'selected':''}>${x}</option>`).join('')}</select>`:''}
+        <span style="flex:1"></span>
+        <button class="btn sm ghost" data-act="dup">${r.dup?t('undup'):t('dupl')}</button>
+        <button class="btn sm ghost" data-act="del">🗑</button>
+      </div></div>`;}).join('');
+  box.querySelectorAll('.ref').forEach(el=>{
+    const r=S.refs.find(x=>x.id===el.dataset.id);
+    el.querySelectorAll('[data-act]').forEach(b=>{
+      const a=b.dataset.act;
+      if(a==='dec')b.onclick=()=>{r[fld]=r[fld]===b.dataset.v?'':b.dataset.v; if(fld==='t1'&&r.t1!=='include')r.t2=''; save();renderAll();};
+      if(a==='reason')b.onchange=()=>{r[ph==='1'?'r1':'r2']=b.value;save();};
+      if(a==='dup')b.onclick=()=>{r.dup=!r.dup;save();renderAll();};
+      if(a==='del')b.onclick=()=>{S.refs=S.refs.filter(x=>x.id!==r.id);save();renderAll();};
+    });
+  });
+}
+const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const shortName=r=>{const a=(r.authors||'').split(/[;,]/)[0].trim()||(LANG==='fr'?'Anonyme':'Anon');return a.split(/\s+/)[0]+' '+(r.year||'s.d.');};
+
+/* =========================================================================
+   6. BIAS UI
+   ========================================================================= */
+function renderBias(){
+  const inc=counts().incRefs, box=document.getElementById('biasList');
+  if(!inc.length){box.innerHTML=`<div class="empty"><b>${t('noinc')}</b>${t('noincd')}</div>`;document.getElementById('tlWrap').innerHTML='';return;}
+  box.innerHTML=inc.map(r=>{
+    const T=TOOLS[r.tool||'rob2'];
+    return `<div class="card" style="margin-bottom:12px" data-id="${r.id}">
+      <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
+        <h3 style="margin:0">${esc(shortName(r))} <span style="font-weight:400;color:var(--ink-3);font-size:12px">— ${esc(r.title.slice(0,72))}${r.title.length>72?'…':''}</span></h3>
+        <select data-act="tool" style="width:auto">${Object.keys(TOOLS).map(k=>`<option value="${k}" ${r.tool===k?'selected':''}>${TOOLS[k].name[LANG]}</option>`).join('')}</select>
+      </div>
+      <div style="margin-top:8px">
+      ${T.d.map(d=>`<div class="dom"><div class="lbl">${d[LANG][0]}<small>${d[LANG][1]}</small></div>
+        <div class="judge">${T.j.map(j=>`<button class="${j.c} ${r.rob[d.id]===j.k?'on':''}" data-act="j" data-d="${d.id}" data-v="${j.k}">${j[LANG]}</button>`).join('')}</div></div>`).join('')}
+      <div class="dom" style="border:0;padding-top:10px"><div class="lbl"><b>${t('overall')}</b></div>
+        <div class="judge">${T.j.map(j=>`<button class="${j.c} ${r.robOverall===j.k?'on':''}" data-act="o" data-v="${j.k}">${j[LANG]}</button>`).join('')}</div></div>
+      </div></div>`;}).join('');
+  box.querySelectorAll('.card').forEach(el=>{
+    const r=S.refs.find(x=>x.id===el.dataset.id);
+    el.querySelectorAll('[data-act]').forEach(b=>{
+      if(b.dataset.act==='tool')b.onchange=()=>{r.tool=b.value;r.rob={};r.robOverall='';save();renderBias();};
+      if(b.dataset.act==='j')b.onclick=()=>{r.rob[b.dataset.d]=r.rob[b.dataset.d]===b.dataset.v?'':b.dataset.v;autoOverall(r);save();renderBias();};
+      if(b.dataset.act==='o')b.onclick=()=>{r.robOverall=r.robOverall===b.dataset.v?'':b.dataset.v;save();renderBias();};
+    });
+  });
+  trafficLight(inc);
+}
+function autoOverall(r){ // suggestion : le pire domaine
+  const order=['low','some','high','crit'];
+  const vals=Object.values(r.rob).filter(Boolean);
+  if(!vals.length)return;
+  let worst='low'; vals.forEach(v=>{ if(order.indexOf(v)>order.indexOf(worst)&&order.includes(v))worst=v; });
+  if(!r.robOverall)r.robOverall=worst;
+}
+function trafficLight(inc){
+  const rated=inc.filter(r=>Object.values(r.rob).some(Boolean)||r.robOverall);
+  if(!rated.length){document.getElementById('tlWrap').innerHTML='';return;}
+  const groups={};
+  rated.forEach(r=>{(groups[r.tool]=groups[r.tool]||[]).push(r)});
+  let html=`<div class="card"><h3>${t('trafficlight')}</h3>`;
+  Object.keys(groups).forEach(tk=>{
+    const T=TOOLS[tk], rs=groups[tk];
+    const W=760, colW=Math.min(74,(W-230)/(T.d.length+1)), H=34+rs.length*28+16;
+    let s=`<div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" font-family="IBM Plex Sans" font-size="11">`;
+    s+=`<text x="0" y="12" font-size="10.5" fill="#847c70" letter-spacing="1">${esc(T.name[LANG].toUpperCase())}</text>`;
+    T.d.forEach((d,i)=>{s+=`<text x="${230+colW*i+colW/2}" y="30" text-anchor="middle" fill="#4b4640" font-size="10">${d.id}</text>`});
+    s+=`<text x="${230+colW*T.d.length+colW/2}" y="30" text-anchor="middle" fill="#191713" font-size="10" font-weight="600">${LANG==='fr'?'Global':'Overall'}</text>`;
+    rs.forEach((r,ri)=>{
+      const y=34+ri*28+14;
+      s+=`<text x="0" y="${y+4}" fill="#191713">${esc(shortName(r))}</text>`;
+      T.d.forEach((d,i)=>{const v=r.rob[d.id];
+        s+=`<circle cx="${230+colW*i+colW/2}" cy="${y}" r="8.5" fill="${v?COLOR[v]:'#e9e3d6'}" stroke="#d6cebd"/>`;
+        if(v==='low')s+=`<text x="${230+colW*i+colW/2}" y="${y+3.5}" text-anchor="middle" fill="#fff" font-size="9">+</text>`;
+        if(v==='high'||v==='crit')s+=`<text x="${230+colW*i+colW/2}" y="${y+3.5}" text-anchor="middle" fill="#fff" font-size="9">−</text>`;
+        if(v==='some')s+=`<text x="${230+colW*i+colW/2}" y="${y+3.5}" text-anchor="middle" fill="#fff" font-size="9">!</text>`;});
+      const o=r.robOverall;
+      s+=`<circle cx="${230+colW*T.d.length+colW/2}" cy="${y}" r="9.5" fill="${o?COLOR[o]:'#e9e3d6'}" stroke="#191713" stroke-width="1"/>`;
+    });
+    s+='</svg></div>';
+    html+=s+`<div class="legend">${T.j.map(j=>`<span><i style="background:${COLOR[j.k]}"></i>${j[LANG]}</span>`).join('')}</div>`;
+  });
+  document.getElementById('tlWrap').innerHTML=html+'</div>';
+}
+
+/* =========================================================================
+   7. EXTRACTION
+   ========================================================================= */
+function renderExtract(){
+  const inc=counts().incRefs, box=document.getElementById('extractWrap');
+  const bin=S.datatype==='binary';
+  document.getElementById('extType').textContent=(bin?'a / n':'m ± SD (n)')+' · '+inc.length+(LANG==='fr'?' études':' studies');
+  if(!inc.length){box.innerHTML=`<div class="empty"><b>${t('noinc')}</b>${t('noincd')}</div>`;return;}
+  const g1=S.g1||(LANG==='fr'?'Groupe 1':'Group 1'), g2=S.g2||(LANG==='fr'?'Groupe 2':'Group 2');
+  const head=bin
+    ? `<th>${t('study')}</th><th>${LANG==='fr'?'Design':'Design'}</th><th>${esc(g1)} — a</th><th>${esc(g1)} — n</th><th>${esc(g2)} — a</th><th>${esc(g2)} — n</th><th>${LANG==='fr'?'Sous-groupe':'Subgroup'}</th><th>Note</th>`
+    : `<th>${t('study')}</th><th>Design</th><th>${esc(g1)} — m</th><th>SD</th><th>n</th><th>${esc(g2)} — m</th><th>SD</th><th>n</th><th>${LANG==='fr'?'Sous-groupe':'Subgroup'}</th><th>Note</th>`;
+  const f=(r,k,w=62)=>`<td><input type="number" step="any" style="width:${w}px" data-id="${r.id}" data-k="${k}" value="${r.data[k]!==undefined?r.data[k]:''}"></td>`;
+  box.innerHTML=`<table><thead><tr>${head}</tr></thead><tbody>${inc.map(r=>`<tr>
+    <td style="white-space:nowrap"><b>${esc(shortName(r))}</b></td>
+    <td><input type="text" style="width:90px" data-id="${r.id}" data-k="design" value="${esc(r.data.design||'')}"></td>
+    ${bin?f(r,'e1')+f(r,'n1')+f(r,'e2')+f(r,'n2')
+        :f(r,'m1')+f(r,'sd1')+f(r,'n1',52)+f(r,'m2')+f(r,'sd2')+f(r,'n2',52)}
+    <td><input type="text" style="width:96px" data-id="${r.id}" data-k="sg" value="${esc(r.data.sg||'')}"></td>
+    <td><input type="text" style="width:120px" data-id="${r.id}" data-k="note" value="${esc(r.data.note||'')}"></td></tr>`).join('')}</tbody></table>`;
+  box.querySelectorAll('input').forEach(i=>i.oninput=()=>{
+    const r=S.refs.find(x=>x.id===i.dataset.id); r.data[i.dataset.k]=i.value; save(); renderDash();
+  });
+}
+
+/* =========================================================================
+   8. ANALYSIS
+   ========================================================================= */
+function items(){
+  const m=S.measure;
+  return counts().incRefs.map(r=>{const e=effect(r,m,S.cc); return e?Object.assign({name:shortName(r),ref:r,sg:(r.data.sg||'').trim()||(LANG==='fr'?'Non spécifié':'Unspecified')},e):null}).filter(Boolean);
+}
+function renderAnalysis(){
+  const box=document.getElementById('anaOut'), m=S.measure, it=items();
+  if(it.length<2){box.innerHTML=`<div class="empty"><b>${t('nodata')}</b>${t('nodatad')}</div>`;return;}
+  const res=pool(it,S.model), lab=MEASURES[m][LANG];
+  const eff=disp(res.th,m), lo=disp(res.lo,m), hi=disp(res.hi,m);
+  let h=`<div class="res">
+    <div><b>${res.k}</b><span>${t('k')}</span></div>
+    <div><b>${num(eff,2)}</b><span>${t('eff')} — ${m}</span></div>
+    <div><b>${num(lo,2)} ; ${num(hi,2)}</b><span>${t('ci')}</span></div>
+    <div><b>${fmtP(res.p)}</b><span>${t('pval')} (z = ${num(res.z,2)})</span></div>
+    <div><b>${num(res.I2,1)} %</b><span>I²</span></div>
+    <div><b>${num(res.tau2,4)}</b><span>τ²</span></div>
+  </div>`;
+  h+=`<div class="card" style="margin-bottom:16px"><h3>${t('het')}</h3>
+    <p style="margin:0;font-size:13px">Q ${LANG==='fr'?'de Cochran':'(Cochran)'} = <b class="num">${num(res.Q,2)}</b>, df = ${res.df}, p = <b class="num">${fmtP(res.pQ)}</b> · I² = <b class="num">${num(res.I2,1)} %</b> · τ² = <b class="num">${num(res.tau2,4)}</b> (τ = ${num(res.tau,3)}) · H = <b class="num">${num(res.H,2)}</b></p>
+    <p class="hint">${LANG==='fr'?'Repères Cochrane : I² 0–40 % non important · 30–60 % modérée · 50–90 % substantielle · 75–100 % considérable.':'Cochrane rules of thumb: I² 0–40% might not be important · 30–60% moderate · 50–90% substantial · 75–100% considerable.'}</p>
+    ${res.piLo!==undefined?`<div class="ok" style="margin-bottom:0">${t('pi')} 95 % : <b class="num">${num(disp(res.piLo,m),2)} — ${num(disp(res.piHi,m),2)}</b> ${LANG==='fr'?'(effet attendu dans un futur contexte comparable)':'(expected effect in a future comparable setting)'}</div>`:''}
+    ${res.I2>=50?`<div class="warn">${LANG==='fr'?'Hétérogénéité substantielle : privilégiez le modèle à effets aléatoires et explorez les sources (sous-groupes, méta-régression, qualité méthodologique).':'Substantial heterogeneity: prefer the random-effects model and explore sources (subgroups, meta-regression, study quality).'}</div>`:''}
+  </div>`;
+  h+=`<div class="svgbox" style="margin-bottom:16px"><h3 style="font-family:var(--serif);font-size:15px;margin-bottom:10px">${t('forest')} — ${lab}</h3>${forest(it,res,m)}</div>`;
+  if(S.sub==='1')h+=subgroupBlock(it,m);
+  const eg=egger(it);
+  h+=`<div class="svgbox"><h3 style="font-family:var(--serif);font-size:15px;margin-bottom:10px">${t('funnel')}</h3>${funnel(it,res,m)}
+    ${eg?`<p style="font-size:13px;margin:10px 0 0">${t('egger')} : ${LANG==='fr'?'ordonnée à l’origine':'intercept'} = <b class="num">${num(eg.b0,3)}</b> (SE ${num(eg.se,3)}), t(${eg.df}) = <b class="num">${num(eg.t,2)}</b>, p = <b class="num">${fmtP(eg.p)}</b> ${eg.p<.1?`— ${LANG==='fr'?'asymétrie évocatrice d’un biais de publication (ou d’effets liés à la taille des études)':'asymmetry suggestive of publication bias (or small-study effects)'}`:`— ${LANG==='fr'?'pas d’asymétrie significative':'no significant asymmetry'}`}</p>
+    ${it.length<10?`<div class="warn">${LANG==='fr'?'Avec moins de 10 études, les tests d’asymétrie du funnel plot sont peu puissants (recommandation Cochrane) : interprétez avec prudence.':'With fewer than 10 studies, funnel-plot asymmetry tests are underpowered (Cochrane recommendation): interpret with caution.'}</div>`:''}`:''}
+  </div>`;
+  box.innerHTML=h;
+  const btn=document.getElementById('btnSvg');
+  if(btn)btn.onclick=()=>dlSvg(document.querySelector('#s-report svg'),'prisma');
+}
+/* --- forest plot --- */
+function forest(it,res,m){
+  const log=MEASURES[m].log, nul=MEASURES[m].null;
+  const tx=v=>log?Math.log(v):v;
+  const vals=[];
+  it.forEach(x=>{vals.push(x.y-1.96*Math.sqrt(x.v),x.y+1.96*Math.sqrt(x.v))});
+  vals.push(res.lo,res.hi,tx(nul));
+  let lo=Math.min(...vals), hi=Math.max(...vals);
+  const pad=(hi-lo)*.08||1; lo-=pad; hi+=pad;
+  const W=880, L=178, R=250, PW=W-L-R, rowH=21, top=52, H=top+it.length*rowH+72;
+  const X=v=>L+(v-lo)/(hi-lo)*PW;
+  const dsp=v=>log?Math.exp(v):v;
+  let s=`<svg viewBox="0 0 ${W} ${H}" font-family="IBM Plex Sans" font-size="11.5">
+  <style>.mn{font-family:'IBM Plex Mono';font-size:11px}</style>
+  <text x="0" y="14" font-size="10" letter-spacing="1.2" fill="#847c70">${t('study').toUpperCase()}</text>
+  <text x="${L+PW+14}" y="14" font-size="10" letter-spacing="1.2" fill="#847c70">${m} [${t('ci')}]</text>
+  <text x="${W-8}" y="14" font-size="10" letter-spacing="1.2" fill="#847c70" text-anchor="end">${t('weight').toUpperCase()}</text>
+  <line x1="0" y1="22" x2="${W}" y2="22" stroke="#c2b8a3"/>`;
+  // ticks
+  let ticks=[];
+  if(log){[.05,.1,.2,.5,1,2,5,10,20].forEach(v=>{if(Math.log(v)>=lo&&Math.log(v)<=hi)ticks.push(Math.log(v))});}
+  if(!ticks.length){for(let i=0;i<=4;i++)ticks.push(lo+(hi-lo)*i/4);}
+  ticks.forEach(v=>{s+=`<line x1="${X(v)}" y1="${top-14}" x2="${X(v)}" y2="${top+it.length*rowH+4}" stroke="#e9e3d6"/>
+    <text x="${X(v)}" y="${top+it.length*rowH+20}" text-anchor="middle" class="mn" fill="#847c70">${num(dsp(v),dsp(v)<1?2:(dsp(v)>=10?0:1))}</text>`;});
+  s+=`<line x1="${X(tx(nul))}" y1="${top-14}" x2="${X(tx(nul))}" y2="${top+it.length*rowH+4}" stroke="#191713" stroke-dasharray="3 3"/>`;
+  it.forEach((x,i)=>{
+    const y=top+i*rowH, se=Math.sqrt(x.v), a=Math.max(lo,x.y-1.96*se), b=Math.min(hi,x.y+1.96*se);
+    const bs=Math.sqrt(res.w[i]/100)*8+2.5;
+    const rob=x.ref.robOverall;
+    s+=`<text x="0" y="${y+4}" fill="#191713">${esc(x.name)}</text>`;
+    if(rob)s+=`<circle cx="${L-14}" cy="${y}" r="4" fill="${COLOR[rob]}"/>`;
+    s+=`<line x1="${X(a)}" y1="${y}" x2="${X(b)}" y2="${y}" stroke="#4b4640" stroke-width="1.1"/>
+      <line x1="${X(a)}" y1="${y-3}" x2="${X(a)}" y2="${y+3}" stroke="#4b4640"/>
+      <line x1="${X(b)}" y1="${y-3}" x2="${X(b)}" y2="${y+3}" stroke="#4b4640"/>
+      <rect x="${X(x.y)-bs/2}" y="${y-bs/2}" width="${bs}" height="${bs}" fill="#0f5d55"/>
+      <text x="${L+PW+14}" y="${y+4}" class="mn" fill="#4b4640">${num(dsp(x.y),2)} [${num(dsp(x.y-1.96*se),2)}, ${num(dsp(x.y+1.96*se),2)}]</text>
+      <text x="${W-8}" y="${y+4}" class="mn" text-anchor="end" fill="#847c70">${num(res.w[i],1)} %</text>`;
+  });
+  // diamond
+  const dy=top+it.length*rowH+34, cx=X(res.th), x1=X(Math.max(lo,res.lo)), x2=X(Math.min(hi,res.hi));
+  s+=`<line x1="0" y1="${dy-14}" x2="${W}" y2="${dy-14}" stroke="#c2b8a3"/>
+   <polygon points="${x1},${dy} ${cx},${dy-7} ${x2},${dy} ${cx},${dy+7}" fill="#b0402a"/>
+   <text x="0" y="${dy+4}" font-weight="600">${S.model==='random'?(LANG==='fr'?'Effet aléatoire (DL)':'Random effects (DL)'):(LANG==='fr'?'Effet fixe (IV)':'Fixed effect (IV)')}</text>
+   <text x="${L+PW+14}" y="${dy+4}" class="mn" font-weight="600" fill="#b0402a">${num(dsp(res.th),2)} [${num(dsp(res.lo),2)}, ${num(dsp(res.hi),2)}]</text>
+   <text x="${W-8}" y="${dy+4}" class="mn" text-anchor="end">100 %</text>
+   <text x="${X(tx(nul))-8}" y="${dy+28}" text-anchor="end" font-size="10" fill="#847c70">◄ ${t('favors1')}</text>
+   <text x="${X(tx(nul))+8}" y="${dy+28}" font-size="10" fill="#847c70">${t('favors2')} ►</text>
+   <text x="0" y="${dy+28}" font-size="10" fill="#847c70">I² = ${num(res.I2,1)} % · τ² = ${num(res.tau2,3)} · Q = ${num(res.Q,1)} (p = ${fmtP(res.pQ)})</text>
+  </svg>`;
+  return s;
+}
+/* --- funnel --- */
+function funnel(it,res,m){
+  const W=560,H=380,L=64,B=44,T=18,R=18, PW=W-L-R, PH=H-B-T;
+  const ses=it.map(x=>Math.sqrt(x.v)); const seMax=Math.max(...ses)*1.12;
+  const spread=1.96*seMax;
+  let lo=Math.min(res.th-spread,...it.map(x=>x.y))-.1, hi=Math.max(res.th+spread,...it.map(x=>x.y))+.1;
+  const X=v=>L+(v-lo)/(hi-lo)*PW, Y=se=>T+se/seMax*PH;
+  const dsp=v=>MEASURES[m].log?Math.exp(v):v;
+  let s=`<svg viewBox="0 0 ${W} ${H}" font-family="IBM Plex Sans" font-size="10.5">
+   <rect x="${L}" y="${T}" width="${PW}" height="${PH}" fill="#fbf9f4" stroke="#e9e3d6"/>`;
+  // pseudo 95% CI funnel
+  s+=`<polygon points="${X(res.th)},${Y(0)} ${X(res.th-1.96*seMax)},${Y(seMax)} ${X(res.th+1.96*seMax)},${Y(seMax)}" fill="rgba(15,93,85,.07)" stroke="#0f5d55" stroke-dasharray="4 3" stroke-width=".8"/>`;
+  s+=`<line x1="${X(res.th)}" y1="${T}" x2="${X(res.th)}" y2="${T+PH}" stroke="#b0402a" stroke-dasharray="3 3"/>`;
+  it.forEach((x,i)=>{s+=`<circle cx="${X(x.y)}" cy="${Y(ses[i])}" r="4.2" fill="rgba(25,23,19,.72)" stroke="#fbf9f4"/>`});
+  for(let i=0;i<=4;i++){const v=lo+(hi-lo)*i/4;
+    s+=`<text x="${X(v)}" y="${H-B+16}" text-anchor="middle" font-family="IBM Plex Mono" fill="#847c70">${num(dsp(v),2)}</text>`;}
+  for(let i=0;i<=4;i++){const se=seMax*i/4;
+    s+=`<text x="${L-8}" y="${Y(se)+3}" text-anchor="end" font-family="IBM Plex Mono" fill="#847c70">${num(se,2)}</text>
+        <line x1="${L-4}" y1="${Y(se)}" x2="${L}" y2="${Y(se)}" stroke="#c2b8a3"/>`;}
+  s+=`<text x="${L+PW/2}" y="${H-6}" text-anchor="middle" fill="#4b4640">${MEASURES[m][LANG]}</text>
+   <text transform="translate(14,${T+PH/2}) rotate(-90)" text-anchor="middle" fill="#4b4640">${LANG==='fr'?'Erreur standard':'Standard error'}</text></svg>`;
+  return s;
+}
+/* --- subgroups --- */
+function subgroupBlock(it,m){
+  const gs={}; it.forEach(x=>{(gs[x.sg]=gs[x.sg]||[]).push(x)});
+  const keys=Object.keys(gs);
+  if(keys.length<2)return `<div class="card" style="margin-bottom:16px"><h3>${t('subgroups')}</h3><p class="hint">${LANG==='fr'?'Renseignez la colonne « Sous-groupe » de l’onglet Extraction pour au moins deux catégories.':'Fill the “Subgroup” column in the Extraction tab for at least two categories.'}</p></div>`;
+  let Qb=0, rows='';
+  const subs=keys.map(k=>({k,r:pool(gs[k],S.model),n:gs[k].length})).filter(x=>x.r);
+  const wsum=subs.reduce((a,x)=>a+1/(x.r.se**2),0);
+  const thb=subs.reduce((a,x)=>a+x.r.th/(x.r.se**2),0)/wsum;
+  subs.forEach(x=>{Qb+=Math.pow(x.r.th-thb,2)/(x.r.se**2)});
+  const dfb=subs.length-1, pb=pchisq(Qb,dfb);
+  subs.forEach(x=>{const r=x.r;
+    rows+=`<tr><td><b>${esc(x.k)}</b></td><td class="num">${x.n}</td>
+      <td class="num">${num(disp(r.th,m),2)}</td><td class="num">${num(disp(r.lo,m),2)} ; ${num(disp(r.hi,m),2)}</td>
+      <td class="num">${fmtP(r.p)}</td><td class="num">${num(r.I2,1)} %</td></tr>`;});
+  return `<div class="card" style="margin-bottom:16px"><h3>${t('subgroups')}</h3>
+   <div class="tw"><table><thead><tr><th>${LANG==='fr'?'Sous-groupe':'Subgroup'}</th><th>k</th><th>${m}</th><th>${t('ci')}</th><th>p</th><th>I²</th></tr></thead><tbody>${rows}</tbody></table></div>
+   <p style="font-size:13px;margin:10px 0 0">${t('subdiff')} : Q<sub>b</sub> = <b class="num">${num(Qb,2)}</b>, df = ${dfb}, p = <b class="num">${fmtP(pb)}</b> ${pb<.05?`— ${LANG==='fr'?'les effets diffèrent significativement entre sous-groupes':'effects differ significantly across subgroups'}`:`— ${LANG==='fr'?'pas de différence significative':'no significant difference'}`}</p></div>`;
+}
+
+/* =========================================================================
+   9. PRISMA + REPORT
+   ========================================================================= */
+function prismaSvg(){
+  const c=counts();
+  const reasons={};
+  c.e2Refs.forEach(r=>{const k=r.r2||(LANG==='fr'?'Motif non précisé':'Reason not stated');reasons[k]=(reasons[k]||0)+1});
+  const rlist=Object.entries(reasons).map(([k,v])=>`${k} (n = ${v})`);
+  const srcs=(S.sources||'').split(/[,;]/).map(x=>x.trim()).filter(Boolean);
+  const W=760, BW=330, X1=40, X2=430;
+  const B=[];
+  const boxes=[
+   {x:X1,y:60,w:BW,h:56,t:LANG==='fr'?'Références identifiées':'Records identified',s:[`n = ${c.id}`,srcs.length?(LANG==='fr'?'Bases : ':'Databases: ')+srcs.join(', '):'']},
+   {x:X2,y:60,w:BW-40,h:56,t:LANG==='fr'?'Références retirées avant criblage':'Records removed before screening',s:[(LANG==='fr'?'Doublons : n = ':'Duplicates: n = ')+c.dup]},
+   {x:X1,y:158,w:BW,h:44,t:LANG==='fr'?'Références criblées (titre/résumé)':'Records screened (title/abstract)',s:[`n = ${c.scr}`]},
+   {x:X2,y:158,w:BW-40,h:44,t:LANG==='fr'?'Références exclues':'Records excluded',s:[`n = ${c.e1}`]},
+   {x:X1,y:244,w:BW,h:44,t:LANG==='fr'?'Textes intégraux évalués':'Full-text articles assessed',s:[`n = ${c.ft}`]},
+   {x:X2,y:244,w:BW-40,h:44+Math.max(0,rlist.length-1)*13,t:LANG==='fr'?'Textes intégraux exclus':'Full-text articles excluded',s:[`n = ${c.e2}`].concat(rlist.map(x=>'· '+x))},
+   {x:X1,y:352,w:BW,h:44,t:LANG==='fr'?'Études incluses dans la revue':'Studies included in review',s:[`n = ${c.inc}`]},
+   {x:X1,y:438,w:BW,h:44,t:LANG==='fr'?'Études incluses dans la méta-analyse':'Studies included in meta-analysis',s:[`n = ${c.ana}`]}
+  ];
+  const H=Math.max(520,boxes[5].y+boxes[5].h+40);
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans" font-size="11">
+   <rect width="${W}" height="${H}" fill="#fbf9f4"/>
+   <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#4b4640"/></marker></defs>
+   <text x="${X1}" y="26" font-family="Fraunces,Georgia,serif" font-size="16" font-weight="600" fill="#191713">${LANG==='fr'?'Diagramme de flux PRISMA 2020':'PRISMA 2020 flow diagram'}</text>
+   <text x="${X1}" y="42" font-size="10" fill="#847c70" letter-spacing=".6">${esc((S.title||'').slice(0,90))}</text>`;
+  boxes.forEach((b,i)=>{
+    s+=`<rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" fill="${i%2===0?'#f2eee4':'#fff'}" stroke="${i%2===0?'#191713':'#c2b8a3'}" stroke-width="${i%2===0?1.2:.9}" rx="2"/>
+        <text x="${b.x+11}" y="${b.y+17}" font-weight="600" fill="#191713">${esc(b.t)}</text>`;
+    b.s.filter(Boolean).forEach((l,j)=>{s+=`<text x="${b.x+11}" y="${b.y+32+j*13}" font-family="IBM Plex Mono" font-size="10" fill="#4b4640">${esc(l)}</text>`});
+  });
+  const vline=(y1,y2)=>`<line x1="${X1+BW/2}" y1="${y1}" x2="${X1+BW/2}" y2="${y2}" stroke="#4b4640" marker-end="url(#ar)"/>`;
+  const hline=(y)=>`<line x1="${X1+BW}" y1="${y}" x2="${X2}" y2="${y}" stroke="#4b4640" marker-end="url(#ar)"/>`;
+  s+=vline(116,152)+vline(202,238)+vline(288,346)+vline(396,432);
+  s+=hline(88)+hline(180)+hline(266);
+  s+=`<text x="${W-8}" y="${H-8}" text-anchor="end" font-size="9" fill="#847c70">Studio SR·MA — ${new Date().toLocaleDateString(LANG==='fr'?'fr-FR':'en-GB')}</text></svg>`;
+  return s;
+}
+function renderReport(){
+  const c=counts(), it=items(), m=S.measure;
+  const res=it.length>=2?pool(it,S.model):null;
+  let h=`<div class="svgbox" style="margin-bottom:18px">${prismaSvg()}</div>`;
+  h+=`<div class="card"><h3>${t('synth')}</h3><div style="font-size:13.5px;line-height:1.7">`;
+  if(LANG==='fr'){
+    h+=`<p><b>Sélection.</b> La recherche documentaire${S.sources?' dans '+esc(S.sources):''} a permis d'identifier <b>${c.id}</b> références. Après retrait de <b>${c.dup}</b> doublon(s), <b>${c.scr}</b> références ont été criblées sur titre et résumé, dont <b>${c.e1}</b> ont été exclues. <b>${c.ft}</b> articles ont été évalués en texte intégral et <b>${c.e2}</b> ont été exclus${Object.keys(c.e2Refs.reduce((a,r)=>{if(r.r2)a[r.r2]=1;return a},{})).length?' (motifs principaux : '+esc([...new Set(c.e2Refs.map(r=>r.r2).filter(Boolean))].slice(0,4).join(', '))+')':''}. Au total, <b>${c.inc}</b> étude(s) ont été incluses dans la revue systématique et <b>${c.ana}</b> dans la méta-analyse.</p>`;
+    const rated=c.incRefs.filter(r=>r.robOverall);
+    if(rated.length){const n=k=>rated.filter(r=>r.robOverall===k).length;
+      h+=`<p><b>Risque de biais.</b> Sur les ${rated.length} étude(s) évaluées, ${n('low')} présentent un risque global faible, ${n('some')} un risque modéré et ${n('high')+n('crit')} un risque élevé ou critique.</p>`;}
+    if(res){h+=`<p><b>Synthèse quantitative.</b> Le modèle à effets ${S.model==='random'?'aléatoires (DerSimonian–Laird)':'fixes (inverse de la variance)'} appliqué à ${res.k} études donne un ${MEASURES[m].fr} groupé de <b>${num(disp(res.th,m),2)}</b> (IC 95 % : ${num(disp(res.lo,m),2)} — ${num(disp(res.hi,m),2)} ; z = ${num(res.z,2)} ; p = ${fmtP(res.p)}). L'hétérogénéité entre études est ${res.I2<40?'faible':res.I2<60?'modérée':res.I2<75?'substantielle':'considérable'} (I² = ${num(res.I2,1)} % ; τ² = ${num(res.tau2,4)} ; Q = ${num(res.Q,2)}, df = ${res.df}, p = ${fmtP(res.pQ)}).${res.piLo!==undefined?` L'intervalle de prédiction à 95 % s'étend de ${num(disp(res.piLo,m),2)} à ${num(disp(res.piHi,m),2)}.`:''}</p>`;
+      const eg=egger(it);
+      if(eg)h+=`<p><b>Biais de publication.</b> Le test d'Egger ${eg.p<.1?'suggère une asymétrie du funnel plot':'ne met pas en évidence d\'asymétrie significative du funnel plot'} (ordonnée à l'origine = ${num(eg.b0,3)} ; t(${eg.df}) = ${num(eg.t,2)} ; p = ${fmtP(eg.p)})${it.length<10?', étant entendu que la puissance de ce test est limitée en deçà de 10 études':''}.</p>`;
+    } else h+=`<p class="hint">La synthèse quantitative apparaîtra dès que deux études au moins disposeront de données complètes.</p>`;
+  } else {
+    h+=`<p><b>Selection.</b> The search${S.sources?' in '+esc(S.sources):''} identified <b>${c.id}</b> records. After removing <b>${c.dup}</b> duplicate(s), <b>${c.scr}</b> records were screened on title and abstract, of which <b>${c.e1}</b> were excluded. <b>${c.ft}</b> full-text articles were assessed and <b>${c.e2}</b> were excluded. In total, <b>${c.inc}</b> study(ies) were included in the systematic review and <b>${c.ana}</b> in the meta-analysis.</p>`;
+    const rated=c.incRefs.filter(r=>r.robOverall);
+    if(rated.length){const n=k=>rated.filter(r=>r.robOverall===k).length;
+      h+=`<p><b>Risk of bias.</b> Of the ${rated.length} appraised study(ies), ${n('low')} were at low overall risk, ${n('some')} at moderate risk and ${n('high')+n('crit')} at high or critical risk.</p>`;}
+    if(res){h+=`<p><b>Quantitative synthesis.</b> The ${S.model==='random'?'random-effects (DerSimonian–Laird)':'fixed-effect (inverse-variance)'} model across ${res.k} studies yielded a pooled ${MEASURES[m].en} of <b>${num(disp(res.th,m),2)}</b> (95% CI ${num(disp(res.lo,m),2)} — ${num(disp(res.hi,m),2)}; z = ${num(res.z,2)}; p = ${fmtP(res.p)}). Between-study heterogeneity was ${res.I2<40?'low':res.I2<60?'moderate':res.I2<75?'substantial':'considerable'} (I² = ${num(res.I2,1)}%; τ² = ${num(res.tau2,4)}; Q = ${num(res.Q,2)}, df = ${res.df}, p = ${fmtP(res.pQ)}).${res.piLo!==undefined?` The 95% prediction interval ranged from ${num(disp(res.piLo,m),2)} to ${num(disp(res.piHi,m),2)}.`:''}</p>`;
+      const eg=egger(it);
+      if(eg)h+=`<p><b>Publication bias.</b> Egger's test ${eg.p<.1?'suggested funnel-plot asymmetry':'showed no significant funnel-plot asymmetry'} (intercept = ${num(eg.b0,3)}; t(${eg.df}) = ${num(eg.t,2)}; p = ${fmtP(eg.p)})${it.length<10?', bearing in mind its limited power below 10 studies':''}.</p>`;
+    } else h+=`<p class="hint">The quantitative synthesis will appear once at least two studies have complete data.</p>`;
+  }
+  h+=`</div></div>`;
+  if(c.incRefs.length){
+    h+=`<div class="card" style="margin-top:16px"><h3>${LANG==='fr'?'Tableau des caractéristiques des études incluses':'Characteristics of included studies'}</h3>
+    <div class="tw"><table><thead><tr><th>${t('study')}</th><th>Design</th><th>${LANG==='fr'?'Effectifs':'Sample'}</th><th>${LANG==='fr'?'Sous-groupe':'Subgroup'}</th><th>${LANG==='fr'?'Risque de biais':'Risk of bias'}</th><th>${LANG==='fr'?'Effet':'Effect'} (${m})</th></tr></thead><tbody>
+    ${c.incRefs.map(r=>{const e=effect(r,m,S.cc);const d=r.data||{};
+      return `<tr><td><b>${esc(shortName(r))}</b><br><span style="color:var(--ink-3);font-size:11px">${esc((r.title||'').slice(0,64))}</span></td>
+      <td>${esc(d.design||'—')}</td><td class="num">${(d.n1||'—')} / ${(d.n2||'—')}</td><td>${esc(d.sg||'—')}</td>
+      <td>${r.robOverall?`<span class="dot" style="background:${COLOR[r.robOverall]}"></span> ${esc((TOOLS[r.tool].j.find(j=>j.k===r.robOverall)||{})[LANG]||'')}`:'—'}</td>
+      <td class="num">${e?num(disp(e.y,m),2)+' ['+num(disp(e.y-1.96*Math.sqrt(e.v),m),2)+', '+num(disp(e.y+1.96*Math.sqrt(e.v),m),2)+']':'—'}</td></tr>`}).join('')}
+    </tbody></table></div></div>`;
+  }
+  document.getElementById('reportOut').innerHTML=h;
+  document.getElementById('btnSvg').onclick=()=>dlSvg(document.querySelector('#reportOut svg'),'prisma-flow');
+}
+
+/* =========================================================================
+   10. IO
+   ========================================================================= */
+function dl(name,txt,mime){
+  const b=new Blob([txt],{type:mime||'text/plain;charset=utf-8'}), u=URL.createObjectURL(b);
+  const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500);
+}
+function dlSvg(svg,name){ if(!svg)return; dl(name+'.svg','<?xml version="1.0" encoding="UTF-8"?>\n'+svg.outerHTML,'image/svg+xml'); }
+function exportCsv(){
+  const inc=counts().incRefs, m=S.measure, sep=';';
+  const head=['Study','Title','Authors','Year','Journal','DOI','Design','Subgroup','n1','e1/m1','sd1','n2','e2/m2','sd2','Tool','RoB overall',m,'CI low','CI high'];
+  const rows=inc.map(r=>{const e=effect(r,m,S.cc),d=r.data||{};
+    return [shortName(r),r.title,r.authors,r.year,r.journal,r.doi,d.design||'',d.sg||'',d.n1||'',(S.datatype==='binary'?d.e1:d.m1)||'',d.sd1||'',d.n2||'',(S.datatype==='binary'?d.e2:d.m2)||'',d.sd2||'',
+      r.tool,r.robOverall||'',e?disp(e.y,m).toFixed(4):'',e?disp(e.y-1.96*Math.sqrt(e.v),m).toFixed(4):'',e?disp(e.y+1.96*Math.sqrt(e.v),m).toFixed(4):''];});
+  const csv='\uFEFF'+[head].concat(rows).map(r=>r.map(x=>`"${String(x==null?'':x).replace(/"/g,'""')}"`).join(sep)).join('\n');
+  dl('etudes-incluses.csv',csv,'text/csv;charset=utf-8');
+}
+/* --- demo dataset --- */
+function demo(){
+  S=blank();
+  S.title=LANG==='fr'?'Radioactivité naturelle des matériaux de construction et indice de risque interne':'Natural radioactivity of building materials and internal hazard index';
+  S.question=LANG==='fr'?'Chez les occupants de logements, les matériaux de construction d’origine industrielle sont-ils associés à un indice de risque (Hin > 1) plus fréquent que les matériaux d’origine naturelle ?':'Among dwelling occupants, are industrially derived building materials associated with a higher frequency of Hin > 1 than naturally sourced materials?';
+  S.p=LANG==='fr'?'Logements / matériaux de construction':'Dwellings / building materials';
+  S.i=LANG==='fr'?'Matériaux d’origine industrielle (phosphogypse, cendres volantes)':'Industrial by-product materials (phosphogypsum, fly ash)';
+  S.c=LANG==='fr'?'Matériaux d’origine naturelle (sable, latérite, granite local)':'Naturally sourced materials (sand, laterite, local granite)';
+  S.o='Hin > 1 (ICRP / UNSCEAR)';
+  S.sources='PubMed, Scopus, Web of Science';
+  S.incl=LANG==='fr'?'Spectrométrie gamma HPGe ; Ra-226, Th-232, K-40 rapportés ; échantillons ≥ 10 ; publication en revue à comité de lecture.':'HPGe gamma spectrometry; Ra-226, Th-232, K-40 reported; ≥ 10 samples; peer-reviewed.';
+  S.excl=LANG==='fr'?'Résumés de congrès ; absence de données brutes ; matériaux non destinés au bâtiment.':'Conference abstracts; no raw data; non-construction materials.';
+  S.g1=LANG==='fr'?'Industriels':'Industrial'; S.g2=LANG==='fr'?'Naturels':'Natural';
+  const D=[
+   ['Natural radioactivity in phosphogypsum-based plasters','Ahmed, N.; Salem, R.','2019','Radiat Prot Dosimetry',42,140,18,132,'Afrique du Nord','low'],
+   ['Radiological assessment of fly-ash bricks','Kumar, S.; Verma, P.','2020','J Environ Radioact',35,120,15,118,'Asie','some'],
+   ['Gamma spectrometry of local building materials in West Africa','Ouedraogo, A.; Zoungrana, M.','2022','Appl Radiat Isot',12,60,6,64,'Afrique subsaharienne','low'],
+   ['Indoor radon and building material provenance','Silva, J.; Costa, M.','2018','Sci Total Environ',28,95,20,102,'Europe','some'],
+   ['Radioactivity of ceramic tiles and hazard indices','Chen, L.; Wang, H.','2021','Radiat Meas',51,160,29,155,'Asie','high'],
+   ['Natural radionuclides in cement and derived products','Diallo, M.; Traore, K.','2023','J Radiol Prot',9,48,5,52,'Afrique subsaharienne','low'],
+   ['Assessment of NORM in construction aggregates','Rossi, G.; Bianchi, F.','2017','Environ Earth Sci',22,88,17,90,'Europe','some'],
+   ['Hazard indices of granite and industrial by-products','Yilmaz, E.; Demir, A.','2020','Radiat Phys Chem',33,110,24,115,'Moyen-Orient','some']
+  ];
+  D.forEach((d,i)=>{
+    const tool=i%3===2?'nos':'robins', j=d[9];
+    S.refs.push({id:uid(),title:d[0],authors:d[1],year:d[2],journal:d[3],doi:'10.1000/demo.'+(1000+i),
+      abstract:LANG==='fr'?'Étude de la radioactivité naturelle (Ra-226, Th-232, K-40) par spectrométrie gamma HPGe et calcul des indices de risque radiologique pour des matériaux de construction.':'Study of natural radioactivity (Ra-226, Th-232, K-40) by HPGe gamma spectrometry with computation of radiological hazard indices for building materials.',
+      source:'PubMed',dup:false,t1:'include',t2:'include',r1:'',r2:'',tool,
+      rob:tool==='nos'?{S:j,K:'some',E:'low'}:{C1:j,C2:'low',C3:'low',C4:'some',C5:'low',C6:j,C7:'low'},
+      robOverall:j,
+      data:{design:tool==='nos'?'Cross-sectional':'Cohort',e1:d[4],n1:d[5],e2:d[6],n2:d[7],sg:d[8],note:''},
+      subgroup:'',note:''});
+  });
+  // extra excluded / duplicates for a realistic PRISMA
+  const EXC=[['Radon exposure in schools: a review','Martin, P.','2016','Rev Environ Health'],
+   ['Cosmic ray dosimetry at high altitude','Nakamura, T.','2015','Health Phys'],
+   ['Uranium mining tailings and groundwater','Lopez, R.','2019','J Hazard Mater'],
+   ['Building materials market survey (no radiometry)','Sow, F.','2021','Constr Build Mater'],
+   ['Conference abstract: NORM in gypsum','Idrissi, H.','2022','Abstract Book'],
+   ['Natural radioactivity in phosphogypsum-based plasters','Ahmed, N.; Salem, R.','2019','Radiat Prot Dosimetry']];
+  EXC.forEach((e,i)=>{
+    const dup=i===5;
+    S.refs.push({id:uid(),title:e[0],authors:e[1],year:e[2],journal:e[3],doi:dup?'10.1000/demo.1000':'',abstract:'',
+      source:i%2?'Scopus':'PubMed',dup:dup,t1:dup?'':(i<3?'exclude':'include'),t2:i<3?'':(dup?'':'exclude'),
+      r1:i<3?EXC_REASONS[LANG][i]:'',r2:i>=3&&!dup?EXC_REASONS[LANG][i+2]:'',tool:'rob2',rob:{},robOverall:'',data:{},subgroup:'',note:''});
+  });
+  save();bindAll();renderAll();
+  alert(LANG==='fr'?'Jeu de démonstration chargé (8 études incluses, données binaires, OR). Explorez les onglets Analyse et PRISMA.':'Demo dataset loaded (8 included studies, binary data, OR). Explore the Analysis and PRISMA tabs.');
+}
+
+/* =========================================================================
+   11. BINDINGS
+   ========================================================================= */
+const FIELDS=['question','p','i','c','o','incl','excl','authors','inst','reg','date','sources','strategy'];
+function bindAll(){
+  document.getElementById('projTitle').value=S.title||'';
+  FIELDS.forEach(k=>{const el=document.getElementById('f_'+k); if(el)el.value=S[k]||'';});
+  ['datatype','g1','g2'].forEach(k=>{const el=document.getElementById('f_'+k); if(el)el.value=S[k]||'';});
+  ['measure','model','cc','sub'].forEach(k=>{const el=document.getElementById('a_'+k); if(el)el.value=S[k];});
+}
+function fillMeasures(){
+  const sel=document.getElementById('a_measure'), bin=S.datatype==='binary';
+  sel.innerHTML=Object.keys(MEASURES).filter(k=>MEASURES[k].bin===bin).map(k=>`<option value="${k}">${MEASURES[k][LANG]}</option>`).join('');
+  if(!Array.from(sel.options).some(o=>o.value===S.measure))S.measure=bin?'OR':'SMD';
+  sel.value=S.measure;
+}
+function applyLang(){
+  document.querySelectorAll('[data-i18n]').forEach(el=>{el.innerHTML=t(el.dataset.i18n)});
+  document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===LANG));
+  document.documentElement.lang=LANG;
+  document.getElementById('projTitle').placeholder=LANG==='fr'?'Titre du projet…':'Project title…';
+  document.getElementById('fSearch').placeholder=LANG==='fr'?'🔎 titre, auteur, année…':'🔎 title, author, year…';
+  fillMeasures(); buildTabs();
+}
+function renderAll(){ renderDash(); renderRefs(); renderBias(); renderExtract(); fillMeasures(); renderAnalysis(); renderReport(); }
+
+document.getElementById('projTitle').oninput=e=>{S.title=e.target.value;save();};
+FIELDS.forEach(k=>{const el=document.getElementById('f_'+k); if(el)el.oninput=()=>{S[k]=el.value;save();renderReport();};});
+['g1','g2'].forEach(k=>document.getElementById('f_'+k).oninput=e=>{S[k]=e.target.value;save();renderExtract();});
+document.getElementById('f_datatype').onchange=e=>{S.datatype=e.target.value;fillMeasures();save();renderAll();};
+['measure','model','cc','sub'].forEach(k=>document.getElementById('a_'+k).onchange=e=>{S[k]=e.target.value;save();renderDash();renderAnalysis();renderReport();});
+document.getElementById('fPhase').onchange=renderRefs;
+document.getElementById('fState').onchange=renderRefs;
+document.getElementById('fSearch').oninput=renderRefs;
+document.getElementById('btnDedup').onclick=dedup;
+document.getElementById('btnAdd').onclick=()=>{
+  const ti=prompt(LANG==='fr'?'Titre de la référence :':'Reference title:'); if(!ti)return;
+  S.refs.unshift({id:uid(),title:ti,authors:'',year:'',journal:'',doi:'',abstract:'',source:'Manuel',dup:false,t1:'',t2:'',r1:'',r2:'',tool:'rob2',rob:{},robOverall:'',data:{},subgroup:'',note:''});
+  save();renderAll();
+};
+document.getElementById('btnParse').onclick=()=>{
+  const box=document.getElementById('importBox'), n=parseRefs(box.value,document.getElementById('importSrc').value);
+  if(!n){alert(LANG==='fr'?'Aucune référence reconnue. Vérifiez le format (RIS, BibTeX ou lignes séparées par « | »).':'No reference recognised. Check the format (RIS, BibTeX or pipe-separated lines).');return;}
+  box.value='';save();renderAll();
+  alert(n+(LANG==='fr'?' référence(s) importée(s).':' reference(s) imported.'));
+};
+document.getElementById('btnExport').onclick=()=>dl((S.title||'projet-sr-ma').replace(/[^\w\-]+/g,'-').slice(0,50)+'.json',JSON.stringify(S,null,2),'application/json');
+document.getElementById('btnImport').onclick=()=>document.getElementById('fileIn').click();
+document.getElementById('fileIn').onchange=e=>{
+  const f=e.target.files[0]; if(!f)return; const rd=new FileReader();
+  rd.onload=()=>{try{const o=JSON.parse(rd.result); if(!o.refs)throw 0; S=Object.assign(blank(),o); save();bindAll();fillMeasures();renderAll();
+    alert(LANG==='fr'?'Projet importé.':'Project imported.');}catch(x){alert(LANG==='fr'?'Fichier illisible.':'Unreadable file.');}};
+  rd.readAsText(f); e.target.value='';
+};
+document.getElementById('btnCsv').onclick=exportCsv;
+document.getElementById('btnPrint').onclick=()=>window.print();
+document.getElementById('btnPrint2').onclick=()=>window.print();
+document.getElementById('btnDemo').onclick=()=>{ if(S.refs.length&&!confirm(LANG==='fr'?'Remplacer le projet actuel par le jeu de démonstration ?':'Replace current project with the demo dataset?'))return; demo(); };
+document.getElementById('btnReset').onclick=async()=>{ if(!confirm(t('confirmReset')))return; S=blank(); await Store.del(KEY); bindAll();fillMeasures();renderAll(); };
+document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{LANG=b.dataset.lang;applyLang();renderAll();});
+
+/* boot */
+(async()=>{
+  const saved=await Store.get(KEY);
+  if(saved&&saved.refs)S=Object.assign(blank(),saved);
+  bindAll(); applyLang(); renderAll();
+  document.getElementById('saveChip').textContent=S.refs.length?'✓ '+t('saved'):'—';
+})();
+</script>
