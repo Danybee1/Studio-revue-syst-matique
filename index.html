@@ -172,6 +172,22 @@ svg{display:block; max-width:100%; height:auto}
 .res div{background:var(--card); padding:11px 13px}
 .res b{display:block; font-family:var(--mono); font-size:17px; font-weight:500}
 .res span{font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-3)}
+/* AI */
+.grid.r2{grid-template-columns:1fr 1fr}
+@media(max-width:1020px){.grid.r2{grid-template-columns:1fr}}
+.sug{border:1px solid var(--rule); border-left:3px solid var(--teal); border-radius:3px; padding:9px 11px; margin-top:8px; background:#fff}
+.sug.d-include{border-left-color:var(--green)} .sug.d-exclude{border-left-color:var(--rust)} .sug.d-maybe{border-left-color:var(--amber)}
+.sug h5{margin:0 0 3px; font-size:12.5px; font-family:var(--serif); font-weight:600}
+.sug .why{font-size:12px; color:var(--ink-2); margin:4px 0}
+.conf{height:4px; background:var(--paper-2); border-radius:2px; overflow:hidden; margin:6px 0 4px}
+.conf i{display:block; height:100%; background:var(--teal)}
+.aihint{font-size:11.5px; color:var(--teal); margin-top:6px; font-family:var(--mono)}
+.prog{height:3px; background:var(--paper-2); border-radius:2px; overflow:hidden; margin:10px 0}
+.prog i{display:block; height:100%; background:var(--rust); transition:width .3s}
+.out{background:var(--paper); border:1px solid var(--rule); border-radius:3px; padding:10px 12px; margin-top:10px; font-size:12.5px; line-height:1.65; white-space:pre-wrap}
+.out.code{font-family:var(--mono); font-size:11.5px; white-space:pre-wrap; word-break:break-word}
+.spin{display:inline-block; width:11px; height:11px; border:2px solid var(--rule-2); border-top-color:var(--rust); border-radius:50%; animation:sp .7s linear infinite; vertical-align:-1px; margin-right:6px}
+@keyframes sp{to{transform:rotate(360deg)}}
 footer{max-width:1420px; margin:0 auto; padding:26px; color:var(--ink-3); font-size:11.5px; border-top:1px solid var(--rule)}
 @media print{
   header,nav,.tools,.noprint{display:none!important}
@@ -343,6 +359,60 @@ footer{max-width:1420px; margin:0 auto; padding:26px; color:var(--ink-3); font-s
   </div>
   <div id="reportOut"></div>
 </section>
+
+<!-- ============ 7. ASSISTANT IA ============ -->
+<section id="s-ai">
+  <div class="head">
+    <div><h2 data-i18n="p7t">Assistant IA</h2><p data-i18n="p7d">Claude vous assiste sur les tâches répétitives.</p></div>
+    <span class="chip" id="aiStatus"></span>
+  </div>
+  <div id="aiCfg"></div>
+  <div class="warn" id="aiWarn" data-i18n="ai_warn"></div>
+
+  <div class="grid r2" style="align-items:start">
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <h3 data-i18n="ai_eq">Équation de recherche</h3>
+        <p class="hint" data-i18n="ai_eqd"></p>
+        <div class="acts"><button class="btn rust sm" id="aiEqBtn" data-i18n="ai_gen">Générer</button></div>
+        <div id="aiEqOut"></div>
+      </div>
+      <div class="card">
+        <h3 data-i18n="ai_ext">Extraction assistée</h3>
+        <p class="hint" data-i18n="ai_extd"></p>
+        <label data-i18n="ai_pick">Étude</label><select id="aiExtSel"></select>
+        <label data-i18n="ai_paste">Texte source</label>
+        <textarea id="aiExtTxt" style="min-height:110px" placeholder="…"></textarea>
+        <div class="acts"><button class="btn rust sm" id="aiExtBtn" data-i18n="ai_gen">Générer</button></div>
+        <div id="aiExtOut"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <h3 data-i18n="ai_scr">Pré-criblage assisté</h3>
+        <p class="hint" data-i18n="ai_scrd"></p>
+        <div class="acts">
+          <button class="btn rust sm" id="aiScrBtn" data-i18n="ai_run">Analyser</button>
+          <button class="btn sm" id="aiScrAll" data-i18n="ai_acceptAll"></button>
+          <button class="btn sm ghost" id="aiScrClr" data-i18n="ai_clear"></button>
+        </div>
+        <div id="aiScrOut"></div>
+      </div>
+      <div class="card">
+        <h3 data-i18n="ai_wr">Rédaction — Discussion & limites</h3>
+        <p class="hint" data-i18n="ai_wrd"></p>
+        <div class="acts"><button class="btn rust sm" id="aiWrBtn" data-i18n="ai_gen">Générer</button></div>
+        <div id="aiWrOut"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3 data-i18n="ai_log">Journal d'audit IA</h3>
+    <p class="hint" data-i18n="ai_logd"></p>
+    <div id="aiLogOut"></div>
+  </div>
+</section>
 </main>
 
 <footer>
@@ -389,7 +459,25 @@ const I18N = {
   nodata:"Données insuffisantes",nodatad:"Renseignez au moins deux études incluses avec des données complètes dans l'onglet Extraction.",
   synth:"Synthèse rédigée",prisma:"Diagramme de flux PRISMA 2020",
   confirmReset:"Effacer définitivement tout le projet ?",
-  egger:"Test d'Egger",pi:"Intervalle de prédiction",subdiff:"Test de différence entre sous-groupes"},
+  egger:"Test d'Egger",pi:"Intervalle de prédiction",subdiff:"Test de différence entre sous-groupes",
+  t7:"Assistant IA",
+  p7t:"Assistant IA",p7d:"Claude vous assiste sur les tâches répétitives : équation de recherche, pré-criblage, extraction, rédaction. Chaque proposition doit être validée par vous — rien n'est appliqué automatiquement.",
+  ai_warn:"<b>Règle méthodologique.</b> PRISMA 2020 et le Cochrane Handbook exigent que les décisions d'inclusion et l'évaluation du risque de biais relèvent de relecteurs humains. L'IA est ici un <i>premier relecteur</i> dont vous êtes le second : elle propose, vous décidez. Toute suggestion acceptée est tracée dans le journal d'audit ci-dessous, à déclarer dans la section Méthodes de votre article.",
+  ai_eq:"Équation de recherche",ai_eqd:"Génère une équation booléenne (MeSH + termes libres) à partir de votre PICO, prête pour PubMed.",
+  ai_gen:"Générer",ai_insert:"Insérer dans le protocole",ai_copy:"Copier",
+  ai_scr:"Pré-criblage assisté (titre / résumé)",
+  ai_scrd:"Claude confronte chaque référence non traitée à vos critères d'éligibilité et propose une décision, un motif et un indice de confiance.",
+  ai_run:"Analyser les références à traiter",ai_none:"Aucune référence en attente de criblage.",
+  ai_acceptAll:"Accepter toutes les suggestions ≥ 85 %",ai_clear:"Effacer les suggestions",
+  ai_conf:"confiance",ai_apply:"Appliquer",ai_rej:"Écarter",
+  ai_ext:"Extraction assistée",ai_extd:"Collez le passage « Résultats » ou le résumé d'une étude : Claude propose les valeurs à extraire, que vous vérifiez avant insertion.",
+  ai_pick:"Étude",ai_paste:"Texte source",ai_prop:"Proposition",
+  ai_wr:"Rédaction — Discussion & limites",ai_wrd:"Rédige un projet de discussion à partir des résultats réellement calculés par l'application (effet groupé, hétérogénéité, biais).",
+  ai_log:"Journal d'audit IA",ai_logd:"Trace de chaque intervention de l'IA, exportable avec le projet.",
+  ai_nolog:"Aucune intervention enregistrée.",
+  ai_off:"Fonctions IA indisponibles",
+  ai_offd:"L'assistant fonctionne dans l'application ouverte depuis Claude. Sur une version hébergée (GitHub Pages, serveur institutionnel), il faut un relais serveur détenant la clé API — voir la documentation.",
+  ai_wait:"Analyse en cours…",ai_err:"Échec de l'appel au modèle"},
  en:{brandsub:"Systematic review studio",exportProj:"Export",importProj:"Import",demo:"Demo",
   t1:"Project",t2:"Screening",t3:"Quality & bias",t4:"Extraction",t5:"Analysis",t6:"PRISMA & report",
   p1t:"Project protocol",p1d:"Define the research question (PICO), eligibility criteria and sources. Everything is saved automatically.",
@@ -423,7 +511,25 @@ const I18N = {
   nodata:"Not enough data",nodatad:"Enter at least two included studies with complete data in the Extraction tab.",
   synth:"Written summary",prisma:"PRISMA 2020 flow diagram",
   confirmReset:"Permanently erase the whole project?",
-  egger:"Egger's test",pi:"Prediction interval",subdiff:"Test for subgroup differences"}
+  egger:"Egger's test",pi:"Prediction interval",subdiff:"Test for subgroup differences",
+  t7:"AI assistant",
+  p7t:"AI assistant",p7d:"Claude helps with the repetitive tasks: search string, pre-screening, extraction, writing. Every suggestion must be validated by you — nothing is applied automatically.",
+  ai_warn:"<b>Methodological rule.</b> PRISMA 2020 and the Cochrane Handbook require inclusion decisions and risk-of-bias appraisal to rest with human reviewers. Here the AI acts as a <i>first reviewer</i> and you are the second: it proposes, you decide. Every accepted suggestion is logged in the audit trail below and should be declared in your Methods section.",
+  ai_eq:"Search string",ai_eqd:"Generates a Boolean string (MeSH + free text) from your PICO, ready for PubMed.",
+  ai_gen:"Generate",ai_insert:"Insert into protocol",ai_copy:"Copy",
+  ai_scr:"Assisted pre-screening (title / abstract)",
+  ai_scrd:"Claude checks each unprocessed record against your eligibility criteria and proposes a decision, a reason and a confidence score.",
+  ai_run:"Analyse pending records",ai_none:"No record awaiting screening.",
+  ai_acceptAll:"Accept all suggestions ≥ 85%",ai_clear:"Clear suggestions",
+  ai_conf:"confidence",ai_apply:"Apply",ai_rej:"Dismiss",
+  ai_ext:"Assisted extraction",ai_extd:"Paste a study's Results passage or abstract: Claude proposes the values to extract, which you check before inserting.",
+  ai_pick:"Study",ai_paste:"Source text",ai_prop:"Proposal",
+  ai_wr:"Writing — Discussion & limitations",ai_wrd:"Drafts a discussion from the results actually computed by the app (pooled effect, heterogeneity, bias).",
+  ai_log:"AI audit trail",ai_logd:"Record of every AI intervention, exported with the project.",
+  ai_nolog:"No intervention recorded.",
+  ai_off:"AI features unavailable",
+  ai_offd:"The assistant works in the app opened from Claude. On a hosted version (GitHub Pages, institutional server) a server-side relay holding the API key is required — see the documentation.",
+  ai_wait:"Analysing…",ai_err:"Model call failed"}
 };
 let LANG='fr';
 const t=k=>(I18N[LANG][k]!==undefined?I18N[LANG][k]:(I18N.fr[k]||k));
@@ -438,12 +544,12 @@ const blank=()=>({
   authors:'', inst:'', reg:'', date:new Date().toISOString().slice(0,10),
   sources:'', strategy:'', datatype:'binary', g1:'', g2:'',
   measure:'OR', model:'random', cc:'1', sub:'0',
-  refs:[], regOther:0
+  refs:[], ailog:[]
 });
 let S=blank();
 const mem={};
-/* Version autonome (hébergement web / fichier local) : persistance via localStorage.
-   Repli mémoire si le navigateur bloque le stockage (navigation privée, file:// restreint). */
+/* Persistance navigateur. Repli en mémoire si le stockage est bloqué
+   (navigation privée, restrictions file://) : l'export JSON reste disponible. */
 const Store={
   async get(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null }catch(e){ return mem[k]||null } },
   async set(k,v){ mem[k]=v; try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} },
@@ -602,7 +708,7 @@ const COLOR={low:'var(--green)',some:'var(--amber)',high:'var(--rust)',crit:'#6d
 /* =========================================================================
    4. TABS
    ========================================================================= */
-const TABS=[['s-project','t1'],['s-screen','t2'],['s-bias','t3'],['s-extract','t4'],['s-analysis','t5'],['s-report','t6']];
+const TABS=[['s-project','t1'],['s-screen','t2'],['s-bias','t3'],['s-extract','t4'],['s-analysis','t5'],['s-report','t6'],['s-ai','t7']];
 let cur=0;
 function buildTabs(){
   document.getElementById('tabs').innerHTML=TABS.map((x,i)=>
@@ -694,6 +800,7 @@ function renderRefs(){
       <h4>${esc(r.title)}</h4>
       <div class="meta">${esc(r.authors||'—')} · ${esc(r.year||'s.d.')} · ${esc(r.journal||'—')}${r.doi?' · doi:'+esc(r.doi):''} <span class="tag">${esc(r.source||'')}</span>${r.dup?` <span class="tag" style="background:var(--grey);color:#fff">${t('dupl')}</span>`:''}</div>
       ${r.abstract?`<p class="abs" onclick="this.classList.toggle('open')">${esc(r.abstract)}</p>`:''}
+      ${(ph==='1'&&r.ai&&!r.t1)?`<p class="aihint">◆ ${LANG==='fr'?'Suggestion IA':'AI suggestion'} : ${r.ai.d.toUpperCase()} (${r.ai.c} %)${r.ai.why?' — '+esc(r.ai.why):''}${r.ai.note?' · '+esc(r.ai.note):''}</p>`:''}
       <div class="acts">
         <button class="pill ${d==='include'?'on-inc':''}" data-act="dec" data-v="include">✓ ${t('include')}</button>
         <button class="pill ${d==='maybe'?'on-may':''}" data-act="dec" data-v="maybe">? ${t('maybe')}</button>
@@ -1018,7 +1125,215 @@ function renderReport(){
 }
 
 /* =========================================================================
-   10. IO
+   10. ASSISTANT IA
+   ========================================================================= */
+/* ======================================================================
+   CONFIGURATION DE L'ASSISTANT IA
+   ----------------------------------------------------------------------
+   Laissez la chaîne VIDE pour publier l'application sans fonctions IA :
+   tout le reste (criblage, biais, extraction, méta-analyse, PRISMA)
+   fonctionne normalement.
+
+   Pour activer l'IA, déployez le relais fourni dans /relais-ia et collez
+   son URL ci-dessous. N'INSCRIVEZ JAMAIS DE CLÉ API DANS CE FICHIER :
+   il est public, la clé serait lisible par n'importe quel visiteur.
+   Ex. : const AI_ENDPOINT = "https://srma-relais.mon-compte.workers.dev";
+   ====================================================================== */
+const AI_ENDPOINT = "";
+
+const AI_MODEL='claude-sonnet-4-6';
+let AI_OK=!!AI_ENDPOINT;
+async function claude(system,user,maxTokens=1000){
+  if(!AI_ENDPOINT)throw new Error(LANG==='fr'
+    ?"Aucun relais IA configuré (constante AI_ENDPOINT, en tête du script d'index.html)."
+    :"No AI relay configured (AI_ENDPOINT constant at the top of index.html's script).");
+  const r=await fetch(AI_ENDPOINT,{method:"POST",
+    headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({model:AI_MODEL,max_tokens:maxTokens,system,messages:[{role:"user",content:user}]})});
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  const d=await r.json();
+  if(d.error)throw new Error(d.error.message||'API error');
+  return (d.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n').trim();
+}
+function jparse(txt){
+  let c=txt.replace(/```json/gi,'').replace(/```/g,'').trim();
+  const a=c.indexOf('['), o=c.indexOf('{');
+  if(a>=0&&(o<0||a<o))c=c.slice(a,c.lastIndexOf(']')+1);
+  else if(o>=0)c=c.slice(o,c.lastIndexOf('}')+1);
+  return JSON.parse(c);
+}
+function logAI(action,detail){
+  S.ailog.push({at:new Date().toISOString(),action,detail,model:AI_MODEL});
+  save(); renderAiLog();
+}
+const protoCtx=()=>[
+  (LANG==='fr'?'QUESTION : ':'QUESTION: ')+(S.question||'—'),
+  'P : '+(S.p||'—'),'I : '+(S.i||'—'),'C : '+(S.c||'—'),'O : '+(S.o||'—'),
+  (LANG==='fr'?'CRITÈRES D\'INCLUSION : ':'INCLUSION CRITERIA: ')+(S.incl||'—'),
+  (LANG==='fr'?'CRITÈRES D\'EXCLUSION : ':'EXCLUSION CRITERIA: ')+(S.excl||'—')
+].join('\n');
+function aiFail(el,e){
+  AI_OK=false;
+  el.innerHTML=`<div class="warn"><b>${t('ai_off')}.</b> ${t('ai_offd')}<br><span class="mono-s" style="color:var(--ink-3)">${esc(String(e&&e.message||e))}</span></div>`;
+}
+async function busy(btn,el,fn){
+  if(btn.disabled)return; btn.disabled=true;
+  const old=btn.innerHTML; btn.innerHTML=`<span class="spin"></span>${t('ai_wait')}`;
+  try{ await fn(); }catch(e){ aiFail(el,e); }
+  btn.disabled=false; btn.innerHTML=old;
+}
+/* --- 10.1 équation de recherche --- */
+async function aiEquation(){
+  const el=document.getElementById('aiEqOut');
+  const sys=LANG==='fr'
+   ?"Tu es documentaliste spécialisé en revues systématiques biomédicales. Tu construis des équations de recherche booléennes rigoureuses combinant descripteurs MeSH et termes libres, avec troncatures et synonymes. Réponds UNIQUEMENT par du JSON valide, sans préambule ni balises Markdown."
+   :"You are an information specialist for biomedical systematic reviews. You build rigorous Boolean search strings combining MeSH descriptors and free-text terms with truncation and synonyms. Reply ONLY with valid JSON, no preamble, no Markdown fences.";
+  const usr=protoCtx()+'\n\n'+(LANG==='fr'
+   ?'Construis une équation de recherche PubMed. Schéma exact : {"pubmed":"<équation complète>","notes":"<2 phrases max : blocs conceptuels utilisés, limites éventuelles>"}'
+   :'Build a PubMed search string. Exact schema: {"pubmed":"<full string>","notes":"<max 2 sentences: concept blocks used, caveats>"}');
+  const o=jparse(await claude(sys,usr,1000));
+  el.innerHTML=`<div class="out code">${esc(o.pubmed)}</div><p class="hint">${esc(o.notes||'')}</p>
+    <div class="acts"><button class="btn sm" id="aiEqIns">${t('ai_insert')}</button><button class="btn sm ghost" id="aiEqCp">${t('ai_copy')}</button></div>`;
+  document.getElementById('aiEqIns').onclick=()=>{
+    S.strategy=o.pubmed; document.getElementById('f_strategy').value=o.pubmed; save();
+    logAI(LANG==='fr'?'Équation de recherche générée':'Search string generated',(o.pubmed||'').slice(0,90)+'…');
+    alert(LANG==='fr'?'Insérée dans l’onglet Projet.':'Inserted in the Project tab.');
+  };
+  document.getElementById('aiEqCp').onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(o.pubmed);
+}
+/* --- 10.2 pré-criblage --- */
+async function aiScreen(){
+  const el=document.getElementById('aiScrOut');
+  const todo=S.refs.filter(r=>!r.dup&&!r.t1&&!r.ai);
+  if(!todo.length){el.innerHTML=`<p class="hint">${t('ai_none')}</p>`;return;}
+  const R=EXC_REASONS[LANG];
+  const sys=LANG==='fr'
+   ?"Tu es un relecteur méthodologiste de revues systématiques. Tu confrontes chaque référence aux critères d'éligibilité fournis, sans rien inventer : si le titre et le résumé ne permettent pas de trancher, la décision est \"maybe\". Sois prudent : en phase de criblage titre/résumé, on n'exclut que si l'inéligibilité est manifeste. Réponds UNIQUEMENT par du JSON valide, sans préambule ni balises Markdown."
+   :"You are a systematic review methodologist screening records. Compare each record against the eligibility criteria, inventing nothing: if title and abstract cannot settle it, the decision is \"maybe\". Be conservative: at title/abstract stage, exclude only when ineligibility is manifest. Reply ONLY with valid JSON, no preamble, no Markdown fences.";
+  el.innerHTML=`<div class="prog"><i style="width:0%"></i></div>`;
+  const bar=el.querySelector('.prog i');
+  const CH=4; let done=0;
+  for(let i=0;i<todo.length;i+=CH){
+    const chunk=todo.slice(i,i+CH);
+    const list=chunk.map(r=>({id:r.id,title:r.title,year:r.year,journal:r.journal,
+      abstract:(r.abstract||'').slice(0,650)||(LANG==='fr'?'[résumé non disponible]':'[abstract unavailable]')}));
+    const usr=protoCtx()+'\n\n'+(LANG==='fr'?'MOTIFS D\'EXCLUSION AUTORISÉS (recopier exactement) : ':'ALLOWED EXCLUSION REASONS (copy exactly): ')+R.join(' | ')
+      +'\n\n'+(LANG==='fr'?'RÉFÉRENCES :':'RECORDS:')+'\n'+JSON.stringify(list)
+      +'\n\n'+(LANG==='fr'
+        ?'Schéma exact, un objet par référence : [{"id":"<id fourni>","decision":"include|exclude|maybe","confidence":<0-100>,"reason":"<un motif de la liste, ou \\"\\" si include/maybe>","note":"<justification, 20 mots max>"}]'
+        :'Exact schema, one object per record: [{"id":"<given id>","decision":"include|exclude|maybe","confidence":<0-100>,"reason":"<one reason from the list, or \\"\\" if include/maybe>","note":"<rationale, max 20 words>"}]');
+    const arr=jparse(await claude(sys,usr,1000));
+    arr.forEach(x=>{const r=S.refs.find(v=>v.id===x.id);
+      if(r)r.ai={d:x.decision,c:Math.max(0,Math.min(100,+x.confidence||0)),why:x.reason||'',note:x.note||'',at:Date.now()};});
+    done+=chunk.length; bar.style.width=Math.round(done/todo.length*100)+'%';
+  }
+  save(); logAI(LANG==='fr'?'Pré-criblage titre/résumé':'Title/abstract pre-screening',
+    done+(LANG==='fr'?' référence(s) analysée(s)':' record(s) analysed'));
+  renderAiScr(); renderRefs();
+}
+function applySug(r){
+  r.t1=r.ai.d; if(r.ai.d==='exclude')r.r1=r.ai.why||'';
+  logAI(LANG==='fr'?'Suggestion acceptée':'Suggestion accepted',
+    shortName(r)+' → '+r.ai.d+' ('+r.ai.c+'%)');
+  r.ai=null; save();
+}
+function renderAiScr(){
+  const el=document.getElementById('aiScrOut');
+  const sug=S.refs.filter(r=>r.ai&&!r.t1);
+  if(!sug.length){el.innerHTML=`<p class="hint">${t('ai_none')}</p>`;return;}
+  el.innerHTML=sug.map(r=>`<div class="sug d-${r.ai.d}" data-id="${r.id}">
+    <h5>${esc(r.title.slice(0,90))}${r.title.length>90?'…':''}</h5>
+    <div class="mono-s" style="color:var(--ink-3)">${esc(shortName(r))}</div>
+    <div class="conf"><i style="width:${r.ai.c}%"></i></div>
+    <div class="mono-s" style="color:var(--ink-3)">${r.ai.d.toUpperCase()} · ${r.ai.c} % ${t('ai_conf')}${r.ai.why?' · '+esc(r.ai.why):''}</div>
+    <p class="why">${esc(r.ai.note||'')}</p>
+    <div class="acts"><button class="btn sm solid" data-a="ok">${t('ai_apply')}</button>
+      <button class="btn sm ghost" data-a="no">${t('ai_rej')}</button></div></div>`).join('');
+  el.querySelectorAll('.sug').forEach(d=>{
+    const r=S.refs.find(x=>x.id===d.dataset.id);
+    d.querySelector('[data-a=ok]').onclick=()=>{applySug(r);renderAiScr();renderAll();};
+    d.querySelector('[data-a=no]').onclick=()=>{r.ai=null;save();renderAiScr();renderRefs();};
+  });
+}
+/* --- 10.3 extraction assistée --- */
+async function aiExtract(){
+  const el=document.getElementById('aiExtOut'), id=document.getElementById('aiExtSel').value;
+  const r=S.refs.find(x=>x.id===id), txt=document.getElementById('aiExtTxt').value.trim();
+  if(!r||!txt){el.innerHTML=`<p class="hint">${LANG==='fr'?'Choisissez une étude et collez le texte source.':'Pick a study and paste the source text.'}</p>`;return;}
+  const bin=S.datatype==='binary';
+  const sys=LANG==='fr'
+   ?"Tu extrais des données chiffrées pour une méta-analyse. Tu ne reportes que ce qui figure explicitement dans le texte ; toute valeur absente vaut null. Tu ne calcules ni n'estimes rien. Réponds UNIQUEMENT par du JSON valide, sans préambule ni balises Markdown."
+   :"You extract numeric data for a meta-analysis. Report only what is explicit in the text; any missing value is null. Do not compute or estimate anything. Reply ONLY with valid JSON, no preamble, no Markdown fences.";
+  const schema=bin
+   ?'{"design":"","e1":null,"n1":null,"e2":null,"n2":null,"sg":"","note":""}'
+   :'{"design":"","m1":null,"sd1":null,"n1":null,"m2":null,"sd2":null,"n2":null,"sg":"","note":""}';
+  const usr=(LANG==='fr'
+   ?`GROUPE 1 = ${S.g1||'groupe 1'} ; GROUPE 2 = ${S.g2||'groupe 2'}\nCRITÈRE DE JUGEMENT : ${S.o||'—'}\n${bin?'e = nombre d\'événements, n = effectif total du groupe.':'m = moyenne, sd = écart-type, n = effectif.'}\n\nTEXTE SOURCE :\n`
+   :`GROUP 1 = ${S.g1||'group 1'}; GROUP 2 = ${S.g2||'group 2'}\nOUTCOME: ${S.o||'—'}\n${bin?'e = number of events, n = group total.':'m = mean, sd = standard deviation, n = sample size.'}\n\nSOURCE TEXT:\n`)
+   +txt.slice(0,4000)+'\n\n'+(LANG==='fr'?'Schéma exact : ':'Exact schema: ')+schema
+   +(LANG==='fr'?' — "note" : 15 mots max signalant toute ambiguïté ou valeur non trouvée.':' — "note": max 15 words flagging any ambiguity or missing value.');
+  const o=jparse(await claude(sys,usr,1000));
+  const keys=bin?['design','e1','n1','e2','n2','sg']:['design','m1','sd1','n1','m2','sd2','n2','sg'];
+  el.innerHTML=`<div class="out"><table style="font-size:12px">${keys.map(k=>
+    `<tr><td style="border:0;padding:2px 8px 2px 0"><b>${k}</b></td><td style="border:0" class="num">${o[k]===null||o[k]===undefined||o[k]===''?'—':esc(String(o[k]))}</td></tr>`).join('')}</table></div>
+    ${o.note?`<p class="aihint">⚠ ${esc(o.note)}</p>`:''}
+    <div class="acts"><button class="btn sm solid" id="aiExtIns">${t('ai_insert')}</button></div>`;
+  document.getElementById('aiExtIns').onclick=()=>{
+    keys.forEach(k=>{if(o[k]!==null&&o[k]!==undefined&&o[k]!=='')r.data[k]=o[k];});
+    save(); logAI(LANG==='fr'?'Extraction assistée':'Assisted extraction',shortName(r));
+    renderAll(); alert(LANG==='fr'?'Valeurs insérées — vérifiez-les dans l’onglet Extraction.':'Values inserted — check them in the Extraction tab.');
+  };
+}
+/* --- 10.4 rédaction --- */
+async function aiWrite(){
+  const el=document.getElementById('aiWrOut'), it=items(), m=S.measure;
+  if(it.length<2){el.innerHTML=`<p class="hint">${t('nodatad')}</p>`;return;}
+  const res=pool(it,S.model), eg=egger(it), c=counts();
+  const rated=c.incRefs.filter(r=>r.robOverall), nb=k=>rated.filter(r=>r.robOverall===k).length;
+  const facts=[
+   `${LANG==='fr'?'Question':'Question'} : ${S.question||'—'}`,
+   `${LANG==='fr'?'Études incluses':'Included studies'} : ${c.inc} ; ${LANG==='fr'?'méta-analysées':'meta-analysed'} : ${res.k}`,
+   `${LANG==='fr'?'Mesure':'Measure'} : ${MEASURES[m][LANG]} ; ${LANG==='fr'?'modèle':'model'} : ${S.model==='random'?'DerSimonian-Laird':'inverse-variance fixed'}`,
+   `${LANG==='fr'?'Effet groupé':'Pooled effect'} : ${fmt(disp(res.th,m),3)} [${fmt(disp(res.lo,m),3)} ; ${fmt(disp(res.hi,m),3)}] ; z = ${fmt(res.z,2)} ; p = ${fmt(res.p,4)}`,
+   `I² = ${fmt(res.I2,1)} % ; tau² = ${fmt(res.tau2,4)} ; Q = ${fmt(res.Q,2)} (df ${res.df}, p = ${fmt(res.pQ,4)})`,
+   res.piLo!==undefined?`${LANG==='fr'?'Intervalle de prédiction 95 %':'95% prediction interval'} : ${fmt(disp(res.piLo,m),3)} — ${fmt(disp(res.piHi,m),3)}`:'',
+   eg?`Egger : intercept ${fmt(eg.b0,3)}, t(${eg.df}) = ${fmt(eg.t,2)}, p = ${fmt(eg.p,4)}`:'',
+   rated.length?`${LANG==='fr'?'Risque de biais global':'Overall risk of bias'} : ${nb('low')} ${LANG==='fr'?'faible':'low'} / ${nb('some')} ${LANG==='fr'?'modéré':'moderate'} / ${nb('high')+nb('crit')} ${LANG==='fr'?'élevé-critique':'high-critical'} (n = ${rated.length})`:''
+  ].filter(Boolean).join('\n');
+  const sys=LANG==='fr'
+   ?"Tu rédiges la discussion d'un article de revue systématique en français académique, à la voix passive ou impersonnelle, sans emphase ni superlatif. Tu ne cites aucune référence externe et n'ajoutes aucun chiffre absent des données fournies. Tu restes prudent sur la causalité."
+   :"You draft the discussion of a systematic review in academic English, impersonal register, without emphasis or superlatives. Cite no external reference and add no figure absent from the supplied data. Stay cautious about causality.";
+  const usr=(LANG==='fr'
+   ?"Résultats calculés :\n"+facts+"\n\nRédige trois paragraphes courts, sans titres : (1) résumé des principaux résultats et leur signification clinique ou radiologique ; (2) limites (hétérogénéité, risque de biais, nombre d'études, biais de publication) ; (3) implications pour la pratique et la recherche. 280 mots maximum au total."
+   :"Computed results:\n"+facts+"\n\nWrite three short paragraphs, no headings: (1) summary of main findings and their clinical meaning; (2) limitations (heterogeneity, risk of bias, number of studies, publication bias); (3) implications for practice and research. 280 words maximum in total.");
+  const out=await claude(sys,usr,1000);
+  el.innerHTML=`<div class="out">${esc(out)}</div>
+    <div class="acts"><button class="btn sm ghost" id="aiWrCp">${t('ai_copy')}</button></div>`;
+  document.getElementById('aiWrCp').onclick=()=>navigator.clipboard&&navigator.clipboard.writeText(out);
+  logAI(LANG==='fr'?'Projet de discussion rédigé':'Discussion draft written',res.k+(LANG==='fr'?' études':' studies'));
+}
+/* --- 10.5 journal --- */
+function renderAiLog(){
+  const el=document.getElementById('aiLogOut'); if(!el)return;
+  if(!S.ailog||!S.ailog.length){el.innerHTML=`<p class="hint">${t('ai_nolog')}</p>`;return;}
+  el.innerHTML=`<div class="tw"><table><thead><tr><th>${LANG==='fr'?'Horodatage':'Timestamp'}</th><th>Action</th><th>${LANG==='fr'?'Détail':'Detail'}</th><th>${LANG==='fr'?'Modèle':'Model'}</th></tr></thead><tbody>
+   ${S.ailog.slice().reverse().map(l=>`<tr><td class="num">${new Date(l.at).toLocaleString(LANG==='fr'?'fr-FR':'en-GB')}</td><td>${esc(l.action)}</td><td>${esc(l.detail||'')}</td><td class="mono-s">${esc(l.model)}</td></tr>`).join('')}
+   </tbody></table></div>`;
+}
+function renderAi(){
+  const st=document.getElementById('aiStatus'); if(!st)return;
+  st.textContent=AI_OK?'◆ '+AI_MODEL:'○ '+t('ai_off');
+  const cfg=document.getElementById('aiCfg');
+  if(cfg)cfg.innerHTML=AI_ENDPOINT?'':`<div class="warn"><b>${t('ai_off')}.</b> ${LANG==='fr'
+    ?'Cette copie est hébergée sans relais IA. Le reste de l’application fonctionne normalement. Pour activer l’assistant, déployez le relais fourni dans le dossier <code>relais-ia/</code> puis renseignez la constante <code>AI_ENDPOINT</code> en tête du script d’<code>index.html</code>.'
+    :'This copy is hosted without an AI relay. The rest of the app works normally. To enable the assistant, deploy the relay in the <code>relais-ia/</code> folder, then set the <code>AI_ENDPOINT</code> constant at the top of the script in <code>index.html</code>.'}</div>`;
+  const sel=document.getElementById('aiExtSel'), inc=counts().incRefs;
+  if(sel)sel.innerHTML=inc.length?inc.map(r=>`<option value="${r.id}">${esc(shortName(r))} — ${esc(r.title.slice(0,48))}</option>`).join(''):`<option value="">${t('noinc')}</option>`;
+  renderAiScr(); renderAiLog();
+}
+
+/* =========================================================================
+   11. IO
    ========================================================================= */
 function dl(name,txt,mime){
   const b=new Blob([txt],{type:mime||'text/plain;charset=utf-8'}), u=URL.createObjectURL(b);
@@ -1080,6 +1395,16 @@ function demo(){
       source:i%2?'Scopus':'PubMed',dup:dup,t1:dup?'':(i<3?'exclude':'include'),t2:i<3?'':(dup?'':'exclude'),
       r1:i<3?EXC_REASONS[LANG][i]:'',r2:i>=3&&!dup?EXC_REASONS[LANG][i+2]:'',tool:'rob2',rob:{},robOverall:'',data:{},subgroup:'',note:''});
   });
+  // références encore à cribler — pour démontrer le pré-criblage assisté
+  const PEND=[
+   ['Activity concentration of Ra-226, Th-232 and K-40 in clay bricks and radiological hazard indices','Bello, I.; Adeyemi, O.','2023','Radiat Prot Dosimetry','Quarante échantillons de briques d’argile ont été analysés par spectrométrie gamma HPGe. Les concentrations moyennes en Ra-226, Th-232 et K-40 ont été comparées à celles de blocs de ciment contenant des cendres volantes, et les indices Raeq, Hex et Hin ont été calculés pour chaque catégorie.'],
+   ['Occupational dose monitoring of interventional cardiologists over five years','Rahman, S.; Khan, T.','2022','J Radiol Prot','Les doses efficaces annuelles de 34 cardiologues interventionnels ont été suivies par dosimètres passifs. Aucune donnée sur les matériaux de construction n’est rapportée.'],
+   ['Comparative radiological risk of phosphogypsum boards versus natural gypsum boards in dwellings','Ferreira, D.; Antunes, P.','2024','Sci Total Environ','Étude comparative de 60 plaques de plâtre : 30 issues de phosphogypse industriel et 30 de gypse naturel. Spectrométrie gamma HPGe, calcul de Hin ; la proportion de plaques dépassant Hin = 1 est rapportée pour chaque groupe.'],
+   ['Machine learning prediction of indoor radon concentration: a modelling study','Novak, J.','2023','Environ Model Softw','Modèle prédictif entraîné sur des bases nationales de radon domiciliaire. Aucune mesure expérimentale de radioactivité des matériaux n’est réalisée.']
+  ];
+  PEND.forEach((p,i)=>S.refs.push({id:uid(),title:p[0],authors:p[1],year:p[2],journal:p[3],doi:'10.1000/demo.20'+i,
+    abstract:p[4],source:i%2?'Scopus':'PubMed',dup:false,t1:'',t2:'',r1:'',r2:'',
+    tool:'rob2',rob:{},robOverall:'',data:{},subgroup:'',note:''}));
   save();bindAll();renderAll();
   alert(LANG==='fr'?'Jeu de démonstration chargé (8 études incluses, données binaires, OR). Explorez les onglets Analyse et PRISMA.':'Demo dataset loaded (8 included studies, binary data, OR). Explore the Analysis and PRISMA tabs.');
 }
@@ -1108,7 +1433,7 @@ function applyLang(){
   document.getElementById('fSearch').placeholder=LANG==='fr'?'🔎 titre, auteur, année…':'🔎 title, author, year…';
   fillMeasures(); buildTabs();
 }
-function renderAll(){ renderDash(); renderRefs(); renderBias(); renderExtract(); fillMeasures(); renderAnalysis(); renderReport(); }
+function renderAll(){ renderDash(); renderRefs(); renderBias(); renderExtract(); fillMeasures(); renderAnalysis(); renderReport(); renderAi(); }
 
 document.getElementById('projTitle').oninput=e=>{S.title=e.target.value;save();};
 FIELDS.forEach(k=>{const el=document.getElementById('f_'+k); if(el)el.oninput=()=>{S[k]=el.value;save();renderReport();};});
@@ -1144,6 +1469,18 @@ document.getElementById('btnPrint2').onclick=()=>window.print();
 document.getElementById('btnDemo').onclick=()=>{ if(S.refs.length&&!confirm(LANG==='fr'?'Remplacer le projet actuel par le jeu de démonstration ?':'Replace current project with the demo dataset?'))return; demo(); };
 document.getElementById('btnReset').onclick=async()=>{ if(!confirm(t('confirmReset')))return; S=blank(); await Store.del(KEY); bindAll();fillMeasures();renderAll(); };
 document.querySelectorAll('.lang button').forEach(b=>b.onclick=()=>{LANG=b.dataset.lang;applyLang();renderAll();});
+/* IA */
+document.getElementById('aiEqBtn').onclick=e=>busy(e.target,document.getElementById('aiEqOut'),aiEquation);
+document.getElementById('aiScrBtn').onclick=e=>busy(e.target,document.getElementById('aiScrOut'),aiScreen);
+document.getElementById('aiExtBtn').onclick=e=>busy(e.target,document.getElementById('aiExtOut'),aiExtract);
+document.getElementById('aiWrBtn').onclick=e=>busy(e.target,document.getElementById('aiWrOut'),aiWrite);
+document.getElementById('aiScrAll').onclick=()=>{
+  const s=S.refs.filter(r=>r.ai&&!r.t1&&r.ai.c>=85);
+  if(!s.length){alert(LANG==='fr'?'Aucune suggestion à 85 % ou plus.':'No suggestion at 85% or above.');return;}
+  if(!confirm((LANG==='fr'?'Appliquer ':'Apply ')+s.length+(LANG==='fr'?' suggestion(s) ? Vous restez responsable de ces décisions.':' suggestion(s)? You remain accountable for these decisions.')))return;
+  s.forEach(applySug); renderAll();
+};
+document.getElementById('aiScrClr').onclick=()=>{S.refs.forEach(r=>r.ai=null);save();renderAiScr();renderRefs();};
 
 /* boot */
 (async()=>{
