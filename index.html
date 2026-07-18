@@ -7,14 +7,15 @@
 
 <style>
 :root{
-  --paper:#f2eee4; --paper-2:#e9e3d6; --card:#fbf9f4;
-  --ink:#191713; --ink-2:#4b4640; --ink-3:#847c70;
-  --rule:#d6cebd; --rule-2:#c2b8a3;
-  --rust:#b0402a; --rust-soft:#f0d9d2;
-  --teal:#0f5d55; --teal-soft:#d3e6e2;
-  --amber:#c98a12; --amber-soft:#f6e6c4;
-  --green:#3f7a34; --grey:#9a938a;
-  --shadow:0 1px 0 var(--rule), 0 12px 28px -20px rgba(25,23,19,.5);
+  --paper:#eae7df; --paper-2:#e0dccf; --card:#ffffff; --card-2:#faf8f3;
+  --ink:#17140f; --ink-2:#464038; --ink-3:#8a8175;
+  --rule:#ddd6c8; --rule-2:#c7bda8;
+  --rust:#a5361f; --rust-2:#c25235; --rust-soft:#f3ddd5;
+  --teal:#0d564d; --teal-2:#1c7a6d; --teal-soft:#d0e6e1;
+  --amber:#bd8109; --amber-soft:#f6e7c1;
+  --green:#3a7530; --green-soft:#dcecd4; --grey:#9a938a;
+  --shadow:0 1px 2px rgba(23,20,15,.04), 0 10px 24px -18px rgba(23,20,15,.35);
+  --shadow-lg:0 2px 4px rgba(23,20,15,.05), 0 22px 48px -28px rgba(23,20,15,.45);
   --sans:'IBM Plex Sans',ui-sans-serif,sans-serif;
   --mono:'IBM Plex Mono',ui-monospace,monospace;
   --serif:'Fraunces',Georgia,serif;
@@ -24,15 +25,15 @@ html,body{margin:0;padding:0}
 body{
   background:var(--paper);
   background-image:
-    radial-gradient(circle at 15% -10%, rgba(176,64,42,.07), transparent 55%),
-    radial-gradient(circle at 90% 0%, rgba(15,93,85,.07), transparent 50%);
+    radial-gradient(circle at 12% -8%, rgba(165,54,31,.05), transparent 48%),
+    radial-gradient(circle at 92% -4%, rgba(13,86,77,.05), transparent 46%);
   background-attachment:fixed;
   color:var(--ink); font-family:var(--sans); font-size:14px; line-height:1.55;
-  -webkit-font-smoothing:antialiased;
+  -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
 }
 body::before{
-  content:""; position:fixed; inset:0; pointer-events:none; z-index:999; opacity:.35;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.22'/%3E%3C/svg%3E");
+  content:""; position:fixed; inset:0; pointer-events:none; z-index:999; opacity:.22;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E");
   mix-blend-mode:multiply;
 }
 h1,h2,h3{font-family:var(--serif); font-weight:600; letter-spacing:-.015em; margin:0}
@@ -40,16 +41,17 @@ h1,h2,h3{font-family:var(--serif); font-weight:600; letter-spacing:-.015em; marg
 
 /* ---------- top bar ---------- */
 header{
-  position:sticky; top:0; z-index:50; background:rgba(242,238,228,.92);
-  backdrop-filter:blur(8px); border-bottom:1px solid var(--rule);
+  position:sticky; top:0; z-index:50; background:rgba(234,231,223,.9);
+  backdrop-filter:blur(12px) saturate(1.1); border-bottom:1px solid var(--rule);
 }
-.bar{display:flex; align-items:center; gap:18px; padding:12px 26px; max-width:1420px; margin:0 auto}
-.brand{display:flex; align-items:baseline; gap:10px; flex:0 0 auto}
+.bar{display:flex; align-items:center; gap:16px; padding:11px 26px; max-width:1440px; margin:0 auto}
+.brand{display:flex; align-items:center; gap:11px; flex:0 0 auto}
+.brand .logo{width:34px; height:34px; flex:0 0 auto; border-radius:8px; box-shadow:var(--shadow); display:block}
+.brand .txt{display:flex; flex-direction:column; line-height:1.1}
 .brand .mark{
-  font-family:var(--serif); font-weight:900; font-size:19px; letter-spacing:-.03em;
-  color:var(--paper); background:var(--ink); padding:2px 9px 3px; border-radius:3px;
+  font-family:var(--serif); font-weight:900; font-size:18px; letter-spacing:-.02em; color:var(--ink);
 }
-.brand .sub{font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3)}
+.brand .sub{font-size:9px; letter-spacing:.15em; text-transform:uppercase; color:var(--ink-3); margin-top:2px}
 #projTitle{
   flex:1 1 auto; min-width:80px; background:transparent; border:0; border-bottom:1px dashed var(--rule-2);
   font-family:var(--serif); font-size:16px; color:var(--ink); padding:3px 2px; outline:none;
@@ -63,61 +65,68 @@ header{
 button{font-family:inherit; font-size:13px; cursor:pointer}
 .btn{
   background:var(--card); border:1px solid var(--rule-2); color:var(--ink-2);
-  padding:6px 12px; border-radius:3px; transition:.15s;
+  padding:6px 13px; border-radius:6px; transition:.16s ease; font-weight:500;
+  box-shadow:0 1px 1.5px rgba(23,20,15,.04);
 }
-.btn:hover{border-color:var(--ink); color:var(--ink); transform:translateY(-1px)}
-.btn.solid{background:var(--ink); color:var(--paper); border-color:var(--ink)}
+.btn:hover{border-color:var(--ink); color:var(--ink); transform:translateY(-1px); box-shadow:var(--shadow)}
+.btn:active{transform:translateY(0)}
+.btn.solid{background:var(--ink); color:#fff; border-color:var(--ink)}
 .btn.solid:hover{background:var(--rust); border-color:var(--rust)}
 .btn.rust{background:var(--rust); color:#fff; border-color:var(--rust)}
-.btn.sm{padding:3px 8px; font-size:12px}
-.btn.ghost{background:transparent; border-style:dashed}
+.btn.rust:hover{background:var(--rust-2); border-color:var(--rust-2)}
+.btn.teal{background:var(--teal); color:#fff; border-color:var(--teal)}
+.btn.teal:hover{background:var(--teal-2); border-color:var(--teal-2)}
+.btn.sm{padding:3px 9px; font-size:12px; border-radius:5px}
+.btn.ghost{background:transparent; border-style:dashed; box-shadow:none}
 .lang{display:flex; border:1px solid var(--rule-2); border-radius:3px; overflow:hidden}
-.lang button{background:transparent; border:0; padding:5px 9px; font-size:11px; font-weight:600; letter-spacing:.08em; color:var(--ink-3)}
-.lang button.on{background:var(--ink); color:var(--paper)}
+.lang button{background:transparent; border:0; padding:5px 10px; font-size:11px; font-weight:600; letter-spacing:.08em; color:var(--ink-3)}
+.lang button.on{background:var(--ink); color:#fff}
 
 /* ---------- nav ---------- */
-nav{border-bottom:1px solid var(--rule); background:rgba(233,227,214,.6)}
-.tabs{display:flex; gap:0; max-width:1420px; margin:0 auto; padding:0 26px; overflow-x:auto}
+nav{border-bottom:1px solid var(--rule); background:rgba(224,220,207,.55)}
+.tabs{display:flex; gap:2px; max-width:1440px; margin:0 auto; padding:0 22px; overflow-x:auto}
 .tab{
-  background:transparent; border:0; border-bottom:2px solid transparent; padding:11px 16px;
-  color:var(--ink-3); font-size:13px; white-space:nowrap; display:flex; align-items:center; gap:8px;
+  background:transparent; border:0; border-bottom:2.5px solid transparent; padding:11px 15px;
+  color:var(--ink-3); font-size:12.5px; white-space:nowrap; display:flex; align-items:center; gap:8px;
+  transition:color .15s;
 }
-.tab .i{font-family:var(--mono); font-size:10px; color:var(--rule-2)}
+.tab .i{font-family:var(--mono); font-size:9.5px; color:var(--rule-2); font-weight:500}
 .tab:hover{color:var(--ink)}
 .tab.on{color:var(--ink); border-bottom-color:var(--rust); font-weight:600}
 .tab.on .i{color:var(--rust)}
+.tab.locktab.on{border-bottom-color:var(--teal)} .tab.locktab.on .i{color:var(--teal)}
 
 /* ---------- layout ---------- */
-main{max-width:1420px; margin:0 auto; padding:26px}
-section{display:none; animation:fade .3s ease both}
+main{max-width:1440px; margin:0 auto; padding:26px 26px 40px}
+section{display:none; animation:fade .32s cubic-bezier(.2,.7,.3,1) both}
 section.on{display:block}
-@keyframes fade{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
-.head{margin-bottom:20px; border-bottom:1px solid var(--rule); padding-bottom:12px;
+@keyframes fade{from{opacity:0; transform:translateY(7px)}to{opacity:1; transform:none}}
+.head{margin-bottom:22px; border-bottom:1px solid var(--rule); padding-bottom:14px;
   display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap}
-.head h2{font-size:26px}
-.head p{margin:4px 0 0; color:var(--ink-3); font-size:12.5px; max-width:70ch}
+.head h2{font-size:27px; letter-spacing:-.02em}
+.head p{margin:5px 0 0; color:var(--ink-3); font-size:12.5px; max-width:72ch; line-height:1.5}
 .grid{display:grid; gap:16px}
-.card{background:var(--card); border:1px solid var(--rule); border-radius:4px; padding:16px 18px; box-shadow:var(--shadow)}
-.card > h3{font-size:15px; margin-bottom:10px; display:flex; align-items:center; gap:8px}
-.card > h3::before{content:""; width:4px; height:14px; background:var(--rust); border-radius:1px}
-label{display:block; font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); margin:10px 0 4px}
+.card{background:var(--card); border:1px solid var(--rule); border-radius:10px; padding:17px 19px; box-shadow:var(--shadow)}
+.card > h3{font-size:15px; margin-bottom:11px; display:flex; align-items:center; gap:9px; letter-spacing:-.01em}
+.card > h3::before{content:""; width:3px; height:15px; background:var(--rust); border-radius:2px}
+label{display:block; font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--ink-3); margin:11px 0 4px; font-weight:500}
 input[type=text],input[type=number],textarea,select{
-  width:100%; background:#fff; border:1px solid var(--rule-2); border-radius:3px;
-  padding:7px 9px; font-family:inherit; font-size:13px; color:var(--ink); outline:none;
+  width:100%; background:var(--card-2); border:1px solid var(--rule-2); border-radius:6px;
+  padding:8px 10px; font-family:inherit; font-size:13px; color:var(--ink); outline:none; transition:.15s;
 }
 textarea{resize:vertical; min-height:64px; line-height:1.5}
-input:focus,textarea:focus,select:focus{border-color:var(--rust); box-shadow:0 0 0 3px var(--rust-soft)}
+input:focus,textarea:focus,select:focus{border-color:var(--rust); background:#fff; box-shadow:0 0 0 3px var(--rust-soft)}
 .row{display:grid; gap:12px}
 .r2{grid-template-columns:1fr 1fr} .r3{grid-template-columns:repeat(3,1fr)} .r4{grid-template-columns:repeat(4,1fr)}
 @media(max-width:860px){.r2,.r3,.r4{grid-template-columns:1fr}}
-.hint{font-size:11.5px; color:var(--ink-3); margin:6px 0 0}
+.hint{font-size:11.5px; color:var(--ink-3); margin:6px 0 0; line-height:1.5}
 .mono-s{font-family:var(--mono); font-size:11px}
 
 /* stats strip */
-.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:4px; overflow:hidden}
-.stat{background:var(--card); padding:12px 14px}
-.stat b{display:block; font-family:var(--mono); font-size:22px; font-weight:500; letter-spacing:-.02em}
-.stat span{font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-3)}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule); border-radius:10px; overflow:hidden; box-shadow:var(--shadow)}
+.stat{background:var(--card); padding:13px 15px}
+.stat b{display:block; font-family:var(--mono); font-size:23px; font-weight:500; letter-spacing:-.03em; color:var(--ink)}
+.stat span{font-size:10px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-3)}
 
 /* tables */
 table{width:100%; border-collapse:collapse; font-size:12.5px}
@@ -188,23 +197,107 @@ svg{display:block; max-width:100%; height:auto}
 .out.code{font-family:var(--mono); font-size:11.5px; white-space:pre-wrap; word-break:break-word}
 .spin{display:inline-block; width:11px; height:11px; border:2px solid var(--rule-2); border-top-color:var(--rust); border-radius:50%; animation:sp .7s linear infinite; vertical-align:-1px; margin-right:6px}
 @keyframes sp{to{transform:rotate(360deg)}}
-footer{max-width:1420px; margin:0 auto; padding:26px; color:var(--ink-3); font-size:11.5px; border-top:1px solid var(--rule)}
+
+/* ---------- licence ---------- */
+.licbadge{border:1px solid var(--rule-2); background:var(--card); border-radius:20px; padding:4px 11px 4px 9px;
+  font-family:var(--mono); font-size:10.5px; font-weight:500; color:var(--ink-2); display:flex; align-items:center; gap:6px; transition:.15s; box-shadow:0 1px 1.5px rgba(23,20,15,.04)}
+.licbadge::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--amber)}
+.licbadge:hover{border-color:var(--ink); transform:translateY(-1px)}
+.licbadge.paid{color:var(--teal); border-color:var(--teal-soft); background:var(--teal-soft)}
+.licbadge.paid::before{background:var(--teal)}
+.licbadge.warn::before{background:var(--rust)}
+
+.plans{display:grid; grid-template-columns:1fr 1fr; gap:16px}
+@media(max-width:760px){.plans{grid-template-columns:1fr}}
+.plan{position:relative; background:var(--card); border:1px solid var(--rule); border-radius:12px; padding:20px 20px 18px; box-shadow:var(--shadow); overflow:hidden}
+.plan.feat{border-color:var(--teal); box-shadow:0 2px 4px rgba(13,86,77,.08), var(--shadow-lg)}
+.plan.feat::before{content:attr(data-badge); position:absolute; top:13px; right:-30px; transform:rotate(38deg); background:var(--teal); color:#fff; font-size:9.5px; letter-spacing:.1em; text-transform:uppercase; padding:3px 34px; font-weight:600}
+.plan h4{font-family:var(--serif); font-size:17px; margin:0 0 3px; font-weight:600}
+.plan .price{font-family:var(--mono); font-size:30px; font-weight:500; letter-spacing:-.03em; color:var(--ink); margin:8px 0 2px}
+.plan .price small{font-size:13px; color:var(--ink-3); font-weight:400; letter-spacing:0}
+.plan .per{font-size:11.5px; color:var(--ink-3); margin-bottom:12px}
+.plan ul{list-style:none; margin:12px 0 0; padding:0}
+.plan li{font-size:12.5px; color:var(--ink-2); padding:5px 0 5px 22px; position:relative; line-height:1.4}
+.plan li::before{content:"✓"; position:absolute; left:0; top:4px; color:var(--teal); font-weight:700}
+.plan li.no{color:var(--ink-3)} .plan li.no::before{content:"—"; color:var(--grey)}
+
+.pay{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:2px}
+@media(max-width:620px){.pay{grid-template-columns:1fr}}
+.paycard{border:1px solid var(--rule-2); border-radius:10px; padding:14px 15px; background:var(--card-2); position:relative}
+.paycard.om{border-left:4px solid #ff6600} .paycard.tm{border-left:4px solid #e2001a}
+.paycard .op{font-size:10px; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); font-weight:600}
+.paycard .no{font-family:var(--mono); font-size:19px; font-weight:500; letter-spacing:.02em; color:var(--ink); margin:5px 0 3px; display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.paycard .nm{font-size:11.5px; color:var(--ink-2)}
+.copybtn{border:1px solid var(--rule-2); background:#fff; border-radius:5px; padding:2px 8px; font-size:11px; font-family:var(--mono); color:var(--ink-2); cursor:pointer}
+.copybtn:hover{border-color:var(--ink); color:var(--ink)}
+.copybtn.ok{background:var(--teal); color:#fff; border-color:var(--teal)}
+
+.steps{counter-reset:s; margin:0; padding:0; list-style:none}
+.steps li{counter-increment:s; position:relative; padding:8px 0 8px 34px; font-size:13px; color:var(--ink-2); border-bottom:1px dotted var(--rule)}
+.steps li:last-child{border-bottom:0}
+.steps li::before{content:counter(s); position:absolute; left:0; top:7px; width:22px; height:22px; border-radius:50%; background:var(--ink); color:#fff; font-family:var(--mono); font-size:11px; display:flex; align-items:center; justify-content:center; font-weight:500}
+
+.activate{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-top:4px}
+.activate input{flex:1; min-width:200px; font-family:var(--mono); font-size:15px; letter-spacing:.08em; text-transform:uppercase; text-align:center}
+.licnote{font-size:11.5px; line-height:1.55; color:var(--ink-3)}
+.credit{background:linear-gradient(135deg,var(--ink),#2a2520); color:var(--paper); border-radius:12px; padding:20px 22px}
+.credit h3{color:#fff; font-family:var(--serif); margin:0 0 8px; font-size:16px}
+.credit h3::before{display:none}
+.credit .who{font-family:var(--serif); font-size:19px; font-weight:600; color:#fff; margin-bottom:8px}
+.credit a{color:var(--rust-soft); text-decoration:none; border-bottom:1px solid rgba(243,221,213,.3)}
+.credit a:hover{color:#fff}
+.credit .contact{font-family:var(--mono); font-size:12px; line-height:1.9; color:#d9d3c8}
+.trialbar{height:6px; background:var(--paper-2); border-radius:3px; overflow:hidden; margin:8px 0 4px}
+.trialbar i{display:block; height:100%; background:linear-gradient(90deg,var(--teal),var(--amber)); transition:width .4s}
+.trialbar i.hot{background:linear-gradient(90deg,var(--amber),var(--rust))}
+
+/* modal */
+.modal{position:fixed; inset:0; z-index:200; background:rgba(23,20,15,.55); backdrop-filter:blur(4px); display:none; align-items:center; justify-content:center; padding:20px}
+.modal.on{display:flex; animation:fade .25s both}
+.modal .box{background:var(--paper); border-radius:14px; max-width:560px; width:100%; max-height:88vh; overflow:auto; box-shadow:var(--shadow-lg); border:1px solid var(--rule)}
+.modal .box .mh{padding:20px 22px 0; display:flex; align-items:flex-start; justify-content:space-between; gap:12px}
+.modal .box .mh h3{font-family:var(--serif); font-size:20px; margin:0}
+.modal .box .mh h3::before{display:none}
+.modal .box .mb{padding:14px 22px 22px}
+.xbtn{border:0; background:transparent; font-size:22px; line-height:1; color:var(--ink-3); cursor:pointer; padding:0 4px}
+.xbtn:hover{color:var(--ink)}
+
+footer{max-width:1440px; margin:0 auto; padding:24px 26px; color:var(--ink-3); font-size:11.5px; border-top:1px solid var(--rule); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center}
+footer .fcredit{color:var(--ink-2)} footer .fcredit b{color:var(--ink); font-family:var(--serif)}
+footer a{color:var(--rust); text-decoration:none} footer a:hover{text-decoration:underline}
 @media print{
   header,nav,.tools,.noprint{display:none!important}
   section{display:none!important} section.on{display:block!important}
   body{background:#fff} body::before{display:none}
   .card,.svgbox,.tw{break-inside:avoid; box-shadow:none}
+  footer{border-top:1px solid #ccc}
 }
 </style>
 
 <header>
   <div class="bar">
     <div class="brand">
-      <span class="mark">SR·MA</span>
-      <span class="sub" data-i18n="brandsub">Studio de revue systématique</span>
+      <svg class="logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="SR-MA Studio">
+        <rect width="100" height="100" rx="22" fill="#17140f"/>
+        <line x1="50" y1="17" x2="50" y2="83" stroke="#d6cebd" stroke-width="2.4" stroke-dasharray="4 4" opacity=".7"/>
+        <line x1="24" y1="34" x2="66" y2="34" stroke="#eae7df" stroke-width="4"/>
+        <line x1="24" y1="30" x2="24" y2="38" stroke="#eae7df" stroke-width="4"/>
+        <line x1="66" y1="30" x2="66" y2="38" stroke="#eae7df" stroke-width="4"/>
+        <rect x="38" y="27" width="14" height="14" fill="#1c7a6d"/>
+        <line x1="34" y1="52" x2="78" y2="52" stroke="#eae7df" stroke-width="4"/>
+        <line x1="34" y1="48" x2="34" y2="56" stroke="#eae7df" stroke-width="4"/>
+        <line x1="78" y1="48" x2="78" y2="56" stroke="#eae7df" stroke-width="4"/>
+        <rect x="49" y="45" width="12" height="12" fill="#1c7a6d"/>
+        <polygon points="26,71 50,63 74,71 50,79" fill="#c25235"/>
+      </svg>
+      <span class="txt">
+        <span class="mark">SR·MA Studio</span>
+        <span class="sub" data-i18n="brandsub">Revue systématique &amp; méta-analyse</span>
+      </span>
     </div>
     <input id="projTitle" placeholder="Titre du projet…">
     <div class="tools noprint">
+      <button class="licbadge" id="licBadge" title="Licence"><span id="licBadgeTxt">—</span></button>
       <span class="chip" id="saveChip">—</span>
       <button class="btn sm" id="btnExport" data-i18n="exportProj">Exporter</button>
       <button class="btn sm" id="btnImport" data-i18n="importProj">Importer</button>
@@ -257,6 +350,7 @@ footer{max-width:1420px; margin:0 auto; padding:26px; color:var(--ink-3); font-s
       <div class="card">
         <h3 data-i18n="storage">Données & sauvegarde</h3>
         <p class="hint" data-i18n="storaged">Le projet est enregistré automatiquement dans ce navigateur. Utilisez <b>Exporter</b> pour obtenir un fichier <code>.json</code> transférable (archivage, travail à deux relecteurs, autre machine).</p>
+        <div id="stoWarn"></div>
         <div class="acts">
           <button class="btn sm" id="btnCsv" data-i18n="csv">Export CSV (études incluses)</button>
           <button class="btn sm" id="btnPrint" data-i18n="print">Imprimer / PDF</button>
@@ -413,10 +507,128 @@ footer{max-width:1420px; margin:0 auto; padding:26px; color:var(--ink-3); font-s
     <div id="aiLogOut"></div>
   </div>
 </section>
+
+<!-- ============ 8. LICENCE ============ -->
+<section id="s-license">
+  <div class="head">
+    <div><h2 data-i18n="p8t">Licence &amp; abonnement</h2><p data-i18n="p8d">Activez la version complète pour lever la limite de l'essai.</p></div>
+    <span class="chip" id="licState2"></span>
+  </div>
+
+  <div id="licStatusCard"></div>
+
+  <div class="card" style="margin:16px 0">
+    <h3 data-i18n="lic_plans">Formules d'abonnement</h3>
+    <div class="plans">
+      <div class="plan">
+        <h4 data-i18n="lic_month">Mensuel</h4>
+        <div class="price">10 000 <small>FCFA</small></div>
+        <div class="per" data-i18n="lic_permonth">par mois</div>
+        <ul>
+          <li data-i18n="lic_f_unlim">Import et sélection d'articles illimités</li>
+          <li data-i18n="lic_f_all">Tous les modules : biais, extraction, méta-analyse, PRISMA</li>
+          <li data-i18n="lic_f_updates">Mises à jour incluses</li>
+        </ul>
+      </div>
+      <div class="plan feat" data-badge="-17%">
+        <h4 data-i18n="lic_year">Annuel</h4>
+        <div class="price">100 000 <small>FCFA</small></div>
+        <div class="per" data-i18n="lic_peryear">par an — soit 2 mois offerts</div>
+        <ul>
+          <li data-i18n="lic_f_unlim">Import et sélection d'articles illimités</li>
+          <li data-i18n="lic_f_all">Tous les modules : biais, extraction, méta-analyse, PRISMA</li>
+          <li data-i18n="lic_f_updates">Mises à jour incluses</li>
+          <li data-i18n="lic_f_priority">Assistance prioritaire</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid r2" style="align-items:start">
+    <div class="card">
+      <h3 data-i18n="lic_pay">Paiement par mobile money</h3>
+      <p class="hint" data-i18n="lic_payd">Effectuez le paiement du montant correspondant à la formule choisie sur l'un des numéros ci-dessous.</p>
+      <div class="pay" style="margin:12px 0">
+        <div class="paycard om">
+          <div class="op">Orange Money — Burkina Faso</div>
+          <div class="no"><span>+226 66 84 11 81</span><button class="copybtn" data-copy="+22666841181">copier</button></div>
+          <div class="nm">OUEDRAOGO W. Daniel</div>
+        </div>
+        <div class="paycard tm">
+          <div class="op">Telecel Money — Burkina Faso</div>
+          <div class="no"><span>+226 78 55 18 67</span><button class="copybtn" data-copy="+22678551867">copier</button></div>
+          <div class="nm">OUEDRAOGO W. Daniel</div>
+        </div>
+      </div>
+      <h3 style="margin-top:16px" data-i18n="lic_how">Comment activer</h3>
+      <ol class="steps">
+        <li data-i18n="lic_s1">Payez 10 000 FCFA (mois) ou 100 000 FCFA (an) sur Orange Money ou Telecel Money.</li>
+        <li data-i18n="lic_s2">Envoyez la capture du paiement et votre e-mail au créateur (WhatsApp ou e-mail ci-dessous).</li>
+        <li data-i18n="lic_s3">Vous recevez en retour un code d'activation.</li>
+        <li data-i18n="lic_s4">Saisissez ce code ci-contre, puis cliquez sur Activer.</li>
+      </ol>
+    </div>
+
+    <div>
+      <div class="card" style="margin-bottom:16px">
+        <h3 data-i18n="lic_activate">Activation</h3>
+        <p class="hint" data-i18n="lic_activated">Saisissez le code d'activation reçu après paiement. Format : SRMA-XXXX-XXXX-XXXX.</p>
+        <div class="activate">
+          <input type="text" id="licCode" placeholder="SRMA-XXXX-XXXX-XXXX" maxlength="19" autocomplete="off" spellcheck="false">
+          <button class="btn teal" id="licActivate" data-i18n="lic_btn">Activer</button>
+        </div>
+        <div id="licMsg"></div>
+        <div style="margin-top:12px" class="acts">
+          <button class="btn sm ghost" id="licRemove" data-i18n="lic_remove">Retirer la licence de cet appareil</button>
+        </div>
+      </div>
+
+      <div class="credit">
+        <h3 data-i18n="lic_creator">Éditeur du logiciel</h3>
+        <div class="who">OUEDRAOGO W. Daniel</div>
+        <div class="contact">
+          ✉&nbsp; <a href="mailto:danielouedraogo1@gmail.com">danielouedraogo1@gmail.com</a><br>
+          ☎&nbsp; +226 61 00 25 69<br>
+          ☎&nbsp; +226 66 84 11 81<br>
+          ☎&nbsp; +226 78 55 18 67
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <h3 data-i18n="lic_faq">Bon à savoir</h3>
+    <p class="licnote" data-i18n="lic_faqd"></p>
+  </div>
+</section>
 </main>
 
+<!-- modal paywall -->
+<div class="modal" id="payModal">
+  <div class="box">
+    <div class="mh"><h3 data-i18n="pw_title">Limite de la version d'essai atteinte</h3><button class="xbtn" id="pwClose">×</button></div>
+    <div class="mb">
+      <p style="font-size:13px;color:var(--ink-2);line-height:1.6" id="pwBody"></p>
+      <div class="pay" style="margin:14px 0">
+        <div class="paycard om">
+          <div class="op">Orange Money</div>
+          <div class="no"><span>+226 66 84 11 81</span><button class="copybtn" data-copy="+22666841181">copier</button></div>
+          <div class="nm">OUEDRAOGO W. Daniel</div>
+        </div>
+        <div class="paycard tm">
+          <div class="op">Telecel Money</div>
+          <div class="no"><span>+226 78 55 18 67</span><button class="copybtn" data-copy="+22678551867">copier</button></div>
+          <div class="nm">OUEDRAOGO W. Daniel</div>
+        </div>
+      </div>
+      <div class="acts"><button class="btn teal" id="pwGo" data-i18n="pw_go">Voir les formules &amp; activer</button></div>
+    </div>
+  </div>
+</div>
+
 <footer>
-  <span data-i18n="foot">Studio SR·MA — outil d'appui méthodologique conforme à la logique PRISMA 2020. Les résultats doivent être vérifiés par un statisticien avant publication.</span>
+  <span data-i18n="foot" style="max-width:60ch">Studio SR·MA — outil d'appui méthodologique conforme à la logique PRISMA 2020. Les résultats doivent être vérifiés par un statisticien avant publication.</span>
+  <span class="fcredit" data-i18n="fcredit">Conçu par <b>OUEDRAOGO W. Daniel</b> · <a href="mailto:danielouedraogo1@gmail.com">danielouedraogo1@gmail.com</a></span>
 </footer>
 
 <input type="file" id="fileIn" accept=".json" style="display:none">
@@ -477,7 +689,41 @@ const I18N = {
   ai_nolog:"Aucune intervention enregistrée.",
   ai_off:"Fonctions IA indisponibles",
   ai_offd:"L'assistant fonctionne dans l'application ouverte depuis Claude. Sur une version hébergée (GitHub Pages, serveur institutionnel), il faut un relais serveur détenant la clé API — voir la documentation.",
-  ai_wait:"Analyse en cours…",ai_err:"Échec de l'appel au modèle"},
+  ai_wait:"Analyse en cours…",ai_err:"Échec de l'appel au modèle",
+  t8:"Licence",
+  p8t:"Licence & abonnement",p8d:"Activez la version complète pour lever la limite de la période d'essai (300 articles importés maximum).",
+  lic_plans:"Formules d'abonnement",lic_month:"Mensuel",lic_year:"Annuel",
+  lic_permonth:"par mois",lic_peryear:"par an — soit 2 mois offerts",
+  lic_f_unlim:"Import et sélection d'articles illimités",
+  lic_f_all:"Tous les modules : biais, extraction, méta-analyse, PRISMA",
+  lic_f_updates:"Mises à jour incluses",lic_f_priority:"Assistance prioritaire",
+  lic_pay:"Paiement par mobile money",
+  lic_payd:"Effectuez le paiement du montant correspondant à la formule choisie sur l'un des numéros ci-dessous.",
+  lic_how:"Comment activer",
+  lic_s1:"Payez 10 000 FCFA (mois) ou 100 000 FCFA (an) sur Orange Money ou Telecel Money.",
+  lic_s2:"Envoyez la capture du paiement et votre e-mail au créateur (WhatsApp ou e-mail ci-dessous).",
+  lic_s3:"Vous recevez en retour un code d'activation.",
+  lic_s4:"Saisissez ce code ci-contre, puis cliquez sur Activer.",
+  lic_activate:"Activation",
+  lic_activated:"Saisissez le code d'activation reçu après paiement. Format : SRMA-XXXX-XXXX-XXXX.",
+  lic_btn:"Activer",lic_remove:"Retirer la licence de cet appareil",
+  lic_creator:"Éditeur du logiciel",lic_faq:"Bon à savoir",
+  lic_faqd:"Votre licence est enregistrée sur cet appareil. Elle reste valable même hors ligne jusqu'à son échéance. Vos projets ne sont jamais bloqués : même sans licence, les projets déjà créés restent consultables et exportables — seule l'importation de nouveaux articles au-delà de 300 est réservée à la version complète. Pour utiliser la licence sur un autre ordinateur, saisissez-y le même code. En cas de difficulté, contactez l'éditeur.",
+  lic_trial:"Version d'essai",lic_active:"Licence active",lic_expired:"Licence expirée",
+  lic_used:"articles importés",lic_of:"sur",lic_unlimited:"illimité",
+  lic_expires:"expire le",lic_since:"activée le",lic_planM:"Abonnement mensuel",lic_planY:"Abonnement annuel",
+  lic_ok:"✓ Licence activée avec succès. Merci !",
+  lic_bad:"Code invalide. Vérifiez la saisie ou contactez l'éditeur.",
+  lic_exp:"Ce code a expiré. Renouvelez votre abonnement.",
+  lic_removed:"Licence retirée de cet appareil.",
+  lic_confirmRemove:"Retirer la licence de cet appareil ? Vous repasserez en version d'essai (le code reste réutilisable).",
+  copied:"copié",
+  pw_title:"Limite de la version d'essai atteinte",
+  pw_body:"La version d'essai permet d'importer jusqu'à 300 articles. Vous en êtes à {n}. Pour continuer à importer et sélectionner sans limite, activez un abonnement.",
+  pw_go:"Voir les formules & activer",
+  trial_block:"Limite d'essai : 300 articles maximum. Activez un abonnement pour continuer.",
+  trial_partial:"Seuls {n} article(s) ont été importés pour respecter la limite d'essai de 300. Activez un abonnement pour le reste.",
+  fcredit:'Conçu par <b>OUEDRAOGO W. Daniel</b> · <a href="mailto:danielouedraogo1@gmail.com">danielouedraogo1@gmail.com</a>'},
  en:{brandsub:"Systematic review studio",exportProj:"Export",importProj:"Import",demo:"Demo",
   t1:"Project",t2:"Screening",t3:"Quality & bias",t4:"Extraction",t5:"Analysis",t6:"PRISMA & report",
   p1t:"Project protocol",p1d:"Define the research question (PICO), eligibility criteria and sources. Everything is saved automatically.",
@@ -529,7 +775,41 @@ const I18N = {
   ai_nolog:"No intervention recorded.",
   ai_off:"AI features unavailable",
   ai_offd:"The assistant works in the app opened from Claude. On a hosted version (GitHub Pages, institutional server) a server-side relay holding the API key is required — see the documentation.",
-  ai_wait:"Analysing…",ai_err:"Model call failed"}
+  ai_wait:"Analysing…",ai_err:"Model call failed",
+  t8:"Licence",
+  p8t:"Licence & subscription",p8d:"Activate the full version to lift the trial limit (max 300 imported records).",
+  lic_plans:"Subscription plans",lic_month:"Monthly",lic_year:"Yearly",
+  lic_permonth:"per month",lic_peryear:"per year — 2 months free",
+  lic_f_unlim:"Unlimited record import and screening",
+  lic_f_all:"All modules: bias, extraction, meta-analysis, PRISMA",
+  lic_f_updates:"Updates included",lic_f_priority:"Priority support",
+  lic_pay:"Payment by mobile money",
+  lic_payd:"Pay the amount for your chosen plan to one of the numbers below.",
+  lic_how:"How to activate",
+  lic_s1:"Pay 10,000 FCFA (month) or 100,000 FCFA (year) via Orange Money or Telecel Money.",
+  lic_s2:"Send the payment screenshot and your e-mail to the creator (WhatsApp or e-mail below).",
+  lic_s3:"You receive an activation code in return.",
+  lic_s4:"Enter the code opposite, then click Activate.",
+  lic_activate:"Activation",
+  lic_activated:"Enter the activation code received after payment. Format: SRMA-XXXX-XXXX-XXXX.",
+  lic_btn:"Activate",lic_remove:"Remove licence from this device",
+  lic_creator:"Software publisher",lic_faq:"Good to know",
+  lic_faqd:"Your licence is stored on this device and stays valid offline until it expires. Your projects are never locked: even without a licence, existing projects remain viewable and exportable — only importing new records beyond 300 requires the full version. To use the licence on another computer, enter the same code there. If you have any trouble, contact the publisher.",
+  lic_trial:"Trial version",lic_active:"Licence active",lic_expired:"Licence expired",
+  lic_used:"records imported",lic_of:"of",lic_unlimited:"unlimited",
+  lic_expires:"expires on",lic_since:"activated on",lic_planM:"Monthly subscription",lic_planY:"Yearly subscription",
+  lic_ok:"✓ Licence activated successfully. Thank you!",
+  lic_bad:"Invalid code. Check your entry or contact the publisher.",
+  lic_exp:"This code has expired. Please renew your subscription.",
+  lic_removed:"Licence removed from this device.",
+  lic_confirmRemove:"Remove the licence from this device? You will return to the trial version (the code stays reusable).",
+  copied:"copied",
+  pw_title:"Trial limit reached",
+  pw_body:"The trial version allows importing up to 300 records. You are at {n}. To keep importing and screening without limits, activate a subscription.",
+  pw_go:"See plans & activate",
+  trial_block:"Trial limit: 300 records maximum. Activate a subscription to continue.",
+  trial_partial:"Only {n} record(s) were imported to respect the 300-record trial limit. Activate a subscription for the rest.",
+  fcredit:'Designed by <b>OUEDRAOGO W. Daniel</b> · <a href="mailto:danielouedraogo1@gmail.com">danielouedraogo1@gmail.com</a>'}
 };
 let LANG='fr';
 const t=k=>(I18N[LANG][k]!==undefined?I18N[LANG][k]:(I18N.fr[k]||k));
@@ -550,6 +830,13 @@ let S=blank();
 const mem={};
 /* Persistance navigateur. Repli en mémoire si le stockage est bloqué
    (navigation privée, restrictions file://) : l'export JSON reste disponible. */
+/* Sonde : certains contextes (navigation privée, restrictions file://,
+   stockage désactivé) bloquent localStorage. Mieux vaut le dire que laisser
+   croire à un enregistrement qui n'a pas lieu. */
+let STOCKAGE_OK=true;
+try{ localStorage.setItem('__srma_probe','1'); localStorage.removeItem('__srma_probe'); }
+catch(e){ STOCKAGE_OK=false; }
+
 const Store={
   async get(k){ try{ const v=localStorage.getItem(k); return v?JSON.parse(v):null }catch(e){ return mem[k]||null } },
   async set(k,v){ mem[k]=v; try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} },
@@ -561,9 +848,74 @@ function save(){
   clearTimeout(saveT);
   saveT=setTimeout(async()=>{
     await Store.set(KEY,S);
-    document.getElementById('saveChip').textContent='✓ '+t('saved');
+    document.getElementById('saveChip').textContent=STOCKAGE_OK?('✓ '+t('saved')):(LANG==='fr'?'⚠ mémoire seule':'⚠ memory only');
   },700);
 }
+
+/* =========================================================================
+   1bis. LICENCE
+   -------------------------------------------------------------------------
+   Modèle : paiement mobile money -> l'éditeur confirme -> il envoie un code
+   d'activation que l'application valide HORS LIGNE. Le code encode la formule
+   et la date d'échéance, protégées par une somme de contrôle secrète.
+
+   NOTE DE SÉCURITÉ (assumée) : la validation étant hors ligne, la logique et
+   la clé vivent dans la page. C'est un dispositif dissuasif, adapté à une
+   diffusion par mobile money, PAS une protection inviolable. Pour un contrôle
+   strict, il faudrait une validation côté serveur (voir la documentation).
+   Le même secret est utilisé par le générateur privé « generateur-licence.html ».
+   ========================================================================= */
+const LKEY='srma_license_v1';
+const TRIAL_MAX=300;                       // articles importables en version d'essai
+const LICENSE_SECRET='OWD-SRMA-2026-b7f3a9-KZ-ARSN';   // doit être identique dans le générateur
+
+/* cyrb53 — hachage 53 bits déterministe, sans dépendance */
+function cyrb53(str,seed=0){
+  let h1=0xdeadbeef^seed, h2=0x41c6ce57^seed;
+  for(let i=0,ch;i<str.length;i++){ch=str.charCodeAt(i);
+    h1=Math.imul(h1^ch,2654435761); h2=Math.imul(h2^ch,1597334677);}
+  h1=Math.imul(h1^(h1>>>16),2246822507); h1^=Math.imul(h2^(h2>>>13),3266489909);
+  h2=Math.imul(h2^(h2>>>16),2246822507); h2^=Math.imul(h1^(h1>>>13),3266489909);
+  return 4294967296*(2097151&h2)+(h1>>>0);
+}
+/* somme de contrôle : 7 caractères base36 majuscules */
+function licChecksum(payload){
+  const n=cyrb53(payload+'|'+LICENSE_SECRET);
+  return n.toString(36).toUpperCase().padStart(7,'0').slice(-7);
+}
+function groupCode(raw){ return 'SRMA-'+raw.slice(0,4)+'-'+raw.slice(4,8)+'-'+raw.slice(8,12); }
+/* génère un code (utilisé par le générateur ; présent ici pour cohérence/tests)
+   plan : 'M' | 'Y' ; expiryYYYYMMDD : chaîne de 8 chiffres */
+function makeLicenseCode(plan,expiryYYYYMMDD){
+  const payload=plan+expiryYYYYMMDD;                 // 1 + 8 = 9
+  const raw=payload+licChecksum(payload).slice(0,3); // 9 + 3 = 12
+  return groupCode(raw);
+}
+/* valide un code -> {plan,expiry} ou null */
+function checkLicenseCode(code){
+  const raw=(code||'').toUpperCase().replace(/[^A-Z0-9]/g,'').replace(/^SRMA/,'');
+  if(raw.length!==12)return null;
+  const plan=raw[0], expiry=raw.slice(1,9), chk=raw.slice(9,12);
+  if(plan!=='M'&&plan!=='Y')return null;
+  if(!/^\d{8}$/.test(expiry))return null;
+  if(licChecksum(plan+expiry).slice(0,3)!==chk)return null;
+  return {plan,expiry};
+}
+const todayYMD=()=>{const d=new Date();return d.getFullYear()*1e4+(d.getMonth()+1)*100+d.getDate();};
+const ymdToDate=s=>`${s.slice(0,4)}-${s.slice(4,6)}-${s.slice(6,8)}`;
+
+let LIC=null;   // {plan,expiry,code,activatedAt} ou null
+function licValid(){ return LIC && LIC.plan && parseInt(LIC.expiry,10)>=todayYMD(); }
+function licExpired(){ return LIC && parseInt(LIC.expiry,10)<todayYMD(); }
+async function loadLicense(){ try{LIC=await Store.get(LKEY);}catch(e){LIC=null;} }
+async function saveLicense(){ try{await Store.set(LKEY,LIC);}catch(e){} }
+
+/* nombre d'articles importés (réfs non manuelles comptent aussi ; tout compte
+   sauf le jeu de démonstration, qui n'entre pas dans la limite) */
+function importedCount(){ return (S.refs||[]).filter(r=>!r.demo).length; }
+function trialRemaining(){ return Math.max(0, TRIAL_MAX-importedCount()); }
+/* combien de nouveaux articles peut-on encore importer ? Infini si licence. */
+function importAllowance(){ return licValid()? Infinity : trialRemaining(); }
 
 /* =========================================================================
    2. MATH
@@ -708,11 +1060,11 @@ const COLOR={low:'var(--green)',some:'var(--amber)',high:'var(--rust)',crit:'#6d
 /* =========================================================================
    4. TABS
    ========================================================================= */
-const TABS=[['s-project','t1'],['s-screen','t2'],['s-bias','t3'],['s-extract','t4'],['s-analysis','t5'],['s-report','t6'],['s-ai','t7']];
+const TABS=[['s-project','t1'],['s-screen','t2'],['s-bias','t3'],['s-extract','t4'],['s-analysis','t5'],['s-report','t6'],['s-ai','t7'],['s-license','t8']];
 let cur=0;
 function buildTabs(){
   document.getElementById('tabs').innerHTML=TABS.map((x,i)=>
-    `<button class="tab ${i===cur?'on':''}" data-i="${i}"><span class="i">0${i+1}</span>${t(x[1])}</button>`).join('');
+    `<button class="tab ${x[0]==='s-license'?'locktab':''} ${i===cur?'on':''}" data-i="${i}"><span class="i">${x[0]==='s-license'?(licValid()?'✓':'○'):'0'+(i+1)}</span>${t(x[1])}</button>`).join('');
   document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
     cur=+b.dataset.i;
     document.querySelectorAll('section').forEach((s,i)=>s.classList.toggle('on',i===cur));
@@ -775,9 +1127,13 @@ function parseRefs(txt,src){
       out.push({title:p[0],authors:p[1]||'',year:p[2]||'',journal:p[3]||'',doi:p[4]||'',abstract:p[5]||''});
     });
   }
-  out.forEach(r=>S.refs.push(Object.assign({id:uid(),source:src,dup:false,t1:'',t2:'',r1:'',r2:'',
+  // Limite de la version d'essai : on n'importe que ce qui tient dans le quota.
+  const allow=importAllowance();
+  const kept=out.slice(0, allow===Infinity?out.length:allow);
+  const dropped=out.length-kept.length;
+  kept.forEach(r=>S.refs.push(Object.assign({id:uid(),source:src,dup:false,t1:'',t2:'',r1:'',r2:'',
     tool:'rob2',rob:{},robOverall:'',data:{},subgroup:'',note:''},r)));
-  return out.length;
+  return {added:kept.length, dropped, total:out.length};
 }
 const EXC_REASONS={fr:['Population non pertinente','Intervention/exposition différente','Comparateur absent','Critère de jugement absent','Design inadapté','Doublon','Texte intégral indisponible','Données insuffisantes','Langue','Autre'],
  en:['Wrong population','Wrong intervention/exposure','No comparator','Outcome not reported','Wrong study design','Duplicate','Full text unavailable','Insufficient data','Language','Other']};
@@ -821,7 +1177,7 @@ function renderRefs(){
     });
   });
 }
-const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const esc=s=>(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const shortName=r=>{const a=(r.authors||'').split(/[;,]/)[0].trim()||(LANG==='fr'?'Anonyme':'Anon');return a.split(/\s+/)[0]+' '+(r.year||'s.d.');};
 
 /* =========================================================================
@@ -868,21 +1224,24 @@ function trafficLight(inc){
   let html=`<div class="card"><h3>${t('trafficlight')}</h3>`;
   Object.keys(groups).forEach(tk=>{
     const T=TOOLS[tk], rs=groups[tk];
-    const W=760, colW=Math.min(74,(W-230)/(T.d.length+1)), H=34+rs.length*28+16;
-    let s=`<div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" font-family="IBM Plex Sans" font-size="11">`;
-    s+=`<text x="0" y="12" font-size="10.5" fill="#847c70" letter-spacing="1">${esc(T.name[LANG].toUpperCase())}</text>`;
-    T.d.forEach((d,i)=>{s+=`<text x="${230+colW*i+colW/2}" y="30" text-anchor="middle" fill="#4b4640" font-size="10">${d.id}</text>`});
-    s+=`<text x="${230+colW*T.d.length+colW/2}" y="30" text-anchor="middle" fill="#191713" font-size="10" font-weight="600">${LANG==='fr'?'Global':'Overall'}</text>`;
+    const NM=214, W=760, colW=Math.min(74,(W-NM)/(T.d.length+1)), top=40, H=top+rs.length*29+10;
+    const cxOf=i=>NM+colW*i+colW/2;
+    let s=`<div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif" font-size="11">`;
+    s+=`<text x="0" y="13" font-family="Fraunces,Georgia,serif" font-size="12.5" font-weight="600" fill="#17140f">${esc(T.name[LANG])}</text>`;
+    // bandeau d'en-tête des domaines
+    s+=`<rect x="${NM-6}" y="22" width="${colW*(T.d.length+1)+6}" height="20" fill="#faf8f3" rx="4"/>`;
+    T.d.forEach((d,i)=>{s+=`<text x="${cxOf(i)}" y="36" text-anchor="middle" fill="#464038" font-size="10" font-weight="500"><title>${esc(d[LANG]||d.id)}</title>${d.id}</text>`});
+    s+=`<text x="${cxOf(T.d.length)}" y="36" text-anchor="middle" fill="#17140f" font-size="10" font-weight="700">${LANG==='fr'?'Global':'Overall'}</text>`;
     rs.forEach((r,ri)=>{
-      const y=34+ri*28+14;
-      s+=`<text x="0" y="${y+4}" fill="#191713">${esc(shortName(r))}</text>`;
-      T.d.forEach((d,i)=>{const v=r.rob[d.id];
-        s+=`<circle cx="${230+colW*i+colW/2}" cy="${y}" r="8.5" fill="${v?COLOR[v]:'#e9e3d6'}" stroke="#d6cebd"/>`;
-        if(v==='low')s+=`<text x="${230+colW*i+colW/2}" y="${y+3.5}" text-anchor="middle" fill="#fff" font-size="9">+</text>`;
-        if(v==='high'||v==='crit')s+=`<text x="${230+colW*i+colW/2}" y="${y+3.5}" text-anchor="middle" fill="#fff" font-size="9">−</text>`;
-        if(v==='some')s+=`<text x="${230+colW*i+colW/2}" y="${y+3.5}" text-anchor="middle" fill="#fff" font-size="9">!</text>`;});
-      const o=r.robOverall;
-      s+=`<circle cx="${230+colW*T.d.length+colW/2}" cy="${y}" r="9.5" fill="${o?COLOR[o]:'#e9e3d6'}" stroke="#191713" stroke-width="1"/>`;
+      const y=top+ri*29+16;
+      if(ri%2===1)s+=`<rect x="0" y="${y-14}" width="${W}" height="29" fill="#faf8f3"/>`;
+      s+=`<text x="0" y="${y+4}" fill="#17140f">${esc(shortName(r))}</text>`;
+      T.d.forEach((d,i)=>{const v=r.rob[d.id]; const sym=v==='low'?'+':(v==='high'||v==='crit')?'−':v==='some'?'!':'';
+        s+=`<circle cx="${cxOf(i)}" cy="${y}" r="9" fill="${v?COLOR[v]:'#efeae0'}" stroke="#fff" stroke-width="1.5"/>`;
+        if(sym)s+=`<text x="${cxOf(i)}" y="${y+3.6}" text-anchor="middle" fill="#fff" font-size="10" font-weight="700">${sym}</text>`;});
+      const o=r.robOverall, osym=o==='low'?'+':(o==='high'||o==='crit')?'−':o==='some'?'!':'';
+      s+=`<circle cx="${cxOf(T.d.length)}" cy="${y}" r="10" fill="${o?COLOR[o]:'#efeae0'}" stroke="#17140f" stroke-width="1.4"/>`;
+      if(osym)s+=`<text x="${cxOf(T.d.length)}" y="${y+3.8}" text-anchor="middle" fill="#fff" font-size="11" font-weight="700">${osym}</text>`;
     });
     s+='</svg></div>';
     html+=s+`<div class="legend">${T.j.map(j=>`<span><i style="background:${COLOR[j.k]}"></i>${j[LANG]}</span>`).join('')}</div>`;
@@ -952,7 +1311,7 @@ function renderAnalysis(){
   const btn=document.getElementById('btnSvg');
   if(btn)btn.onclick=()=>dlSvg(document.querySelector('#s-report svg'),'prisma');
 }
-/* --- forest plot --- */
+/* --- forest plot (qualité publication) --- */
 function forest(it,res,m){
   const log=MEASURES[m].log, nul=MEASURES[m].null;
   const tx=v=>log?Math.log(v):v;
@@ -960,70 +1319,104 @@ function forest(it,res,m){
   it.forEach(x=>{vals.push(x.y-1.96*Math.sqrt(x.v),x.y+1.96*Math.sqrt(x.v))});
   vals.push(res.lo,res.hi,tx(nul));
   let lo=Math.min(...vals), hi=Math.max(...vals);
-  const pad=(hi-lo)*.08||1; lo-=pad; hi+=pad;
-  const W=880, L=178, R=250, PW=W-L-R, rowH=21, top=52, H=top+it.length*rowH+72;
+  const pad=(hi-lo)*.09||1; lo-=pad; hi+=pad;
+  const W=900, L=190, R=252, PW=W-L-R, rowH=23, top=64, plotBot=top+it.length*rowH+6, H=plotBot+92;
   const X=v=>L+(v-lo)/(hi-lo)*PW;
   const dsp=v=>log?Math.exp(v):v;
-  let s=`<svg viewBox="0 0 ${W} ${H}" font-family="IBM Plex Sans" font-size="11.5">
-  <style>.mn{font-family:'IBM Plex Mono';font-size:11px}</style>
-  <text x="0" y="14" font-size="10" letter-spacing="1.2" fill="#847c70">${t('study').toUpperCase()}</text>
-  <text x="${L+PW+14}" y="14" font-size="10" letter-spacing="1.2" fill="#847c70">${m} [${t('ci')}]</text>
-  <text x="${W-8}" y="14" font-size="10" letter-spacing="1.2" fill="#847c70" text-anchor="end">${t('weight').toUpperCase()}</text>
-  <line x1="0" y1="22" x2="${W}" y2="22" stroke="#c2b8a3"/>`;
-  // ticks
+  const INK='#17140f', MUT='#8a8175', RULE='#ddd6c8', GRID='#ece7db', TEAL='#0d564d', RUST='#a5361f', LINE='#464038';
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif" font-size="12">
+  <style>.mn{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}</style>
+  <rect x="0" y="0" width="${W}" height="${H}" fill="#ffffff"/>
+  <rect x="0" y="0" width="${W}" height="30" fill="#faf8f3"/>
+  <text x="4" y="20" font-family="Fraunces,Georgia,serif" font-size="14" font-weight="600" fill="${INK}">${t('forest')} — ${esc(MEASURES[m][LANG])}</text>
+  <text x="4" y="52" font-size="9.5" letter-spacing="1.3" fill="${MUT}">${t('study').toUpperCase()}</text>
+  <text x="${L+PW+16}" y="52" font-size="9.5" letter-spacing="1.3" fill="${MUT}">${m} [${t('ci')} 95%]</text>
+  <text x="${W-6}" y="52" font-size="9.5" letter-spacing="1.3" fill="${MUT}" text-anchor="end">${t('weight').toUpperCase()}</text>
+  <line x1="4" y1="58" x2="${W-4}" y2="58" stroke="${RULE}" stroke-width="1"/>`;
+  // gridlines + ticks
   let ticks=[];
-  if(log){[.05,.1,.2,.5,1,2,5,10,20].forEach(v=>{if(Math.log(v)>=lo&&Math.log(v)<=hi)ticks.push(Math.log(v))});}
+  if(log){[.05,.1,.2,.5,1,2,5,10,20,50].forEach(v=>{if(Math.log(v)>=lo&&Math.log(v)<=hi)ticks.push(Math.log(v))});}
   if(!ticks.length){for(let i=0;i<=4;i++)ticks.push(lo+(hi-lo)*i/4);}
-  ticks.forEach(v=>{s+=`<line x1="${X(v)}" y1="${top-14}" x2="${X(v)}" y2="${top+it.length*rowH+4}" stroke="#e9e3d6"/>
-    <text x="${X(v)}" y="${top+it.length*rowH+20}" text-anchor="middle" class="mn" fill="#847c70">${num(dsp(v),dsp(v)<1?2:(dsp(v)>=10?0:1))}</text>`;});
-  s+=`<line x1="${X(tx(nul))}" y1="${top-14}" x2="${X(tx(nul))}" y2="${top+it.length*rowH+4}" stroke="#191713" stroke-dasharray="3 3"/>`;
+  ticks.forEach(v=>{s+=`<line x1="${X(v)}" y1="${top-6}" x2="${X(v)}" y2="${plotBot}" stroke="${GRID}" stroke-width="1"/>
+    <text x="${X(v)}" y="${plotBot+16}" text-anchor="middle" class="mn" font-size="10.5" fill="${MUT}">${num(dsp(v),dsp(v)<1?2:(dsp(v)>=10?0:1))}</text>`;});
+  // ligne d'effet nul
+  s+=`<line x1="${X(tx(nul))}" y1="${top-6}" x2="${X(tx(nul))}" y2="${plotBot}" stroke="${INK}" stroke-width="1.2" stroke-dasharray="4 3"/>`;
+  // lignes d'étude
   it.forEach((x,i)=>{
-    const y=top+i*rowH, se=Math.sqrt(x.v), a=Math.max(lo,x.y-1.96*se), b=Math.min(hi,x.y+1.96*se);
-    const bs=Math.sqrt(res.w[i]/100)*8+2.5;
+    const y=top+i*rowH+rowH/2-2, se=Math.sqrt(x.v), a=Math.max(lo,x.y-1.96*se), b=Math.min(hi,x.y+1.96*se);
+    const bs=Math.sqrt(res.w[i]/100)*11+3;
     const rob=x.ref.robOverall;
-    s+=`<text x="0" y="${y+4}" fill="#191713">${esc(x.name)}</text>`;
-    if(rob)s+=`<circle cx="${L-14}" cy="${y}" r="4" fill="${COLOR[rob]}"/>`;
-    s+=`<line x1="${X(a)}" y1="${y}" x2="${X(b)}" y2="${y}" stroke="#4b4640" stroke-width="1.1"/>
-      <line x1="${X(a)}" y1="${y-3}" x2="${X(a)}" y2="${y+3}" stroke="#4b4640"/>
-      <line x1="${X(b)}" y1="${y-3}" x2="${X(b)}" y2="${y+3}" stroke="#4b4640"/>
-      <rect x="${X(x.y)-bs/2}" y="${y-bs/2}" width="${bs}" height="${bs}" fill="#0f5d55"/>
-      <text x="${L+PW+14}" y="${y+4}" class="mn" fill="#4b4640">${num(dsp(x.y),2)} [${num(dsp(x.y-1.96*se),2)}, ${num(dsp(x.y+1.96*se),2)}]</text>
-      <text x="${W-8}" y="${y+4}" class="mn" text-anchor="end" fill="#847c70">${num(res.w[i],1)} %</text>`;
+    if(i%2===1)s+=`<rect x="4" y="${y-rowH/2+1}" width="${W-8}" height="${rowH}" fill="#faf8f3"/>`;
+    if(rob)s+=`<circle cx="${L-13}" cy="${y}" r="4.2" fill="${COLOR[rob]}" stroke="#fff" stroke-width=".8"/>`;
+    s+=`<text x="4" y="${y+3.5}" fill="${INK}">${esc(x.name)}</text>
+      <line x1="${X(a)}" y1="${y}" x2="${X(b)}" y2="${y}" stroke="${LINE}" stroke-width="1.3"/>
+      <line x1="${X(a)}" y1="${y-3.5}" x2="${X(a)}" y2="${y+3.5}" stroke="${LINE}" stroke-width="1.3"/>
+      <line x1="${X(b)}" y1="${y-3.5}" x2="${X(b)}" y2="${y+3.5}" stroke="${LINE}" stroke-width="1.3"/>
+      <rect x="${X(x.y)-bs/2}" y="${y-bs/2}" width="${bs}" height="${bs}" fill="${TEAL}" stroke="#fff" stroke-width=".8" rx="1"/>
+      <text x="${L+PW+16}" y="${y+3.5}" class="mn" font-size="11" fill="${LINE}">${num(dsp(x.y),2)} [${num(dsp(x.y-1.96*se),2)}, ${num(dsp(x.y+1.96*se),2)}]</text>
+      <text x="${W-6}" y="${y+3.5}" class="mn" font-size="11" text-anchor="end" fill="${MUT}">${num(res.w[i],1)}%</text>`;
   });
-  // diamond
-  const dy=top+it.length*rowH+34, cx=X(res.th), x1=X(Math.max(lo,res.lo)), x2=X(Math.min(hi,res.hi));
-  s+=`<line x1="0" y1="${dy-14}" x2="${W}" y2="${dy-14}" stroke="#c2b8a3"/>
-   <polygon points="${x1},${dy} ${cx},${dy-7} ${x2},${dy} ${cx},${dy+7}" fill="#b0402a"/>
-   <text x="0" y="${dy+4}" font-weight="600">${S.model==='random'?(LANG==='fr'?'Effet aléatoire (DL)':'Random effects (DL)'):(LANG==='fr'?'Effet fixe (IV)':'Fixed effect (IV)')}</text>
-   <text x="${L+PW+14}" y="${dy+4}" class="mn" font-weight="600" fill="#b0402a">${num(dsp(res.th),2)} [${num(dsp(res.lo),2)}, ${num(dsp(res.hi),2)}]</text>
-   <text x="${W-8}" y="${dy+4}" class="mn" text-anchor="end">100 %</text>
-   <text x="${X(tx(nul))-8}" y="${dy+28}" text-anchor="end" font-size="10" fill="#847c70">◄ ${t('favors1')}</text>
-   <text x="${X(tx(nul))+8}" y="${dy+28}" font-size="10" fill="#847c70">${t('favors2')} ►</text>
-   <text x="0" y="${dy+28}" font-size="10" fill="#847c70">I² = ${num(res.I2,1)} % · τ² = ${num(res.tau2,3)} · Q = ${num(res.Q,1)} (p = ${fmtP(res.pQ)})</text>
+  s+=`<line x1="4" y1="${plotBot}" x2="${W-4}" y2="${plotBot}" stroke="${RULE}" stroke-width="1"/>`;
+  // losange de synthèse
+  const dy=plotBot+30, cx=X(res.th), x1=X(Math.max(lo,res.lo)), x2=X(Math.min(hi,res.hi));
+  s+=`<polygon points="${x1},${dy} ${cx},${dy-8} ${x2},${dy} ${cx},${dy+8}" fill="${RUST}" stroke="#7d2817" stroke-width=".8"/>
+   <text x="4" y="${dy+4}" font-weight="600" fill="${INK}">${S.model==='random'?(LANG==='fr'?'Effet aléatoire (DL)':'Random effects (DL)'):(LANG==='fr'?'Effet fixe (IV)':'Fixed effect (IV)')}</text>
+   <text x="${L+PW+16}" y="${dy+4}" class="mn" font-size="11.5" font-weight="600" fill="${RUST}">${num(dsp(res.th),2)} [${num(dsp(res.lo),2)}, ${num(dsp(res.hi),2)}]</text>
+   <text x="${W-6}" y="${dy+4}" class="mn" font-size="11" text-anchor="end" fill="${INK}">100%</text>`;
+  // libellés directionnels + hétérogénéité
+  const ay=dy+32;
+  s+=`<line x1="${X(tx(nul))}" y1="${ay-8}" x2="${X(tx(nul))-70}" y2="${ay-8}" stroke="${MUT}" stroke-width=".8" marker-end="url(#fa1)"/>
+   <line x1="${X(tx(nul))}" y1="${ay-8}" x2="${X(tx(nul))+70}" y2="${ay-8}" stroke="${MUT}" stroke-width=".8" marker-end="url(#fa2)"/>
+   <defs><marker id="fa1" markerWidth="7" markerHeight="7" refX="5" refY="3.5" orient="auto"><path d="M6,1 L1,3.5 L6,6" fill="none" stroke="${MUT}"/></marker>
+   <marker id="fa2" markerWidth="7" markerHeight="7" refX="2" refY="3.5" orient="auto"><path d="M1,1 L6,3.5 L1,6" fill="none" stroke="${MUT}"/></marker></defs>
+   <text x="${X(tx(nul))-74}" y="${ay-5}" text-anchor="end" font-size="10" fill="${MUT}">${t('favors1')}</text>
+   <text x="${X(tx(nul))+74}" y="${ay-5}" font-size="10" fill="${MUT}">${t('favors2')}</text>
+   <text x="4" y="${ay+16}" font-size="10.5" fill="${MUT}">${LANG==='fr'?'Hétérogénéité':'Heterogeneity'} : I² = ${num(res.I2,1)}% · τ² = ${num(res.tau2,3)} · Q = ${num(res.Q,1)} (df ${res.df}, p = ${fmtP(res.pQ)})${res.piLo!==undefined?` · ${LANG==='fr'?'IP 95%':'95% PI'} [${num(dsp(res.piLo),2)}, ${num(dsp(res.piHi),2)}]`:''}</text>
   </svg>`;
   return s;
 }
-/* --- funnel --- */
+/* --- funnel plot (avec zones de contour 90/95/99 %) --- */
 function funnel(it,res,m){
-  const W=560,H=380,L=64,B=44,T=18,R=18, PW=W-L-R, PH=H-B-T;
-  const ses=it.map(x=>Math.sqrt(x.v)); const seMax=Math.max(...ses)*1.12;
-  const spread=1.96*seMax;
-  let lo=Math.min(res.th-spread,...it.map(x=>x.y))-.1, hi=Math.max(res.th+spread,...it.map(x=>x.y))+.1;
+  const W=580,H=420,L=68,B=54,T=44,R=22, PW=W-L-R, PH=H-B-T;
+  const ses=it.map(x=>Math.sqrt(x.v)); const seMax=Math.max(...ses)*1.15||1;
+  const spread=2.58*seMax;
+  let lo=Math.min(res.th-spread,...it.map(x=>x.y))-.05, hi=Math.max(res.th+spread,...it.map(x=>x.y))+.05;
   const X=v=>L+(v-lo)/(hi-lo)*PW, Y=se=>T+se/seMax*PH;
   const dsp=v=>MEASURES[m].log?Math.exp(v):v;
-  let s=`<svg viewBox="0 0 ${W} ${H}" font-family="IBM Plex Sans" font-size="10.5">
-   <rect x="${L}" y="${T}" width="${PW}" height="${PH}" fill="#fbf9f4" stroke="#e9e3d6"/>`;
-  // pseudo 95% CI funnel
-  s+=`<polygon points="${X(res.th)},${Y(0)} ${X(res.th-1.96*seMax)},${Y(seMax)} ${X(res.th+1.96*seMax)},${Y(seMax)}" fill="rgba(15,93,85,.07)" stroke="#0f5d55" stroke-dasharray="4 3" stroke-width=".8"/>`;
-  s+=`<line x1="${X(res.th)}" y1="${T}" x2="${X(res.th)}" y2="${T+PH}" stroke="#b0402a" stroke-dasharray="3 3"/>`;
-  it.forEach((x,i)=>{s+=`<circle cx="${X(x.y)}" cy="${Y(ses[i])}" r="4.2" fill="rgba(25,23,19,.72)" stroke="#fbf9f4"/>`});
+  const INK='#17140f', MUT='#8a8175', RULE='#ddd6c8', TEAL='#0d564d', RUST='#a5361f';
+  const cx=res.th;
+  const tri=(z,fill)=>`<polygon points="${X(cx)},${Y(0)} ${X(Math.max(lo,cx-z*seMax))},${Y(seMax)} ${X(Math.min(hi,cx+z*seMax))},${Y(seMax)}" fill="${fill}"/>`;
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif" font-size="11">
+   <style>.mn{font-family:'IBM Plex Mono',monospace;font-variant-numeric:tabular-nums}</style>
+   <rect x="0" y="0" width="${W}" height="${H}" fill="#ffffff"/>
+   <rect x="0" y="0" width="${W}" height="30" fill="#faf8f3"/>
+   <text x="6" y="20" font-family="Fraunces,Georgia,serif" font-size="13.5" font-weight="600" fill="${INK}">${t('funnel')}</text>
+   <clipPath id="fclip"><rect x="${L}" y="${T}" width="${PW}" height="${PH}"/></clipPath>
+   <rect x="${L}" y="${T}" width="${PW}" height="${PH}" fill="#fcfbf7" stroke="${RULE}"/>
+   <g clip-path="url(#fclip)">`;
+  // zones de contour empilées (99 -> 95 -> 90)
+  s+=tri(2.58,'#ece7db')+tri(1.96,'#dbe8e4')+tri(1.645,'#eef3ec');
+  // bordures des pseudo-IC
+  [[1.96,'#0d564d'],[2.58,'#b0a894']].forEach(([z,c])=>{
+    s+=`<line x1="${X(cx)}" y1="${Y(0)}" x2="${X(Math.max(lo,cx-z*seMax))}" y2="${Y(seMax)}" stroke="${c}" stroke-width=".9" stroke-dasharray="4 3"/>
+        <line x1="${X(cx)}" y1="${Y(0)}" x2="${X(Math.min(hi,cx+z*seMax))}" y2="${Y(seMax)}" stroke="${c}" stroke-width=".9" stroke-dasharray="4 3"/>`;});
+  s+=`<line x1="${X(cx)}" y1="${T}" x2="${X(cx)}" y2="${T+PH}" stroke="${RUST}" stroke-width="1.1" stroke-dasharray="3 3"/>`;
+  it.forEach((x,i)=>{s+=`<circle cx="${X(x.y)}" cy="${Y(ses[i])}" r="4.4" fill="rgba(23,20,15,.7)" stroke="#fff" stroke-width="1"/>`});
+  s+=`</g>`;
+  // axes
   for(let i=0;i<=4;i++){const v=lo+(hi-lo)*i/4;
-    s+=`<text x="${X(v)}" y="${H-B+16}" text-anchor="middle" font-family="IBM Plex Mono" fill="#847c70">${num(dsp(v),2)}</text>`;}
+    s+=`<line x1="${X(v)}" y1="${T+PH}" x2="${X(v)}" y2="${T+PH+4}" stroke="${MUT}"/>
+        <text x="${X(v)}" y="${T+PH+18}" text-anchor="middle" class="mn" font-size="10" fill="${MUT}">${num(dsp(v),2)}</text>`;}
   for(let i=0;i<=4;i++){const se=seMax*i/4;
-    s+=`<text x="${L-8}" y="${Y(se)+3}" text-anchor="end" font-family="IBM Plex Mono" fill="#847c70">${num(se,2)}</text>
-        <line x1="${L-4}" y1="${Y(se)}" x2="${L}" y2="${Y(se)}" stroke="#c2b8a3"/>`;}
-  s+=`<text x="${L+PW/2}" y="${H-6}" text-anchor="middle" fill="#4b4640">${MEASURES[m][LANG]}</text>
-   <text transform="translate(14,${T+PH/2}) rotate(-90)" text-anchor="middle" fill="#4b4640">${LANG==='fr'?'Erreur standard':'Standard error'}</text></svg>`;
+    s+=`<text x="${L-8}" y="${Y(se)+3}" text-anchor="end" class="mn" font-size="10" fill="${MUT}">${num(se,2)}</text>
+        <line x1="${L-4}" y1="${Y(se)}" x2="${L}" y2="${Y(se)}" stroke="${MUT}"/>`;}
+  s+=`<text x="${L+PW/2}" y="${H-8}" text-anchor="middle" font-size="11" fill="#464038">${esc(MEASURES[m][LANG])}</text>
+   <text transform="translate(16,${T+PH/2}) rotate(-90)" text-anchor="middle" font-size="11" fill="#464038">${LANG==='fr'?'Erreur standard':'Standard error'}</text>
+   <g transform="translate(${L+8},${T+8})" font-size="9" fill="${MUT}">
+     <rect x="0" y="0" width="9" height="9" fill="#eef3ec"/><text x="13" y="8">p &gt; 0,10</text>
+     <rect x="0" y="13" width="9" height="9" fill="#dbe8e4"/><text x="13" y="21">0,05–0,10</text>
+     <rect x="0" y="26" width="9" height="9" fill="#ece7db"/><text x="13" y="34">0,01–0,05</text>
+   </g></svg>`;
   return s;
 }
 /* --- subgroups --- */
@@ -1068,21 +1461,29 @@ function prismaSvg(){
    {x:X1,y:438,w:BW,h:44,t:LANG==='fr'?'Études incluses dans la méta-analyse':'Studies included in meta-analysis',s:[`n = ${c.ana}`]}
   ];
   const H=Math.max(520,boxes[5].y+boxes[5].h+40);
-  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans" font-size="11">
-   <rect width="${W}" height="${H}" fill="#fbf9f4"/>
-   <defs><marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="#4b4640"/></marker></defs>
-   <text x="${X1}" y="26" font-family="Fraunces,Georgia,serif" font-size="16" font-weight="600" fill="#191713">${LANG==='fr'?'Diagramme de flux PRISMA 2020':'PRISMA 2020 flow diagram'}</text>
-   <text x="${X1}" y="42" font-size="10" fill="#847c70" letter-spacing=".6">${esc((S.title||'').slice(0,90))}</text>`;
+  const INK='#17140f', MUT='#8a8175', TEAL='#0d564d', RULE='#c7bda8', ARROW='#5a5349';
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif" font-size="11">
+   <rect width="${W}" height="${H}" fill="#ffffff"/>
+   <rect width="${W}" height="30" fill="#faf8f3"/>
+   <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="6.5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 z" fill="${ARROW}"/></marker>
+     <filter id="sh" x="-4%" y="-4%" width="108%" height="115%"><feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#17140f" flood-opacity="0.1"/></filter></defs>
+   <text x="${X1}" y="20" font-family="Fraunces,Georgia,serif" font-size="15.5" font-weight="600" fill="${INK}">${LANG==='fr'?'Diagramme de flux PRISMA 2020':'PRISMA 2020 flow diagram'}</text>
+   <text x="${X1}" y="50" font-size="10" fill="${MUT}" letter-spacing=".4">${esc((S.title||'').slice(0,90))}</text>
+   <text x="${X1-16}" y="88" transform="rotate(-90 ${X1-16} 88)" text-anchor="middle" font-size="9" letter-spacing="1.5" fill="${MUT}">${LANG==='fr'?'IDENTIFICATION':'IDENTIFICATION'}</text>
+   <text x="${X1-16}" y="223" transform="rotate(-90 ${X1-16} 223)" text-anchor="middle" font-size="9" letter-spacing="1.5" fill="${MUT}">${LANG==='fr'?'SÉLECTION':'SCREENING'}</text>
+   <text x="${X1-16}" y="415" transform="rotate(-90 ${X1-16} 415)" text-anchor="middle" font-size="9" letter-spacing="1.5" fill="${MUT}">${LANG==='fr'?'INCLUSION':'INCLUDED'}</text>`;
   boxes.forEach((b,i)=>{
-    s+=`<rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" fill="${i%2===0?'#f2eee4':'#fff'}" stroke="${i%2===0?'#191713':'#c2b8a3'}" stroke-width="${i%2===0?1.2:.9}" rx="2"/>
-        <text x="${b.x+11}" y="${b.y+17}" font-weight="600" fill="#191713">${esc(b.t)}</text>`;
-    b.s.filter(Boolean).forEach((l,j)=>{s+=`<text x="${b.x+11}" y="${b.y+32+j*13}" font-family="IBM Plex Mono" font-size="10" fill="#4b4640">${esc(l)}</text>`});
+    const excl=(i%2===1);   // colonne droite = exclusions
+    s+=`<rect x="${b.x}" y="${b.y}" width="${b.w}" height="${b.h}" fill="${excl?'#faf8f3':'#ffffff'}" stroke="${excl?RULE:TEAL}" stroke-width="${excl?1:1.4}" rx="7" filter="url(#sh)"/>`;
+    if(!excl)s+=`<rect x="${b.x}" y="${b.y}" width="3.5" height="${b.h}" fill="${TEAL}" rx="1.5"/>`;
+    s+=`<text x="${b.x+13}" y="${b.y+18}" font-weight="600" font-size="11" fill="${INK}">${esc(b.t)}</text>`;
+    b.s.filter(Boolean).forEach((l,j)=>{s+=`<text x="${b.x+13}" y="${b.y+33+j*13}" font-family="IBM Plex Mono" font-size="10" fill="#5a5349">${esc(l)}</text>`});
   });
-  const vline=(y1,y2)=>`<line x1="${X1+BW/2}" y1="${y1}" x2="${X1+BW/2}" y2="${y2}" stroke="#4b4640" marker-end="url(#ar)"/>`;
-  const hline=(y)=>`<line x1="${X1+BW}" y1="${y}" x2="${X2}" y2="${y}" stroke="#4b4640" marker-end="url(#ar)"/>`;
+  const vline=(y1,y2)=>`<line x1="${X1+BW/2}" y1="${y1}" x2="${X1+BW/2}" y2="${y2}" stroke="${ARROW}" stroke-width="1.3" marker-end="url(#ar)"/>`;
+  const hline=(y)=>`<line x1="${X1+BW}" y1="${y}" x2="${X2}" y2="${y}" stroke="${ARROW}" stroke-width="1.3" marker-end="url(#ar)"/>`;
   s+=vline(116,152)+vline(202,238)+vline(288,346)+vline(396,432);
   s+=hline(88)+hline(180)+hline(266);
-  s+=`<text x="${W-8}" y="${H-8}" text-anchor="end" font-size="9" fill="#847c70">Studio SR·MA — ${new Date().toLocaleDateString(LANG==='fr'?'fr-FR':'en-GB')}</text></svg>`;
+  s+=`<text x="${W-8}" y="${H-8}" text-anchor="end" font-size="9" fill="${MUT}">SR·MA Studio — ${new Date().toLocaleDateString(LANG==='fr'?'fr-FR':'en-GB')}</text></svg>`;
   return s;
 }
 function renderReport(){
@@ -1320,6 +1721,92 @@ function renderAiLog(){
    ${S.ailog.slice().reverse().map(l=>`<tr><td class="num">${new Date(l.at).toLocaleString(LANG==='fr'?'fr-FR':'en-GB')}</td><td>${esc(l.action)}</td><td>${esc(l.detail||'')}</td><td class="mono-s">${esc(l.model)}</td></tr>`).join('')}
    </tbody></table></div>`;
 }
+function renderStockage(){
+  const el=document.getElementById('stoWarn'); if(!el)return;
+  el.innerHTML=STOCKAGE_OK?'':`<div class="warn"><b>${LANG==='fr'?'Sauvegarde automatique indisponible.':'Automatic saving unavailable.'}</b> ${LANG==='fr'
+    ?'Ce navigateur bloque le stockage local : votre projet ne survivra pas à la fermeture de la fenêtre. Exportez-le en <code>.json</code> avant de fermer, et rechargez-le par <b>Importer</b> à la prochaine session.'
+    :'This browser blocks local storage: your project will not survive closing the window. Export it as <code>.json</code> before closing and reload it with <b>Import</b> next session.'}</div>`;
+}
+
+/* ---------- LICENCE : rendu & interactions ---------- */
+function renderLicense(){
+  // badge d'en-tête
+  const badge=document.getElementById('licBadge'), bt=document.getElementById('licBadgeTxt');
+  if(badge){
+    if(licValid()){
+      badge.className='licbadge paid';
+      bt.textContent=(LIC.plan==='Y'?t('lic_planY'):t('lic_planM'));
+    }else{
+      const rem=trialRemaining();
+      badge.className='licbadge'+(rem<=30?' warn':'');
+      bt.textContent=t('lic_trial')+' · '+rem+'/'+TRIAL_MAX;
+    }
+  }
+  const s2=document.getElementById('licState2');
+  if(s2)s2.textContent=licValid()?('✓ '+t('lic_active')):(t('lic_trial')+' · '+importedCount()+'/'+TRIAL_MAX);
+
+  // carte d'état
+  const card=document.getElementById('licStatusCard');
+  if(card){
+    if(licValid()){
+      card.innerHTML=`<div class="card ok" style="border:1px solid var(--teal);background:var(--teal-soft)">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div style="font-family:var(--serif);font-size:18px;color:var(--teal);font-weight:600">✓ ${t('lic_active')}</div>
+          <span class="tag" style="background:var(--teal);color:#fff">${LIC.plan==='Y'?t('lic_planY'):t('lic_planM')}</span>
+        </div>
+        <p style="margin:8px 0 0;font-size:12.5px;color:var(--ink-2)">${t('lic_expires')} <b class="num">${ymdToDate(LIC.expiry)}</b> · ${t('lic_since')} <b class="num">${LIC.activatedAt?ymdToDate(String(LIC.activatedAt)):'—'}</b> · <span class="mono-s">${esc(LIC.code||'')}</span></p></div>`;
+    }else{
+      const used=importedCount(), pct=Math.min(100,Math.round(used/TRIAL_MAX*100)), hot=used>=TRIAL_MAX*0.8;
+      card.innerHTML=`<div class="card">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap">
+          <div style="font-family:var(--serif);font-size:17px;font-weight:600">${licExpired()?('⚠ '+t('lic_expired')):t('lic_trial')}</div>
+          <span class="num" style="font-size:13px;color:${hot?'var(--rust)':'var(--ink-2)'}">${used} / ${TRIAL_MAX} ${t('lic_used')}</span>
+        </div>
+        <div class="trialbar"><i class="${hot?'hot':''}" style="width:${pct}%"></i></div>
+        <p style="margin:6px 0 0;font-size:12px;color:var(--ink-3)">${LANG==='fr'?'La version d\'essai autorise l\'import de 300 articles au maximum.':'The trial version allows importing up to 300 records.'} ${licExpired()?(LANG==='fr'?'Votre abonnement a expiré : renouvelez-le pour continuer à importer.':'Your subscription has expired: renew to keep importing.'):''}</p></div>`;
+    }
+  }
+  // état du champ + faq
+  const faq=document.querySelector('[data-i18n="lic_faqd"]'); if(faq)faq.textContent=t('lic_faqd');
+}
+
+function activateLicense(){
+  const inp=document.getElementById('licCode'), msg=document.getElementById('licMsg');
+  const parsed=checkLicenseCode(inp.value);
+  if(!parsed){ msg.innerHTML=`<div class="warn" style="margin:10px 0 0">${t('lic_bad')}</div>`; return; }
+  if(parseInt(parsed.expiry,10)<todayYMD()){ msg.innerHTML=`<div class="warn" style="margin:10px 0 0">${t('lic_exp')}</div>`; return; }
+  LIC={plan:parsed.plan, expiry:parsed.expiry, code:groupCode((inp.value||'').toUpperCase().replace(/[^A-Z0-9]/g,'').replace(/^SRMA/,'').slice(0,12)), activatedAt:todayYMD()};
+  saveLicense();
+  msg.innerHTML=`<div class="ok" style="margin:10px 0 0">${t('lic_ok')}</div>`;
+  closePaywall(); buildTabs(); renderAll();
+}
+function removeLicense(){
+  if(!confirm(t('lic_confirmRemove')))return;
+  LIC=null; Store.del(LKEY);
+  document.getElementById('licMsg').innerHTML=`<div class="warn" style="margin:10px 0 0">${t('lic_removed')}</div>`;
+  buildTabs(); renderAll();
+}
+function gotoLicense(){
+  cur=TABS.findIndex(x=>x[0]==='s-license');
+  document.querySelectorAll('section').forEach((s,i)=>s.classList.toggle('on',i===cur));
+  buildTabs(); renderAll(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function openPaywall(){
+  const m=document.getElementById('payModal'); if(!m)return;
+  document.getElementById('pwBody').textContent=t('pw_body').replace('{n}',importedCount());
+  m.classList.add('on');
+}
+function closePaywall(){ const m=document.getElementById('payModal'); if(m)m.classList.remove('on'); }
+function bindCopy(root){
+  (root||document).querySelectorAll('.copybtn').forEach(b=>{
+    if(b._bound)return; b._bound=1;
+    b.onclick=()=>{
+      const v=b.dataset.copy;
+      const done=()=>{const o=b.textContent;b.classList.add('ok');b.textContent='✓ '+t('copied');setTimeout(()=>{b.classList.remove('ok');b.textContent=o;},1400);};
+      if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(v).then(done).catch(done);}else done();
+    };
+  });
+}
 function renderAi(){
   const st=document.getElementById('aiStatus'); if(!st)return;
   st.textContent=AI_OK?'◆ '+AI_MODEL:'○ '+t('ai_off');
@@ -1374,7 +1861,7 @@ function demo(){
   ];
   D.forEach((d,i)=>{
     const tool=i%3===2?'nos':'robins', j=d[9];
-    S.refs.push({id:uid(),title:d[0],authors:d[1],year:d[2],journal:d[3],doi:'10.1000/demo.'+(1000+i),
+    S.refs.push({id:uid(),demo:true,title:d[0],authors:d[1],year:d[2],journal:d[3],doi:'10.1000/demo.'+(1000+i),
       abstract:LANG==='fr'?'Étude de la radioactivité naturelle (Ra-226, Th-232, K-40) par spectrométrie gamma HPGe et calcul des indices de risque radiologique pour des matériaux de construction.':'Study of natural radioactivity (Ra-226, Th-232, K-40) by HPGe gamma spectrometry with computation of radiological hazard indices for building materials.',
       source:'PubMed',dup:false,t1:'include',t2:'include',r1:'',r2:'',tool,
       rob:tool==='nos'?{S:j,K:'some',E:'low'}:{C1:j,C2:'low',C3:'low',C4:'some',C5:'low',C6:j,C7:'low'},
@@ -1391,7 +1878,7 @@ function demo(){
    ['Natural radioactivity in phosphogypsum-based plasters','Ahmed, N.; Salem, R.','2019','Radiat Prot Dosimetry']];
   EXC.forEach((e,i)=>{
     const dup=i===5;
-    S.refs.push({id:uid(),title:e[0],authors:e[1],year:e[2],journal:e[3],doi:dup?'10.1000/demo.1000':'',abstract:'',
+    S.refs.push({id:uid(),demo:true,title:e[0],authors:e[1],year:e[2],journal:e[3],doi:dup?'10.1000/demo.1000':'',abstract:'',
       source:i%2?'Scopus':'PubMed',dup:dup,t1:dup?'':(i<3?'exclude':'include'),t2:i<3?'':(dup?'':'exclude'),
       r1:i<3?EXC_REASONS[LANG][i]:'',r2:i>=3&&!dup?EXC_REASONS[LANG][i+2]:'',tool:'rob2',rob:{},robOverall:'',data:{},subgroup:'',note:''});
   });
@@ -1402,7 +1889,7 @@ function demo(){
    ['Comparative radiological risk of phosphogypsum boards versus natural gypsum boards in dwellings','Ferreira, D.; Antunes, P.','2024','Sci Total Environ','Étude comparative de 60 plaques de plâtre : 30 issues de phosphogypse industriel et 30 de gypse naturel. Spectrométrie gamma HPGe, calcul de Hin ; la proportion de plaques dépassant Hin = 1 est rapportée pour chaque groupe.'],
    ['Machine learning prediction of indoor radon concentration: a modelling study','Novak, J.','2023','Environ Model Softw','Modèle prédictif entraîné sur des bases nationales de radon domiciliaire. Aucune mesure expérimentale de radioactivité des matériaux n’est réalisée.']
   ];
-  PEND.forEach((p,i)=>S.refs.push({id:uid(),title:p[0],authors:p[1],year:p[2],journal:p[3],doi:'10.1000/demo.20'+i,
+  PEND.forEach((p,i)=>S.refs.push({id:uid(),demo:true,title:p[0],authors:p[1],year:p[2],journal:p[3],doi:'10.1000/demo.20'+i,
     abstract:p[4],source:i%2?'Scopus':'PubMed',dup:false,t1:'',t2:'',r1:'',r2:'',
     tool:'rob2',rob:{},robOverall:'',data:{},subgroup:'',note:''}));
   save();bindAll();renderAll();
@@ -1433,7 +1920,7 @@ function applyLang(){
   document.getElementById('fSearch').placeholder=LANG==='fr'?'🔎 titre, auteur, année…':'🔎 title, author, year…';
   fillMeasures(); buildTabs();
 }
-function renderAll(){ renderDash(); renderRefs(); renderBias(); renderExtract(); fillMeasures(); renderAnalysis(); renderReport(); renderAi(); }
+function renderAll(){ renderDash(); renderRefs(); renderBias(); renderExtract(); fillMeasures(); renderAnalysis(); renderReport(); renderAi(); renderStockage(); renderLicense(); bindCopy(); }
 
 document.getElementById('projTitle').oninput=e=>{S.title=e.target.value;save();};
 FIELDS.forEach(k=>{const el=document.getElementById('f_'+k); if(el)el.oninput=()=>{S[k]=el.value;save();renderReport();};});
@@ -1445,15 +1932,23 @@ document.getElementById('fState').onchange=renderRefs;
 document.getElementById('fSearch').oninput=renderRefs;
 document.getElementById('btnDedup').onclick=dedup;
 document.getElementById('btnAdd').onclick=()=>{
+  if(importAllowance()<1){ openPaywall(); return; }
   const ti=prompt(LANG==='fr'?'Titre de la référence :':'Reference title:'); if(!ti)return;
   S.refs.unshift({id:uid(),title:ti,authors:'',year:'',journal:'',doi:'',abstract:'',source:'Manuel',dup:false,t1:'',t2:'',r1:'',r2:'',tool:'rob2',rob:{},robOverall:'',data:{},subgroup:'',note:''});
   save();renderAll();
 };
 document.getElementById('btnParse').onclick=()=>{
-  const box=document.getElementById('importBox'), n=parseRefs(box.value,document.getElementById('importSrc').value);
-  if(!n){alert(LANG==='fr'?'Aucune référence reconnue. Vérifiez le format (RIS, BibTeX ou lignes séparées par « | »).':'No reference recognised. Check the format (RIS, BibTeX or pipe-separated lines).');return;}
+  const box=document.getElementById('importBox');
+  if(importAllowance()<1){ openPaywall(); return; }
+  const r=parseRefs(box.value,document.getElementById('importSrc').value);
+  if(!r||!r.total){alert(LANG==='fr'?'Aucune référence reconnue. Vérifiez le format (RIS, BibTeX ou lignes séparées par « | »).':'No reference recognised. Check the format (RIS, BibTeX or pipe-separated lines).');return;}
   box.value='';save();renderAll();
-  alert(n+(LANG==='fr'?' référence(s) importée(s).':' reference(s) imported.'));
+  if(r.dropped>0){
+    alert(t('trial_partial').replace('{n}',r.added));
+    openPaywall();
+  } else {
+    alert(r.added+(LANG==='fr'?' référence(s) importée(s).':' reference(s) imported.'));
+  }
 };
 document.getElementById('btnExport').onclick=()=>dl((S.title||'projet-sr-ma').replace(/[^\w\-]+/g,'-').slice(0,50)+'.json',JSON.stringify(S,null,2),'application/json');
 document.getElementById('btnImport').onclick=()=>document.getElementById('fileIn').click();
@@ -1481,12 +1976,29 @@ document.getElementById('aiScrAll').onclick=()=>{
   s.forEach(applySug); renderAll();
 };
 document.getElementById('aiScrClr').onclick=()=>{S.refs.forEach(r=>r.ai=null);save();renderAiScr();renderRefs();};
+/* Licence */
+document.getElementById('licBadge').onclick=gotoLicense;
+document.getElementById('licActivate').onclick=activateLicense;
+document.getElementById('licRemove').onclick=removeLicense;
+document.getElementById('licCode').addEventListener('keydown',e=>{ if(e.key==='Enter')activateLicense(); });
+document.getElementById('licCode').addEventListener('input',e=>{
+  // mise en forme automatique SRMA-XXXX-XXXX-XXXX
+  let v=e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+  if(v.startsWith('SRMA'))v=v.slice(4);
+  v=v.slice(0,12);
+  let out='SRMA'; for(let i=0;i<v.length;i++){ if(i%4===0)out+='-'; out+=v[i]; }
+  e.target.value=v.length?out:'';
+});
+document.getElementById('pwClose').onclick=closePaywall;
+document.getElementById('pwGo').onclick=()=>{ closePaywall(); gotoLicense(); };
+document.getElementById('payModal').addEventListener('click',e=>{ if(e.target.id==='payModal')closePaywall(); });
 
 /* boot */
 (async()=>{
+  await loadLicense();
   const saved=await Store.get(KEY);
   if(saved&&saved.refs)S=Object.assign(blank(),saved);
   bindAll(); applyLang(); renderAll();
-  document.getElementById('saveChip').textContent=S.refs.length?'✓ '+t('saved'):'—';
+  document.getElementById('saveChip').textContent=!STOCKAGE_OK?(LANG==='fr'?'⚠ mémoire seule':'⚠ memory only'):(S.refs.length?'✓ '+t('saved'):'—');
 })();
 </script>
