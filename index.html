@@ -165,7 +165,7 @@ td input,td select{padding:4px 6px; font-size:12px; font-family:var(--mono)}
 .judge button{border:1px solid var(--rule-2); background:#fff; border-radius:3px; padding:2px 8px; font-size:11px; color:var(--ink-3)}
 .judge button.on{color:#fff; border-color:transparent; font-weight:600}
 .j-low.on{background:var(--green)} .j-some.on{background:var(--amber)} .j-high.on{background:var(--rust)}
-.j-crit.on{background:#6d1d0f} .j-ni.on{background:var(--grey)}
+.j-crit.on{background:#6d1d0f} .j-ni.on{background:var(--grey)} .j-na.on{background:#cfc8ba; color:var(--ink)}
 .dot{width:14px; height:14px; border-radius:50%; display:inline-block}
 
 .legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px; color:var(--ink-3); margin-top:10px}
@@ -197,6 +197,76 @@ svg{display:block; max-width:100%; height:auto}
 .out.code{font-family:var(--mono); font-size:11.5px; white-space:pre-wrap; word-break:break-word}
 .spin{display:inline-block; width:11px; height:11px; border:2px solid var(--rule-2); border-top-color:var(--rust); border-radius:50%; animation:sp .7s linear infinite; vertical-align:-1px; margin-right:6px}
 @keyframes sp{to{transform:rotate(360deg)}}
+
+/* ---------- import ---------- */
+.drop{border:2px dashed var(--rule-2); border-radius:11px; padding:22px 18px; text-align:center; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:14px; background:var(--card-2); transition:.18s; margin-top:10px}
+.drop:hover{border-color:var(--teal); background:var(--teal-soft)}
+.drop.over{border-color:var(--teal); background:var(--teal-soft); transform:scale(1.005)}
+.drop .dz-i{font-size:26px; color:var(--teal); line-height:1}
+.sumlink{cursor:pointer; font-size:12.5px; color:var(--teal); font-weight:500; padding:3px 0}
+.sumlink:hover{color:var(--rust)}
+.implog{margin-top:12px; border:1px solid var(--rule); border-radius:9px; overflow:hidden}
+.implog .l{display:flex; align-items:center; gap:10px; padding:8px 12px; font-size:12.5px; border-bottom:1px solid var(--rule); background:var(--card)}
+.implog .l:last-child{border-bottom:0}
+.implog .l.err{background:var(--rust-soft)}
+.implog .fn{font-family:var(--mono); font-size:11.5px; color:var(--ink); flex:1; word-break:break-all}
+.implog .fmt{font-size:10px; letter-spacing:.05em; text-transform:uppercase; background:var(--teal-soft); color:var(--teal); padding:2px 7px; border-radius:20px; white-space:nowrap}
+.implog .cnt{font-family:var(--mono); font-size:12px; color:var(--ink-2); white-space:nowrap}
+.howto{font-size:12.5px; color:var(--ink-2); line-height:1.6; margin-top:8px}
+.howto h5{margin:12px 0 3px; font-size:12.5px; color:var(--ink); font-family:var(--serif)}
+.howto code{background:var(--card-2); border:1px solid var(--rule); border-radius:4px; padding:1px 5px; font-family:var(--mono); font-size:11px}
+
+/* ---------- criblage (Rayyan / Covidence) ---------- */
+.seg{display:inline-flex; border:1px solid var(--rule-2); border-radius:7px; overflow:hidden; background:var(--card)}
+.seg button{background:transparent; border:0; padding:5px 13px; font-size:12px; color:var(--ink-3); font-weight:500}
+.seg button.on{background:var(--ink); color:#fff}
+.progwrap{margin:0 0 14px}
+.prog{display:flex; align-items:center; gap:12px; flex-wrap:wrap; font-size:12px; color:var(--ink-2); margin-bottom:6px}
+.pbar{height:7px; background:var(--paper-2); border-radius:4px; overflow:hidden; display:flex}
+.pbar i{display:block; height:100%}
+.pbar .pi{background:var(--teal)} .pbar .pm{background:var(--amber)} .pbar .pe{background:var(--rust)}
+mark.hi{background:#cdeadf; color:#0a3f38; border-radius:2px; padding:0 1px}
+mark.ho{background:#f6d9d0; color:#7d2817; border-radius:2px; padding:0 1px}
+
+.foc{background:var(--card); border:1px solid var(--rule); border-radius:12px; box-shadow:var(--shadow-lg); overflow:hidden}
+.foc .fh{padding:16px 20px 12px; border-bottom:1px solid var(--rule)}
+.foc .fn{font-family:var(--mono); font-size:11px; color:var(--ink-3); letter-spacing:.04em}
+.foc h3{font-family:var(--serif); font-size:20px; line-height:1.3; margin:6px 0 8px; font-weight:600}
+.foc h3::before{display:none}
+.foc .fmeta{font-size:12.5px; color:var(--ink-2); line-height:1.6}
+.foc .fbody{padding:16px 20px; max-height:46vh; overflow:auto}
+.foc .fabs{font-size:13.5px; line-height:1.68; color:var(--ink-2); white-space:pre-wrap}
+.foc .noabs{font-size:13px; color:var(--ink-3); font-style:italic; background:var(--card-2); border:1px dashed var(--rule-2); border-radius:8px; padding:14px}
+.foc .flinks{display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; padding-top:12px; border-top:1px dotted var(--rule)}
+.foc .flinks a,.foc .flinks button{font-size:12px; text-decoration:none; border:1px solid var(--rule-2); background:var(--card-2);
+  color:var(--ink-2); padding:5px 11px; border-radius:20px; display:inline-flex; align-items:center; gap:5px; cursor:pointer; font-family:var(--sans)}
+.foc .flinks a:hover,.foc .flinks button:hover{border-color:var(--teal); color:var(--teal); background:var(--teal-soft)}
+.foc .flinks a.ft{border-color:var(--teal); color:#fff; background:var(--teal)}
+.foc .ff{padding:14px 20px; border-top:1px solid var(--rule); background:var(--card-2)}
+.dec{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.dec button{flex:1; min-width:130px; padding:12px 14px; border-radius:9px; border:1.5px solid var(--rule-2);
+  background:var(--card); font-size:14px; font-weight:600; color:var(--ink-2); transition:.15s; display:flex; align-items:center; justify-content:center; gap:8px}
+.dec button kbd{font-family:var(--mono); font-size:10px; font-weight:500; background:var(--paper-2); border:1px solid var(--rule-2);
+  border-radius:4px; padding:1px 5px; color:var(--ink-3)}
+.dec button:hover{transform:translateY(-1px); box-shadow:var(--shadow)}
+.dec .di:hover,.dec .di.on{background:var(--teal); border-color:var(--teal); color:#fff}
+.dec .di.on kbd,.dec .dm.on kbd,.dec .de.on kbd{background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.35); color:#fff}
+.dec .dm:hover,.dec .dm.on{background:var(--amber); border-color:var(--amber); color:#fff}
+.dec .de:hover,.dec .de.on{background:var(--rust); border-color:var(--rust); color:#fff}
+.foc .fnav{display:flex; gap:8px; align-items:center; justify-content:space-between; margin-top:12px; flex-wrap:wrap}
+.foc .fnav .btn{font-size:12px}
+.reasonbox{margin-top:12px; padding:12px; border:1px solid var(--rust); background:var(--rust-soft); border-radius:9px}
+.reasonbox b{font-size:12.5px; color:#7d2817; display:block; margin-bottom:7px}
+.rgrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:6px}
+.rgrid button{text-align:left; font-size:12px; padding:7px 10px; border:1px solid var(--rule-2); background:#fff; border-radius:6px; color:var(--ink-2)}
+.rgrid button:hover,.rgrid button.on{background:var(--rust); border-color:var(--rust); color:#fff}
+.kbdhint{font-size:11px; color:var(--ink-3); margin-top:9px; display:flex; gap:14px; flex-wrap:wrap}
+.kbdhint kbd{font-family:var(--mono); background:var(--paper-2); border:1px solid var(--rule-2); border-radius:4px; padding:1px 5px}
+.ftbadge{font-size:10.5px; padding:2px 8px; border-radius:20px; background:var(--teal-soft); color:var(--teal); font-weight:600}
+.ftbadge.no{background:var(--paper-2); color:var(--ink-3)}
+.figbar{display:flex; gap:6px; justify-content:flex-end; margin-bottom:8px}
+.figbar .btn{font-size:11px; padding:3px 9px}
 
 /* ---------- licence ---------- */
 .licbadge{border:1px solid var(--rule-2); background:var(--card); border-radius:20px; padding:4px 11px 4px 9px;
@@ -373,11 +443,36 @@ footer a{color:var(--rust); text-decoration:none} footer a:hover{text-decoration
 
   <div class="card" style="margin-bottom:16px">
     <h3 data-i18n="import">Import de références</h3>
-    <p class="hint" data-i18n="importd">Collez un export <b>RIS</b> (PubMed, Scopus, Zotero), un <b>BibTeX</b>, ou une ligne par article au format : <code>Titre | Auteurs | Année | Revue | DOI</code></p>
-    <textarea id="importBox" class="mono-s" style="min-height:96px" placeholder="TY  - JOUR&#10;TI  - Natural radioactivity in building materials…&#10;AU  - Ouedraogo, A.&#10;PY  - 2023&#10;ER  -"></textarea>
-    <div class="acts">
-      <select id="importSrc" style="width:auto"><option>PubMed</option><option>Scopus</option><option>Web of Science</option><option>Google Scholar</option><option>Autre / Other</option></select>
-      <button class="btn rust sm" id="btnParse" data-i18n="parse">Analyser & importer</button>
+    <p class="hint" data-i18n="importd">Déposez vos fichiers d'export de bases de données ou de Zotero. Formats reconnus automatiquement : <b>RIS</b>, <b>MEDLINE/.nbib</b> (PubMed), <b>BibTeX</b>, <b>CSL JSON</b>, <b>EndNote XML</b>, <b>Zotero RDF</b>, <b>CSV/TSV</b> et <b>Excel .xlsx</b>.</p>
+
+    <div class="drop" id="dropZone">
+      <div class="dz-i">⬇</div>
+      <div><b data-i18n="dz_t">Déposez vos fichiers ici</b><br><span class="hint" data-i18n="dz_d">ou cliquez pour parcourir — plusieurs fichiers acceptés</span></div>
+      <input type="file" id="fileRefs" multiple accept=".ris,.txt,.nbib,.bib,.bibtex,.json,.xml,.rdf,.csv,.tsv,.xlsx,.xlsm,.enw,.ciw" style="display:none">
+    </div>
+    <div id="importLog"></div>
+
+    <details style="margin-top:12px">
+      <summary class="sumlink" data-i18n="paste_t">…ou coller le texte d'un export</summary>
+      <textarea id="importBox" class="mono-s" style="min-height:96px;margin-top:8px" placeholder="TY  - JOUR&#10;TI  - Natural radioactivity in building materials…&#10;AU  - Ouedraogo, A.&#10;PY  - 2023&#10;ER  -"></textarea>
+      <div class="acts">
+        <select id="importSrc" style="width:auto"><option value="">Source : détection auto</option><option>PubMed</option><option>Cochrane</option><option>Embase</option><option>Scopus</option><option>Web of Science</option><option>Google Scholar</option><option>Zotero</option><option>Autre / Other</option></select>
+        <button class="btn rust sm" id="btnParse" data-i18n="parse">Analyser &amp; importer</button>
+      </div>
+    </details>
+
+    <details style="margin-top:10px">
+      <summary class="sumlink" data-i18n="howto_t">Comment exporter depuis PubMed, Cochrane, Zotero…</summary>
+      <div class="howto" id="howtoBox"></div>
+    </details>
+  </div>
+
+  <div class="card" style="margin-bottom:14px">
+    <h3 data-i18n="hl_t">Surlignage des mots-clés (comme Rayyan)</h3>
+    <p class="hint" data-i18n="hl_d">Termes séparés par des virgules. Ils seront surlignés dans les titres et résumés pour accélérer la décision.</p>
+    <div class="row r2" style="margin-top:8px">
+      <div><label data-i18n="hl_inc">Termes favorables à l'inclusion</label><input type="text" id="hlInc" placeholder="radon, ceramic tile, gamma spectrometry"></div>
+      <div><label data-i18n="hl_exc">Termes favorables à l'exclusion</label><input type="text" id="hlExc" placeholder="review, editorial, animal"></div>
     </div>
   </div>
 
@@ -395,8 +490,16 @@ footer a{color:var(--rust); text-decoration:none} footer a:hover{text-decoration
     </select>
     <input type="text" id="fSearch" placeholder="🔎 titre, auteur, année…">
     <span class="chip" id="screenCount"></span>
+    <span style="flex:1"></span>
+    <div class="seg" id="viewSeg">
+      <button data-v="list" class="on" data-i18n="v_list">Liste</button>
+      <button data-v="focus" data-i18n="v_focus">Criblage</button>
+    </div>
   </div>
+
+  <div class="progwrap noprint" id="screenProg"></div>
   <div id="refList"></div>
+  <div id="focusWrap" style="display:none"></div>
 </section>
 
 <!-- ============ 3. BIAIS ============ -->
@@ -447,7 +550,10 @@ footer a{color:var(--rust); text-decoration:none} footer a:hover{text-decoration
   <div class="head">
     <div><h2 data-i18n="p6t">Diagramme PRISMA & rapport</h2><p data-i18n="p6d">Flux de sélection généré automatiquement à partir de vos décisions, suivi d'une synthèse prête à insérer dans le manuscrit.</p></div>
     <div class="acts noprint">
-      <button class="btn sm" id="btnSvg" data-i18n="dlsvg">Télécharger le PRISMA (SVG)</button>
+      <button class="btn sm" id="btnSvg" data-i18n="dlsvg">PRISMA (SVG)</button>
+      <button class="btn sm" id="btnPrismaPng" data-i18n="dlpng">PRISMA (PNG)</button>
+      <button class="btn sm" id="btnAllFigs" data-i18n="allfigs">Toutes les figures (PNG)</button>
+      <button class="btn teal sm" id="btnDocx" data-i18n="wd_btn">Rapport Word (.docx)</button>
       <button class="btn solid sm" id="btnPrint2" data-i18n="print">Imprimer / PDF</button>
     </div>
   </div>
@@ -723,7 +829,38 @@ const I18N = {
   pw_go:"Voir les formules & activer",
   trial_block:"Limite d'essai : 300 articles maximum. Activez un abonnement pour continuer.",
   trial_partial:"Seuls {n} article(s) ont été importés pour respecter la limite d'essai de 300. Activez un abonnement pour le reste.",
-  fcredit:'Conçu par <b>OUEDRAOGO W. Daniel</b> · <a href="mailto:danielouedraogo1@gmail.com">danielouedraogo1@gmail.com</a>'},
+  fcredit:'Conçu par <b>OUEDRAOGO W. Daniel</b> · <a href="mailto:danielouedraogo1@gmail.com">danielouedraogo1@gmail.com</a>',
+  /* import */
+  dz_t:"Déposez vos fichiers ici",dz_d:"ou cliquez pour parcourir — plusieurs fichiers acceptés",
+  paste_t:"…ou coller le texte d'un export",howto_t:"Comment exporter depuis PubMed, Cochrane, Zotero…",
+  imp_added:"importée(s)",imp_skipped:"non importée(s) — limite d'essai",imp_zero:"aucune référence reconnue",
+  imp_err:"Erreur",imp_paste:"Texte collé",
+  imp_none:"Aucune référence reconnue. Formats acceptés : RIS, MEDLINE/.nbib, BibTeX, CSL JSON, EndNote XML, Zotero RDF, CSV/TSV, Excel .xlsx, ou une ligne par article « Titre | Auteurs | Année | Revue | DOI ».",
+  /* criblage */
+  hl_t:"Surlignage des mots-clés (comme Rayyan)",
+  hl_d:"Termes séparés par des virgules. Ils seront surlignés dans les titres et résumés pour accélérer la décision.",
+  hl_inc:"Termes favorables à l'inclusion",hl_exc:"Termes favorables à l'exclusion",
+  v_list:"Liste",v_focus:"Criblage",
+  pr_done:"traités",pr_left:"restants",
+  noabs:"Résumé non disponible dans l'import.",
+  noabs_d:"Aucun résumé n'a été importé pour cette référence. Utilisez les liens ci-dessous pour consulter le résumé ou le texte intégral avant de décider.",
+  kw:"Mots-clés",
+  lk_ft:"Texte intégral",lk_src:"Source",lk_add:"Ajouter le lien du texte intégral",lk_edit:"Modifier le lien",
+  lk_prompt:"Adresse (URL) du texte intégral ou du PDF :",
+  ft_yes:"Texte intégral lié",ft_no:"Texte intégral non lié",
+  ftnote:"Note sur le texte intégral (données à extraire, remarques…)",
+  reason_req:"Motif d'exclusion (obligatoire en phase texte intégral)",
+  foc_done:"Tout est trié pour ce filtre. Changez de filtre ou de phase.",
+  prev:"Précédent",next:"Suivant",undo:"Annuler",nav:"naviguer",
+  cfm_del:"Supprimer définitivement cette référence ?",
+  /* qualité */
+  design:"Type d'étude",reco_tool:"Outil recommandé pour ce type d'étude :",reco_use:"Appliquer",
+  /* exports */
+  dlpng:"PRISMA (PNG)",allfigs:"Toutes les figures (PNG)",
+  wd_btn:"Rapport Word (.docx)",wd_making:"Génération…",
+  wd_err:"Impossible de générer le document Word :",
+  png_err:"Impossible de convertir cette figure en image. Utilisez l'export SVG, ou l'impression PDF.",
+  nofig:"Aucune figure à exporter pour l'instant."},
  en:{brandsub:"Systematic review studio",exportProj:"Export",importProj:"Import",demo:"Demo",
   t1:"Project",t2:"Screening",t3:"Quality & bias",t4:"Extraction",t5:"Analysis",t6:"PRISMA & report",
   p1t:"Project protocol",p1d:"Define the research question (PICO), eligibility criteria and sources. Everything is saved automatically.",
@@ -809,7 +946,34 @@ const I18N = {
   pw_go:"See plans & activate",
   trial_block:"Trial limit: 300 records maximum. Activate a subscription to continue.",
   trial_partial:"Only {n} record(s) were imported to respect the 300-record trial limit. Activate a subscription for the rest.",
-  fcredit:'Designed by <b>OUEDRAOGO W. Daniel</b> · <a href="mailto:danielouedraogo1@gmail.com">danielouedraogo1@gmail.com</a>'}
+  fcredit:'Designed by <b>OUEDRAOGO W. Daniel</b> · <a href="mailto:danielouedraogo1@gmail.com">danielouedraogo1@gmail.com</a>',
+  dz_t:"Drop your files here",dz_d:"or click to browse — several files accepted",
+  paste_t:"…or paste the text of an export",howto_t:"How to export from PubMed, Cochrane, Zotero…",
+  imp_added:"imported",imp_skipped:"skipped — trial limit",imp_zero:"no reference recognised",
+  imp_err:"Error",imp_paste:"Pasted text",
+  imp_none:"No reference recognised. Accepted formats: RIS, MEDLINE/.nbib, BibTeX, CSL JSON, EndNote XML, Zotero RDF, CSV/TSV, Excel .xlsx, or one line per record “Title | Authors | Year | Journal | DOI”.",
+  hl_t:"Keyword highlighting (Rayyan-style)",
+  hl_d:"Comma-separated terms. They are highlighted in titles and abstracts to speed up decisions.",
+  hl_inc:"Terms favouring inclusion",hl_exc:"Terms favouring exclusion",
+  v_list:"List",v_focus:"Screening",
+  pr_done:"screened",pr_left:"remaining",
+  noabs:"Abstract not available in the import.",
+  noabs_d:"No abstract was imported for this record. Use the links below to read the abstract or full text before deciding.",
+  kw:"Keywords",
+  lk_ft:"Full text",lk_src:"Source",lk_add:"Add full-text link",lk_edit:"Edit link",
+  lk_prompt:"Full-text or PDF address (URL):",
+  ft_yes:"Full text linked",ft_no:"No full-text link",
+  ftnote:"Full-text note (data to extract, remarks…)",
+  reason_req:"Exclusion reason (required at full-text stage)",
+  foc_done:"Everything is screened for this filter. Change filter or phase.",
+  prev:"Previous",next:"Next",undo:"Undo",nav:"navigate",
+  cfm_del:"Permanently delete this reference?",
+  design:"Study design",reco_tool:"Recommended tool for this design:",reco_use:"Apply",
+  dlpng:"PRISMA (PNG)",allfigs:"All figures (PNG)",
+  wd_btn:"Word report (.docx)",wd_making:"Generating…",
+  wd_err:"Could not generate the Word document:",
+  png_err:"Could not convert this figure to an image. Use the SVG export, or print to PDF.",
+  nofig:"No figure to export yet."}
 };
 let LANG='fr';
 const t=k=>(I18N[LANG][k]!==undefined?I18N[LANG][k]:(I18N.fr[k]||k));
@@ -824,6 +988,7 @@ const blank=()=>({
   authors:'', inst:'', reg:'', date:new Date().toISOString().slice(0,10),
   sources:'', strategy:'', datatype:'binary', g1:'', g2:'',
   measure:'OR', model:'random', cc:'1', sub:'0',
+  hlInc:'', hlExc:'',
   refs:[], ailog:[]
 });
 let S=blank();
@@ -1035,6 +1200,9 @@ const disp=(y,m)=>MEASURES[m].log?Math.exp(y):y;
 const J_ROB2=[{k:'low',fr:'Faible',en:'Low',c:'j-low'},{k:'some',fr:'Modéré',en:'Some concerns',c:'j-some'},{k:'high',fr:'Élevé',en:'High',c:'j-high'}];
 const J_ROBINS=[{k:'low',fr:'Faible',en:'Low',c:'j-low'},{k:'some',fr:'Modéré',en:'Moderate',c:'j-some'},{k:'high',fr:'Sérieux',en:'Serious',c:'j-high'},{k:'crit',fr:'Critique',en:'Critical',c:'j-crit'},{k:'ni',fr:'Pas d\'info',en:'No info',c:'j-ni'}];
 const J_NOS=[{k:'low',fr:'★★★ Bonne',en:'★★★ Good',c:'j-low'},{k:'some',fr:'★★ Moyenne',en:'★★ Fair',c:'j-some'},{k:'high',fr:'★ Faible',en:'★ Poor',c:'j-high'}];
+const J_QUADAS=[{k:'low',fr:'Faible',en:'Low',c:'j-low'},{k:'high',fr:'Élevé',en:'High',c:'j-high'},{k:'ni',fr:'Incertain',en:'Unclear',c:'j-ni'}];
+const J_AMSTAR=[{k:'low',fr:'Oui',en:'Yes',c:'j-low'},{k:'some',fr:'Oui partiel',en:'Partial yes',c:'j-some'},{k:'high',fr:'Non',en:'No',c:'j-high'},{k:'na',fr:'N/A',en:'N/A',c:'j-na'}];
+const J_JBI=[{k:'low',fr:'Oui',en:'Yes',c:'j-low'},{k:'high',fr:'Non',en:'No',c:'j-high'},{k:'ni',fr:'Peu clair',en:'Unclear',c:'j-ni'},{k:'na',fr:'N/A',en:'N/A',c:'j-na'}];
 const TOOLS={
  rob2:{name:{fr:'RoB 2 — essais randomisés',en:'RoB 2 — randomised trials'},j:J_ROB2,d:[
    {id:'D1',fr:['D1 — Randomisation','Génération de la séquence, secret de l’attribution, comparabilité initiale'],en:['D1 — Randomisation process','Sequence generation, allocation concealment, baseline balance']},
@@ -1053,9 +1221,75 @@ const TOOLS={
  nos:{name:{fr:'Newcastle-Ottawa — cohorte / cas-témoins',en:'Newcastle-Ottawa — cohort / case-control'},j:J_NOS,d:[
    {id:'S',fr:['Sélection (max 4 ★)','Représentativité, sélection des témoins, vérification de l’exposition'],en:['Selection (max 4 ★)','Representativeness, control selection, exposure ascertainment']},
    {id:'K',fr:['Comparabilité (max 2 ★)','Ajustement sur les facteurs de confusion'],en:['Comparability (max 2 ★)','Adjustment for confounders']},
-   {id:'E',fr:['Résultat / Exposition (max 3 ★)','Évaluation, durée de suivi, complétude'],en:['Outcome / Exposure (max 3 ★)','Assessment, follow-up length, completeness']}]}
+   {id:'E',fr:['Résultat / Exposition (max 3 ★)','Évaluation, durée de suivi, complétude'],en:['Outcome / Exposure (max 3 ★)','Assessment, follow-up length, completeness']}]},
+ quadas:{name:{fr:'QUADAS-2 — précision diagnostique',en:'QUADAS-2 — diagnostic accuracy'},j:J_QUADAS,d:[
+   {id:'Q1',fr:['Q1 — Sélection des patients','Recrutement consécutif/aléatoire, pas de plan cas-témoins, exclusions justifiées'],en:['Q1 — Patient selection','Consecutive/random enrolment, no case-control design, appropriate exclusions']},
+   {id:'Q2',fr:['Q2 — Test index','Interprétation en aveugle du test de référence, seuil pré-spécifié'],en:['Q2 — Index test','Interpreted blind to reference standard, pre-specified threshold']},
+   {id:'Q3',fr:['Q3 — Test de référence','Classement correct de la maladie, interprété sans connaître le test index'],en:['Q3 — Reference standard','Correctly classifies the target condition, interpreted blind to index test']},
+   {id:'Q4',fr:['Q4 — Flux et calendrier','Délai approprié, même référence pour tous, tous les patients analysés'],en:['Q4 — Flow and timing','Appropriate interval, same reference for all, all patients analysed']},
+   {id:'A1',fr:['Applicabilité — Patients','Les patients correspondent-ils à la question ?'],en:['Applicability — Patients','Do included patients match the review question?']},
+   {id:'A2',fr:['Applicabilité — Test index','Conduite/interprétation conformes à la question'],en:['Applicability — Index test','Conduct/interpretation matches the question']},
+   {id:'A3',fr:['Applicabilité — Référence','La cible définie correspond-elle à la question ?'],en:['Applicability — Reference standard','Does the target condition match the question?']}]},
+ amstar:{name:{fr:'AMSTAR-2 — revues systématiques',en:'AMSTAR-2 — systematic reviews'},j:J_AMSTAR,d:[
+   {id:'A2',fr:['★ Protocole préenregistré','Méthodes établies avant la revue (PROSPERO), écarts justifiés'],en:['★ Pre-registered protocol','Methods established before the review (PROSPERO), deviations justified']},
+   {id:'A4',fr:['★ Recherche exhaustive','Au moins 2 bases, mots-clés/stratégie fournis, littérature grise'],en:['★ Comprehensive search','≥2 databases, keywords/strategy reported, grey literature']},
+   {id:'A7',fr:['★ Liste des exclus justifiée','Les études exclues en texte intégral sont listées avec motif'],en:['★ Justified list of exclusions','Full-text exclusions listed with reasons']},
+   {id:'A9',fr:['★ Évaluation du risque de biais','Outil adapté au design, appliqué de façon satisfaisante'],en:['★ Risk of bias assessment','Design-appropriate tool, satisfactorily applied']},
+   {id:'A11',fr:['★ Méthodes de méta-analyse appropriées','Pondération, modèle, hétérogénéité traités correctement'],en:['★ Appropriate meta-analysis methods','Weighting, model and heterogeneity handled correctly']},
+   {id:'A13',fr:['★ Prise en compte du biais dans l’interprétation','Le risque de biais est discuté dans les conclusions'],en:['★ Risk of bias in interpretation','Risk of bias discussed when interpreting results']},
+   {id:'A15',fr:['★ Biais de publication examiné','Recherche graphique/statistique et discussion de son impact'],en:['★ Publication bias investigated','Graphical/statistical assessment and discussion of impact']},
+   {id:'A16',fr:['Conflits d’intérêts','Financement et conflits déclarés'],en:['Conflicts of interest','Funding and conflicts reported']}]},
+ jbi_cs:{name:{fr:'JBI — transversale / prévalence',en:'JBI — cross-sectional / prevalence'},j:J_JBI,d:[
+   {id:'J1',fr:['Échantillon approprié','Cadre d’échantillonnage représentatif de la population cible'],en:['Appropriate sample frame','Sample frame representative of the target population']},
+   {id:'J2',fr:['Recrutement approprié','Échantillonnage aléatoire ou consécutif, taille justifiée'],en:['Appropriate recruitment','Random or consecutive sampling, justified sample size']},
+   {id:'J3',fr:['Critères d’inclusion clairs','Population et cadre décrits en détail'],en:['Clear inclusion criteria','Population and setting described in detail']},
+   {id:'J4',fr:['Mesure de l’exposition valide','Méthode fiable et standardisée'],en:['Valid exposure measurement','Reliable and standardised method']},
+   {id:'J5',fr:['Mesure du critère valide','Instruments validés, mesure objective'],en:['Valid outcome measurement','Validated instruments, objective measurement']},
+   {id:'J6',fr:['Facteurs de confusion identifiés','Et stratégies de contrôle décrites'],en:['Confounders identified','And control strategies described']},
+   {id:'J7',fr:['Analyse statistique appropriée','Méthodes adaptées au plan d’étude'],en:['Appropriate statistical analysis','Methods suited to the study design']},
+   {id:'J8',fr:['Taux de réponse / données manquantes','Adéquat, ou gestion décrite'],en:['Response rate / missing data','Adequate, or handling described']}]},
+ jbi_case:{name:{fr:'JBI — séries de cas',en:'JBI — case series'},j:J_JBI,d:[
+   {id:'K1',fr:['Critères d’inclusion clairs','Définition explicite des cas'],en:['Clear inclusion criteria','Explicit case definition']},
+   {id:'K2',fr:['Mesure standardisée et fiable','Pour tous les participants de la série'],en:['Standard, reliable measurement','For all participants in the series']},
+   {id:'K3',fr:['Méthodes d’identification valides','Diagnostic confirmé de façon valable'],en:['Valid identification methods','Diagnosis confirmed in a valid way']},
+   {id:'K4',fr:['Inclusion consécutive et complète','Tous les cas éligibles de la période'],en:['Consecutive and complete inclusion','All eligible cases in the period']},
+   {id:'K5',fr:['Données démographiques rapportées','Description claire de la population'],en:['Demographics reported','Clear description of the population']},
+   {id:'K6',fr:['Informations cliniques rapportées','Présentation clinique détaillée'],en:['Clinical information reported','Detailed clinical presentation']},
+   {id:'K7',fr:['Résultats rapportés clairement','Critères de jugement et suivi'],en:['Outcomes clearly reported','Outcomes and follow-up']},
+   {id:'K8',fr:['Statistiques descriptives appropriées','Analyse adaptée au design'],en:['Appropriate descriptive statistics','Analysis suited to the design']}]}
 };
-const COLOR={low:'var(--green)',some:'var(--amber)',high:'var(--rust)',crit:'#6d1d0f',ni:'var(--grey)'};
+/* design de l'étude → outil recommandé */
+const DESIGNS=[
+  {k:'rct',   tool:'rob2',    fr:'Essai contrôlé randomisé',            en:'Randomised controlled trial'},
+  {k:'nrsi',  tool:'robins',  fr:'Étude d’intervention non randomisée', en:'Non-randomised interventional study'},
+  {k:'cohort',tool:'nos',     fr:'Cohorte',                             en:'Cohort study'},
+  {k:'cc',    tool:'nos',     fr:'Cas-témoins',                         en:'Case-control study'},
+  {k:'cross', tool:'jbi_cs',  fr:'Transversale / prévalence',           en:'Cross-sectional / prevalence'},
+  {k:'diag',  tool:'quadas',  fr:'Précision diagnostique',              en:'Diagnostic accuracy'},
+  {k:'series',tool:'jbi_case',fr:'Série de cas',                        en:'Case series'},
+  {k:'sr',    tool:'amstar',  fr:'Revue systématique',                  en:'Systematic review'}
+];
+/* déduction du design à partir des métadonnées importées */
+function guessDesign(r){
+  const s=((r.design||'')+' '+(r.title||'')+' '+(r.keywords||'')).toLowerCase();
+  if(/randomi[sz]ed controlled trial|essai randomis|\brct\b/.test(s))return 'rct';
+  if(/systematic review|meta-analysis|méta-analyse|revue systématique/.test(s))return 'sr';
+  if(/diagnostic accuracy|sensitivity and specificity|précision diagnostique/.test(s))return 'diag';
+  if(/case[- ]control|cas[- ]témoins/.test(s))return 'cc';
+  if(/cohort|cohorte|longitudinal|prospective study/.test(s))return 'cohort';
+  if(/cross[- ]sectional|transversale|prevalence|prévalence|survey/.test(s))return 'cross';
+  if(/case series|série de cas|case report/.test(s))return 'series';
+  if(/non[- ]randomi|quasi[- ]experimental|before[- ]after/.test(s))return 'nrsi';
+  return '';
+}
+const toolFor=r=>{
+  if(r.tool)return r.tool;
+  const d=r.design&&DESIGNS.find(x=>x.k===r.design);
+  if(d)return d.tool;
+  const g=guessDesign(r);
+  return (g&&(DESIGNS.find(x=>x.k===g)||{}).tool)||'rob2';
+};
+const COLOR={low:'var(--green)',some:'var(--amber)',high:'var(--rust)',crit:'#6d1d0f',ni:'var(--grey)',na:'#cfc8ba'};
 
 /* =========================================================================
    4. TABS
@@ -1102,49 +1336,458 @@ function dedup(){
   save();renderAll();
   alert(LANG==='fr'?`${n} doublon(s) marqué(s).`:`${n} duplicate(s) flagged.`);
 }
-function parseRefs(txt,src){
-  const out=[];
-  if(/^\s*TY\s+-/m.test(txt)){ // RIS
-    txt.split(/^ER\s+-.*$/m).forEach(blk=>{
-      if(!blk.trim())return;
-      const g=tag=>{const m=[...blk.matchAll(new RegExp('^'+tag+'\\s+-\\s*(.*)$','gm'))].map(x=>x[1].trim());return m;};
-      const ti=(g('TI')[0]||g('T1')[0]||'').trim(); if(!ti)return;
-      out.push({title:ti,authors:g('AU').join('; ')||g('A1').join('; '),year:(g('PY')[0]||g('Y1')[0]||'').slice(0,4),
-        journal:g('JO')[0]||g('T2')[0]||g('JF')[0]||'',doi:(g('DO')[0]||'').replace(/^https?:\/\/doi.org\//,''),abstract:g('AB').join(' ')});
-    });
-  } else if(/@\w+\s*\{/.test(txt)){ // BibTeX
-    txt.split(/@\w+\s*\{/).forEach(blk=>{
-      if(!blk.trim())return;
-      const f=k=>{const m=blk.match(new RegExp(k+'\\s*=\\s*[{"]([\\s\\S]*?)[}"]\\s*,?\\s*\\n','i'));return m?m[1].replace(/[{}]/g,'').trim():'';};
-      const ti=f('title'); if(!ti)return;
-      out.push({title:ti,authors:f('author'),year:f('year'),journal:f('journal')||f('booktitle'),doi:f('doi'),abstract:f('abstract')});
-    });
-  } else { // pipe / plain
-    txt.split(/\r?\n/).forEach(l=>{
-      if(!l.trim())return;
-      const p=l.split('|').map(x=>x.trim());
-      if(!p[0])return;
-      out.push({title:p[0],authors:p[1]||'',year:p[2]||'',journal:p[3]||'',doi:p[4]||'',abstract:p[5]||''});
-    });
+/* =========================================================================
+   5bis. IMPORT MULTI-FORMATS
+   Formats reconnus :
+     · RIS            (PubMed, Cochrane, Scopus, Web of Science, Embase, Zotero)
+     · MEDLINE / nbib (PubMed « Send to → Citation manager »)
+     · BibTeX         (Zotero, Google Scholar, Mendeley)
+     · CSL JSON       (Zotero « CSL JSON »)
+     · EndNote XML    (Zotero « EndNote XML »)
+     · Zotero RDF     (export par défaut de Zotero)
+     · CSV / TSV      (Zotero, Rayyan, Covidence, PubMed, Scopus, WoS)
+     · Excel .xlsx    (lecture native, sans bibliothèque externe)
+   ========================================================================= */
+const RX_DOI=/10\.\d{4,9}\/[-._;()\/:A-Za-z0-9]+/;
+const cleanDoi=s=>{const m=String(s||'').match(RX_DOI);return m?m[0].replace(/[.,;)\]]+$/,''):'';};
+const xmlUn=s=>String(s||'').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"')
+  .replace(/&apos;/g,"'").replace(/&#(\d+);/g,(m,d)=>String.fromCharCode(+d)).replace(/&amp;/g,'&');
+const yr4=s=>{const m=String(s||'').match(/(1[5-9]\d{2}|20\d{2}|21\d{2})/);return m?m[1]:'';};
+const REC0=()=>({title:'',authors:'',year:'',journal:'',doi:'',abstract:'',url:'',pmid:'',keywords:'',volume:'',issue:'',pages:'',lang:'',design:''});
+
+/* ---- ZIP (lecture) : nécessaire pour .xlsx ---- */
+async function inflateRaw(bytes){
+  const DS=(typeof DecompressionStream!=='undefined')?DecompressionStream
+          :(typeof window!=='undefined'&&window.DecompressionStream)?window.DecompressionStream
+          :(typeof globalThis!=='undefined'&&globalThis.DecompressionStream)?globalThis.DecompressionStream:null;
+  if(!DS)throw new Error(LANG==='fr'
+    ?'Ce navigateur ne sait pas lire les .xlsx. Enregistrez le tableau en CSV puis réimportez-le.'
+    :'This browser cannot read .xlsx files. Save the sheet as CSV and import it again.');
+  const st=new Blob([bytes]).stream().pipeThrough(new DS('deflate-raw'));
+  return new Uint8Array(await new Response(st).arrayBuffer());
+}
+async function unzip(buf){
+  const u8=new Uint8Array(buf), dv=new DataView(buf);
+  let eo=-1;
+  for(let i=u8.length-22;i>=Math.max(0,u8.length-66000);i--){ if(dv.getUint32(i,true)===0x06054b50){eo=i;break;} }
+  if(eo<0)throw new Error('zip');
+  const n=dv.getUint16(eo+10,true); let p=dv.getUint32(eo+16,true);
+  const ent=[];
+  for(let i=0;i<n&&p+46<=u8.length;i++){
+    if(dv.getUint32(p,true)!==0x02014b50)break;
+    const meth=dv.getUint16(p+10,true), csz=dv.getUint32(p+20,true);
+    const nl=dv.getUint16(p+28,true), el=dv.getUint16(p+30,true), cl=dv.getUint16(p+32,true);
+    const lho=dv.getUint32(p+42,true);
+    ent.push({name:new TextDecoder().decode(u8.subarray(p+46,p+46+nl)),meth,csz,lho});
+    p+=46+nl+el+cl;
   }
-  // Limite de la version d'essai : on n'importe que ce qui tient dans le quota.
+  const out={};
+  for(const f of ent){
+    const nl=dv.getUint16(f.lho+26,true), el=dv.getUint16(f.lho+28,true);
+    const s=f.lho+30+nl+el, raw=u8.subarray(s,s+f.csz);
+    out[f.name]= f.meth===0 ? raw : await inflateRaw(raw);
+  }
+  return out;
+}
+const colIdx=ref=>{let n=0;for(const c of String(ref).replace(/\d/g,''))n=n*26+(c.charCodeAt(0)-64);return n-1;};
+async function parseXlsx(buf){
+  const F=await unzip(buf), dec=new TextDecoder();
+  const shared=[];
+  if(F['xl/sharedStrings.xml']){
+    dec.decode(F['xl/sharedStrings.xml']).replace(/<si>([\s\S]*?)<\/si>/g,(m,s)=>{
+      let x=''; s.replace(/<t[^>]*>([\s\S]*?)<\/t>/g,(a,b)=>{x+=xmlUn(b);return'';}); shared.push(x); return'';});
+  }
+  const sn=Object.keys(F).filter(k=>/^xl\/worksheets\/sheet\d+\.xml$/.test(k))
+    .sort((a,b)=>(+a.match(/\d+/)[0])-(+b.match(/\d+/)[0]))[0];
+  if(!sn)throw new Error('xlsx');
+  const rows=[];
+  dec.decode(F[sn]).replace(/<row[^>]*>([\s\S]*?)<\/row>/g,(m,rc)=>{
+    const cells=[];
+    rc.replace(/<c([^>]*?)\/>|<c([^>]*?)>([\s\S]*?)<\/c>/g,(mm,sa,oa,body)=>{
+      const at=sa||oa||'', rf=(at.match(/r="([A-Z]+)/)||[])[1]||'', ty=(at.match(/t="([^"]+)"/)||[])[1]||'';
+      let v='';
+      if(body){
+        if(ty==='inlineStr'){ body.replace(/<t[^>]*>([\s\S]*?)<\/t>/g,(a,b)=>{v+=xmlUn(b);return'';}); }
+        else { const mv=body.match(/<v>([\s\S]*?)<\/v>/); if(mv) v = ty==='s' ? (shared[+mv[1]]||'') : xmlUn(mv[1]); }
+      }
+      cells[rf?colIdx(rf):cells.length]=v; return'';
+    });
+    for(let i=0;i<cells.length;i++) if(cells[i]==null)cells[i]='';
+    rows.push(cells); return'';
+  });
+  return rows;
+}
+
+/* ---- correspondance des colonnes (CSV / Excel / JSON générique) ---- */
+const HDR={
+  title:['title','titre','article title','item title','document title','ti','primary title'],
+  authors:['author','authors','auteur','auteurs','creator','creators','author full names','au','authors full name'],
+  year:['year','publication year','pub year','année','annee','date','publication date','py','cover date'],
+  journal:['journal','publication title','source title','source','journal title','journal name','journal/book','secondary title','container title','publication','jo','book title','so'],
+  doi:['doi','digital object identifier','di'],
+  abstract:['abstract','abstract note','résumé','resume','summary','ab'],
+  url:['url','link','fulltext url','full text url','pdf','pdf url','file attachments','doi link'],
+  pmid:['pmid','pubmed id','pubmed identifier','accession number'],
+  keywords:['keywords','manual tags','author keywords','tags','index keywords','de'],
+  volume:['volume','vol'],issue:['issue','number','no'],pages:['pages','page','page start','pp'],
+  lang:['language','langue','lang'],design:['study design','design','type','item type','publication type','document type']
+};
+function mapHdr(hdr){
+  const H=hdr.map(h=>String(h||'').toLowerCase().trim().replace(/\s+/g,' '));
+  const map={};
+  for(const f in HDR){
+    let i=H.findIndex(h=>HDR[f].includes(h));
+    if(i<0)i=H.findIndex(h=>HDR[f].some(k=>h===k+'s'||h.replace(/[^a-z ]/g,'')===k));
+    if(i>=0)map[f]=i;
+  }
+  return map;
+}
+function rowsToRecs(rows){
+  if(!rows||rows.length<2)return [];
+  const map=mapHdr(rows[0]);
+  if(map.title==null)return [];
+  const out=[];
+  for(let i=1;i<rows.length;i++){
+    const R=rows[i], g=f=>map[f]!=null?String(R[map[f]]||'').trim():'';
+    const rec=Object.assign(REC0(),{
+      title:g('title'),authors:g('authors'),year:yr4(g('year')),journal:g('journal'),
+      doi:cleanDoi(g('doi')),abstract:g('abstract'),url:g('url'),pmid:(g('pmid').match(/\d+/)||[''])[0],
+      keywords:g('keywords'),volume:g('volume'),issue:g('issue'),pages:g('pages'),lang:g('lang'),design:g('design')});
+    if(rec.title)out.push(rec);
+  }
+  return out;
+}
+function parseDelim(txt,d){
+  const rows=[];let row=[],cur='',q=false;
+  for(let i=0;i<txt.length;i++){const c=txt[i];
+    if(q){ if(c==='"'){ if(txt[i+1]==='"'){cur+='"';i++;}else q=false; } else cur+=c; }
+    else if(c==='"')q=true;
+    else if(c===d){row.push(cur);cur='';}
+    else if(c==='\n'){row.push(cur);cur='';rows.push(row);row=[];}
+    else if(c!=='\r')cur+=c;
+  }
+  if(cur.length||row.length){row.push(cur);rows.push(row);}
+  return rows.filter(r=>r.some(x=>String(x).trim()!==''));
+}
+
+/* ---- RIS ---- */
+function parseRIS(txt){
+  const recs=[];
+  txt.split(/^ER\s{0,3}-.*$/m).forEach(blk=>{
+    if(!/\S/.test(blk))return;
+    const T={};let last=null;
+    blk.split(/\r?\n/).forEach(l=>{
+      const m=l.match(/^([A-Z][A-Z0-9])\s{1,3}-\s?(.*)$/);
+      if(m){last=m[1];(T[last]=T[last]||[]).push(m[2].trim());}
+      else if(last&&/\S/.test(l)){const a=T[last];a[a.length-1]=(a[a.length-1]+' '+l.trim()).trim();}
+    });
+    const g=k=>T[k]||[], f=(...ks)=>{for(const k of ks)if(g(k).length)return g(k)[0];return'';};
+    const title=f('TI','T1','CT','BT'); if(!title)return;
+    const doi=cleanDoi(f('DO','DI'))||cleanDoi(f('UR'))||cleanDoi(g('M3').join(' '));
+    const pm=(f('AN','ID').match(/\d{6,9}/)||[''])[0];
+    recs.push(Object.assign(REC0(),{
+      title, authors:(g('AU').length?g('AU'):g('A1')).join('; '),
+      year:yr4(f('PY','Y1','DA','Y2')), journal:f('JO','JF','T2','JA','J2','SO'),
+      doi, abstract:(g('AB').length?g('AB'):g('N2')).join(' ').trim(),
+      url:f('UR','L1','L2'), pmid:pm, keywords:g('KW').join('; '),
+      volume:f('VL'), issue:f('IS'), pages:f('SP')+(f('EP')?'–'+f('EP'):''),
+      lang:f('LA'), design:f('TY','M3')}));
+  });
+  return recs;
+}
+/* ---- MEDLINE / .nbib (PubMed) ---- */
+function parseMedline(txt){
+  const recs=[];
+  txt.split(/\r?\n\s*\r?\n/).forEach(blk=>{
+    if(!/\S/.test(blk))return;
+    const T={};let last=null;
+    blk.split(/\r?\n/).forEach(l=>{
+      const m=l.match(/^([A-Z][A-Z0-9]{0,3})\s*-\s?(.*)$/);
+      if(m&&/^[A-Z]/.test(m[1])){last=m[1];(T[last]=T[last]||[]).push(m[2].trim());}
+      else if(last&&/^\s+\S/.test(l)){const a=T[last];a[a.length-1]=(a[a.length-1]+' '+l.trim()).trim();}
+    });
+    const g=k=>T[k]||[], f=(...ks)=>{for(const k of ks)if(g(k).length)return g(k)[0];return'';};
+    const title=f('TI','BTI'); if(!title)return;
+    const doiLine=[...g('LID'),...g('AID')].find(x=>/\[doi\]/i.test(x))||f('LID','AID');
+    recs.push(Object.assign(REC0(),{
+      title:title.replace(/\.$/,''), authors:g('FAU').length?g('FAU').join('; '):g('AU').join('; '),
+      year:yr4(f('DP','DEP','EDAT')), journal:f('JT','TA'), doi:cleanDoi(doiLine),
+      abstract:g('AB').join(' ').trim(), pmid:f('PMID'),
+      url:f('PMID')?('https://pubmed.ncbi.nlm.nih.gov/'+f('PMID')+'/'):'',
+      keywords:[...g('MH'),...g('OT')].join('; '), volume:f('VI'), issue:f('IP'),
+      pages:f('PG'), lang:f('LA'), design:g('PT').join('; ')}));
+  });
+  return recs;
+}
+/* ---- BibTeX ---- */
+function parseBibtex(txt){
+  const recs=[];
+  const re=/@(\w+)\s*\{([^,]*),/g; let m;
+  const starts=[];
+  while((m=re.exec(txt))!==null)starts.push({i:m.index,type:m[1]});
+  starts.forEach((s,k)=>{
+    const blk=txt.slice(s.i,k+1<starts.length?starts[k+1].i:txt.length);
+    const f=key=>{
+      const r=new RegExp('\\b'+key+'\\s*=\\s*','i'); const mm=r.exec(blk);
+      if(!mm)return'';
+      let i=mm.index+mm[0].length, ch=blk[i];
+      if(ch==='{'){let d=0,out='';for(;i<blk.length;i++){const c=blk[i];if(c==='{'){d++;if(d===1)continue;}else if(c==='}'){d--;if(!d)break;}out+=c;}return out.trim();}
+      if(ch==='"'){let out='';for(i++;i<blk.length&&blk[i]!=='"';i++)out+=blk[i];return out.trim();}
+      return (blk.slice(i).match(/^[^,\n}]*/)||[''])[0].trim();
+    };
+    const clean=x=>x.replace(/[{}]/g,'').replace(/\s+/g,' ').trim();
+    const title=clean(f('title')); if(!title)return;
+    recs.push(Object.assign(REC0(),{
+      title, authors:clean(f('author')).replace(/\s+and\s+/gi,'; '), year:yr4(f('year')||f('date')),
+      journal:clean(f('journal')||f('journaltitle')||f('booktitle')), doi:cleanDoi(f('doi')),
+      abstract:clean(f('abstract')), url:f('url'), pmid:(f('pmid').match(/\d+/)||[''])[0],
+      keywords:clean(f('keywords')), volume:f('volume'), issue:f('number'), pages:clean(f('pages')),
+      lang:f('language'), design:s.type}));
+  });
+  return recs;
+}
+/* ---- CSL JSON / JSON générique ---- */
+function parseJSONrecs(data){
+  let arr=Array.isArray(data)?data:(data.items||data.references||data.records||data.results||[]);
+  if(!Array.isArray(arr))return [];
+  const isCSL=arr.some(o=>o&&(o.issued||o['container-title']||o.type));
+  if(isCSL){
+    return arr.map(o=>{
+      const au=(o.author||o.editor||[]).map(a=>a.literal||[a.family,a.given].filter(Boolean).join(', ')).filter(Boolean).join('; ');
+      const dp=o.issued&&o.issued['date-parts']&&o.issued['date-parts'][0];
+      return Object.assign(REC0(),{
+        title:String(o.title||''), authors:au, year:yr4(dp?dp[0]:(o.issued&&o.issued.raw)||''),
+        journal:String(o['container-title']||o.publisher||''), doi:cleanDoi(o.DOI||o.doi),
+        abstract:String(o.abstract||''), url:String(o.URL||o.url||''),
+        pmid:(String(o.note||o.PMID||'').match(/PMID:?\s*(\d+)/i)||[])[1]||'',
+        keywords:Array.isArray(o.keyword)?o.keyword.join('; '):String(o.keyword||''),
+        volume:String(o.volume||''), issue:String(o.issue||''), pages:String(o.page||''),
+        lang:String(o.language||''), design:String(o.type||'')});
+    }).filter(r=>r.title);
+  }
+  const keys=Object.keys(arr[0]||{});
+  const rows=[keys].concat(arr.map(o=>keys.map(k=>o[k])));
+  return rowsToRecs(rows);
+}
+/* ---- EndNote XML ---- */
+function parseEndnote(txt){
+  const doc=new DOMParser().parseFromString(txt,'text/xml');
+  const out=[];
+  [...doc.getElementsByTagName('record')].forEach(rec=>{
+    const q=sel=>{const e=rec.querySelector(sel);return e?e.textContent.trim():'';};
+    const title=q('titles > title')||q('title'); if(!title)return;
+    const au=[...rec.querySelectorAll('contributors > authors > author')].map(a=>a.textContent.trim()).filter(Boolean);
+    out.push(Object.assign(REC0(),{
+      title, authors:au.join('; '), year:yr4(q('dates > year')||q('dates')),
+      journal:q('periodical > full-title')||q('titles > secondary-title'),
+      doi:cleanDoi(q('electronic-resource-num')), abstract:q('abstract'),
+      url:q('urls > related-urls > url'), pmid:(q('accession-num').match(/\d{6,9}/)||[''])[0],
+      keywords:[...rec.querySelectorAll('keywords > keyword')].map(k=>k.textContent.trim()).join('; '),
+      volume:q('volume'), issue:q('number'), pages:q('pages'), lang:q('language'), design:q('work-type')}));
+  });
+  return out;
+}
+/* ---- Zotero RDF ---- */
+function parseRDF(txt){
+  const doc=new DOMParser().parseFromString(txt,'text/xml');
+  const out=[], seen=new Set();
+  const loc=(n,name)=>[...n.children].find(c=>c.localName===name);
+  [...doc.documentElement.children].forEach(node=>{
+    const tEl=loc(node,'title'); if(!tEl)return;
+    const title=tEl.textContent.trim(); if(!title||seen.has(title))return; seen.add(title);
+    const authors=[];
+    const aWrap=[...node.children].find(c=>c.localName==='authors');
+    if(aWrap)[...aWrap.getElementsByTagName('*')].forEach(p=>{
+      if(p.localName==='Person'){
+        const sn=[...p.children].find(c=>c.localName==='surname'), gn=[...p.children].find(c=>c.localName==='givenname');
+        const nm=[sn&&sn.textContent.trim(),gn&&gn.textContent.trim()].filter(Boolean).join(', ');
+        if(nm)authors.push(nm);
+      }});
+    const gt=n=>{const e=loc(node,n);return e?e.textContent.trim():'';};
+    let doi='';
+    [...node.getElementsByTagName('*')].forEach(e=>{ if(!doi&&/^10\./.test(e.textContent.trim()))doi=cleanDoi(e.textContent); });
+    const partOf=loc(node,'isPartOf');
+    let journal='';
+    if(partOf){const jt=[...partOf.getElementsByTagName('*')].find(e=>e.localName==='title');if(jt)journal=jt.textContent.trim();}
+    out.push(Object.assign(REC0(),{title,authors:authors.join('; '),year:yr4(gt('date')),
+      journal,doi,abstract:gt('abstract')||gt('description'),url:gt('identifier')}));
+  });
+  return out;
+}
+
+/* ---- détection du format ---- */
+function detectFormat(txt,name){
+  const n=String(name||'').toLowerCase(), h=txt.slice(0,6000);
+  if(/\.(xlsx|xlsm)$/.test(n))return 'xlsx';
+  if(/^\s*[\[{]/.test(txt))return 'json';
+  if(/<rdf:RDF|xmlns:rdf=/i.test(h))return 'rdf';
+  if(/<records?>|<xml>/i.test(h)&&/<record>/i.test(h))return 'endnote';
+  if(/^PMID\s*-\s/m.test(h)||(/^(TI|AB|FAU|JT)\s{0,3}-\s/m.test(h)&&!/^TY\s{1,3}-/m.test(h)&&/^(PT|DP|LA|SO|IS)\s{0,3}-\s/m.test(h)))return 'medline';
+  if(/^TY\s{1,3}-/m.test(h))return 'ris';
+  if(/@\w+\s*\{/.test(h))return 'bibtex';
+  const l1=(txt.split(/\r?\n/)[0]||'');
+  if(/\t/.test(l1)&&l1.split('\t').length>2)return 'tsv';
+  if(/,/.test(l1)&&l1.split(',').length>2)return 'csv';
+  if(/;/.test(l1)&&l1.split(';').length>2)return 'csv2';
+  return 'pipe';
+}
+const FMT_LABEL={ris:'RIS',medline:'MEDLINE / nbib (PubMed)',bibtex:'BibTeX',json:'JSON (CSL / générique)',
+  endnote:'EndNote XML',rdf:'Zotero RDF',csv:'CSV',csv2:'CSV (;)',tsv:'TSV',xlsx:'Excel (.xlsx)',pipe:'Texte « | »'};
+
+/* ---- source probable ---- */
+function guessSource(txt,name,fmt){
+  const label=s=>{
+    if(/cochrane|central|cdsr/.test(s))return 'Cochrane';
+    if(/embase/.test(s))return 'Embase';
+    if(/scopus/.test(s))return 'Scopus';
+    if(/web of science|clarivate|\bwos\b/.test(s))return 'Web of Science';
+    if(/scholar/.test(s))return 'Google Scholar';
+    if(/pubmed|medline|ncbi/.test(s))return 'PubMed';
+    if(/rayyan/.test(s))return 'Rayyan';
+    if(/covidence/.test(s))return 'Covidence';
+    if(/zotero/.test(s))return 'Zotero';
+    if(/lilacs|scielo/.test(s))return 'LILACS / SciELO';
+    if(/ajol|african journals/.test(s))return 'AJOL';
+    return '';
+  };
+  // 1. l'étiquette de base de données du fichier fait foi (RIS : DB, DP)
+  const db=(txt.match(/^(?:DB|DP)\s{1,3}-\s*(.+)$/m)||[])[1];
+  if(db){const l=label(db.toLowerCase());if(l)return l;}
+  // 2. puis le nom du fichier
+  const fn=label(String(name||'').toLowerCase());
+  if(fn)return fn;
+  // 3. le format MEDLINE ne vient que de PubMed
+  if(fmt==='medline')return 'PubMed';
+  // 4. en dernier ressort, le contenu (peut contenir des mentions dans les résumés)
+  return label(txt.slice(0,2500).toLowerCase());
+}
+
+/* ---- analyse d'un contenu (texte ou binaire) ---- */
+async function parseContent(content,name){
+  const isBuf=content instanceof ArrayBuffer;
+  const txt=isBuf?'':String(content);
+  const fmt=isBuf?'xlsx':detectFormat(txt,name);
+  let recs=[];
+  try{
+    switch(fmt){
+      case 'xlsx':   recs=rowsToRecs(await parseXlsx(content)); break;
+      case 'ris':    recs=parseRIS(txt); break;
+      case 'medline':recs=parseMedline(txt); break;
+      case 'bibtex': recs=parseBibtex(txt); break;
+      case 'json':   recs=parseJSONrecs(JSON.parse(txt)); break;
+      case 'endnote':recs=parseEndnote(txt); break;
+      case 'rdf':    recs=parseRDF(txt); break;
+      case 'csv':    recs=rowsToRecs(parseDelim(txt,',')); break;
+      case 'csv2':   recs=rowsToRecs(parseDelim(txt,';')); break;
+      case 'tsv':    recs=rowsToRecs(parseDelim(txt,'\t')); break;
+      default:
+        txt.split(/\r?\n/).forEach(l=>{
+          if(!l.trim())return;
+          const p=l.split('|').map(x=>x.trim()); if(!p[0])return;
+          recs.push(Object.assign(REC0(),{title:p[0],authors:p[1]||'',year:yr4(p[2]),journal:p[3]||'',doi:cleanDoi(p[4]),abstract:p[5]||''}));
+        });
+    }
+  }catch(e){ return {fmt,recs:[],error:e.message||String(e)}; }
+  // repli : un CSV/TSV mal détecté peut être du RIS collé, etc.
+  if(!recs.length&&!isBuf&&fmt!=='ris'&&/^TY\s{1,3}-/m.test(txt))recs=parseRIS(txt);
+  recs=recs.filter(r=>r.title&&r.title.length>3);
+  return {fmt,recs,source:guessSource(txt,name,fmt)};
+}
+
+/* ---- ajout au projet, avec limite d'essai ---- */
+function addRecords(recs,src){
   const allow=importAllowance();
-  const kept=out.slice(0, allow===Infinity?out.length:allow);
-  const dropped=out.length-kept.length;
-  kept.forEach(r=>S.refs.push(Object.assign({id:uid(),source:src,dup:false,t1:'',t2:'',r1:'',r2:'',
-    tool:'rob2',rob:{},robOverall:'',data:{},subgroup:'',note:''},r)));
-  return {added:kept.length, dropped, total:out.length};
+  const kept=recs.slice(0, allow===Infinity?recs.length:allow);
+  const dropped=recs.length-kept.length;
+  kept.forEach(r=>S.refs.push(Object.assign({
+    id:uid(),source:src||r.src||'',dup:false,t1:'',t2:'',r1:'',r2:'',
+    tool:'',rob:{},robOverall:'',data:{},subgroup:'',note:'',ftUrl:'',ftNote:''},r)));
+  return {added:kept.length,dropped,total:recs.length};
+}
+/* compatibilité : import synchrone depuis la zone de texte */
+function parseRefs(txt,src){
+  const fmt=detectFormat(txt,'');
+  let recs=[];
+  try{
+    switch(fmt){
+      case 'ris':    recs=parseRIS(txt); break;
+      case 'medline':recs=parseMedline(txt); break;
+      case 'bibtex': recs=parseBibtex(txt); break;
+      case 'json':   recs=parseJSONrecs(JSON.parse(txt)); break;
+      case 'endnote':recs=parseEndnote(txt); break;
+      case 'rdf':    recs=parseRDF(txt); break;
+      case 'csv':    recs=rowsToRecs(parseDelim(txt,',')); break;
+      case 'csv2':   recs=rowsToRecs(parseDelim(txt,';')); break;
+      case 'tsv':    recs=rowsToRecs(parseDelim(txt,'\t')); break;
+      default:
+        txt.split(/\r?\n/).forEach(l=>{
+          if(!l.trim())return;
+          const p=l.split('|').map(x=>x.trim()); if(!p[0])return;
+          recs.push(Object.assign(REC0(),{title:p[0],authors:p[1]||'',year:yr4(p[2]),journal:p[3]||'',doi:cleanDoi(p[4]),abstract:p[5]||''}));
+        });
+    }
+  }catch(e){ recs=[]; }
+  recs=recs.filter(r=>r.title&&r.title.length>3);
+  const res=addRecords(recs,src||guessSource(txt,'',fmt)||'Autre');
+  res.fmt=fmt;
+  return res;
 }
 const EXC_REASONS={fr:['Population non pertinente','Intervention/exposition différente','Comparateur absent','Critère de jugement absent','Design inadapté','Doublon','Texte intégral indisponible','Données insuffisantes','Langue','Autre'],
  en:['Wrong population','Wrong intervention/exposure','No comparator','Outcome not reported','Wrong study design','Duplicate','Full text unavailable','Insufficient data','Language','Other']};
-function renderRefs(){
+/* --- surlignage des termes (façon Rayyan) --- */
+const terms=s=>String(s||'').split(',').map(x=>x.trim()).filter(x=>x.length>1);
+function hilite(text){
+  let h=esc(text||'');
+  const paint=(list,cls)=>{
+    list.forEach(w=>{
+      const rx=new RegExp('('+w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+      h=h.replace(rx,`<mark class="${cls}">$1</mark>`);
+    });
+  };
+  paint(terms(S.hlInc),'hi'); paint(terms(S.hlExc),'ho');
+  return h;
+}
+/* --- liens vers le texte intégral --- */
+function ftLinks(r){
+  const L=[];
+  if(r.ftUrl)L.push(`<a class="ft" href="${esc(r.ftUrl)}" target="_blank" rel="noopener">📄 ${t('lk_ft')}</a>`);
+  if(r.doi)L.push(`<a href="https://doi.org/${encodeURIComponent(r.doi)}" target="_blank" rel="noopener">🔗 DOI</a>`);
+  if(r.pmid)L.push(`<a href="https://pubmed.ncbi.nlm.nih.gov/${encodeURIComponent(r.pmid)}/" target="_blank" rel="noopener">🔗 PubMed</a>`);
+  if(r.pmid)L.push(`<a href="https://www.ncbi.nlm.nih.gov/pmc/?term=${encodeURIComponent(r.pmid)}" target="_blank" rel="noopener">📄 PMC</a>`);
+  if(r.url&&r.url!==r.ftUrl)L.push(`<a href="${esc(r.url)}" target="_blank" rel="noopener">🔗 ${t('lk_src')}</a>`);
+  L.push(`<a href="https://scholar.google.com/scholar?q=${encodeURIComponent((r.title||'').slice(0,180))}" target="_blank" rel="noopener">🔎 Google Scholar</a>`);
+  if(!r.doi&&!r.pmid)L.push(`<a href="https://www.crossref.org/guestquery/?title=${encodeURIComponent((r.title||'').slice(0,120))}" target="_blank" rel="noopener">🔎 Crossref</a>`);
+  L.push(`<button data-act="setft">✎ ${r.ftUrl?t('lk_edit'):t('lk_add')}</button>`);
+  return L.join('');
+}
+function screenList(){
   const ph=document.getElementById('fPhase').value, st=document.getElementById('fState').value, q=norm(document.getElementById('fSearch').value);
   let list=S.refs.filter(r=>!r.dup||st==='all');
   if(ph==='2')list=list.filter(r=>r.t1==='include');
   const fld=ph==='1'?'t1':'t2';
   if(st!=='all')list=list.filter(r=>st==='todo'?!r[fld]:r[fld]===st);
-  if(q)list=list.filter(r=>norm(r.title+r.authors+r.year+r.journal).includes(q));
+  if(q)list=list.filter(r=>norm(r.title+r.authors+r.year+r.journal+(r.abstract||'')).includes(q));
+  return {list,ph,fld};
+}
+function renderProgress(){
+  const el=document.getElementById('screenProg'); if(!el)return;
+  const ph=document.getElementById('fPhase').value, fld=ph==='1'?'t1':'t2';
+  const pool=S.refs.filter(r=>!r.dup&&(ph==='1'||r.t1==='include'));
+  const n=pool.length, i=pool.filter(r=>r[fld]==='include').length, m=pool.filter(r=>r[fld]==='maybe').length, e=pool.filter(r=>r[fld]==='exclude').length;
+  const done=i+m+e, pc=n?Math.round(done/n*100):0;
+  el.innerHTML=`<div class="prog"><b class="mono-s">${done} / ${n}</b> <span>${t('pr_done')} · ${pc}%</span>
+    <span style="flex:1"></span>
+    <span>✓ ${i} ${t('finc').toLowerCase()}</span><span>? ${m}</span><span>✕ ${e}</span>
+    <span class="mono-s" style="color:var(--ink-3)">${t('pr_left')} : ${n-done}</span></div>
+    <div class="pbar"><i class="pi" style="width:${n?i/n*100:0}%"></i><i class="pm" style="width:${n?m/n*100:0}%"></i><i class="pe" style="width:${n?e/n*100:0}%"></i></div>`;
+}
+function renderRefs(){
+  renderProgress();
+  const {list,ph,fld}=screenList();
   document.getElementById('screenCount').textContent=list.length+' / '+S.refs.length;
+  if(VIEW==='focus'){ document.getElementById('refList').innerHTML=''; renderFocus(list,ph,fld); return; }
+  document.getElementById('focusWrap').style.display='none';
+  document.getElementById('refList').style.display='';
   const box=document.getElementById('refList');
   if(!S.refs.length){box.innerHTML=`<div class="empty"><b>${t('noref')}</b>${t('norefd')}</div>`;return;}
   if(!list.length){box.innerHTML=`<div class="empty"><b>—</b>${LANG==='fr'?'Aucune référence pour ce filtre.':'No reference matches this filter.'}</div>`;return;}
@@ -1153,10 +1796,11 @@ function renderRefs(){
     const d=r[fld]; const cls=r.dup?'dup':(d==='include'?'inc':d==='exclude'?'exc':d==='maybe'?'may':'');
     const rf=ph==='1'?'r1':'r2';
     return `<div class="ref ${cls}" data-id="${r.id}">
-      <h4>${esc(r.title)}</h4>
-      <div class="meta">${esc(r.authors||'—')} · ${esc(r.year||'s.d.')} · ${esc(r.journal||'—')}${r.doi?' · doi:'+esc(r.doi):''} <span class="tag">${esc(r.source||'')}</span>${r.dup?` <span class="tag" style="background:var(--grey);color:#fff">${t('dupl')}</span>`:''}</div>
-      ${r.abstract?`<p class="abs" onclick="this.classList.toggle('open')">${esc(r.abstract)}</p>`:''}
+      <h4>${hilite(r.title)}</h4>
+      <div class="meta">${esc(r.authors||'—')} · ${esc(r.year||'s.d.')} · ${esc(r.journal||'—')}${r.doi?' · doi:'+esc(r.doi):''} <span class="tag">${esc(r.source||'')}</span>${r.dup?` <span class="tag" style="background:var(--grey);color:#fff">${t('dupl')}</span>`:''}${ph==='2'?` <span class="ftbadge ${r.ftUrl?'':'no'}">${r.ftUrl?t('ft_yes'):t('ft_no')}</span>`:''}</div>
+      ${r.abstract?`<p class="abs" onclick="this.classList.toggle('open')">${hilite(r.abstract)}</p>`:`<p class="abs" style="color:var(--ink-3);font-style:italic">${t('noabs')}</p>`}
       ${(ph==='1'&&r.ai&&!r.t1)?`<p class="aihint">◆ ${LANG==='fr'?'Suggestion IA':'AI suggestion'} : ${r.ai.d.toUpperCase()} (${r.ai.c} %)${r.ai.why?' — '+esc(r.ai.why):''}${r.ai.note?' · '+esc(r.ai.note):''}</p>`:''}
+      <div class="flinks" style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 4px">${ftLinks(r)}</div>
       <div class="acts">
         <button class="pill ${d==='include'?'on-inc':''}" data-act="dec" data-v="include">✓ ${t('include')}</button>
         <button class="pill ${d==='maybe'?'on-may':''}" data-act="dec" data-v="maybe">? ${t('maybe')}</button>
@@ -1170,12 +1814,95 @@ function renderRefs(){
     const r=S.refs.find(x=>x.id===el.dataset.id);
     el.querySelectorAll('[data-act]').forEach(b=>{
       const a=b.dataset.act;
-      if(a==='dec')b.onclick=()=>{r[fld]=r[fld]===b.dataset.v?'':b.dataset.v; if(fld==='t1'&&r.t1!=='include')r.t2=''; save();renderAll();};
+      if(a==='dec')b.onclick=()=>{decide(r,fld,b.dataset.v);};
       if(a==='reason')b.onchange=()=>{r[ph==='1'?'r1':'r2']=b.value;save();};
       if(a==='dup')b.onclick=()=>{r.dup=!r.dup;save();renderAll();};
-      if(a==='del')b.onclick=()=>{S.refs=S.refs.filter(x=>x.id!==r.id);save();renderAll();};
+      if(a==='del')b.onclick=()=>{if(confirm(t('cfm_del')))(S.refs=S.refs.filter(x=>x.id!==r.id),save(),renderAll());};
+      if(a==='setft')b.onclick=()=>askFullText(r);
     });
   });
+}
+function decide(r,fld,v){
+  r[fld]=r[fld]===v?'':v;
+  if(fld==='t1'&&r.t1!=='include'){r.t2='';r.r2='';}
+  if(r[fld]!=='exclude')r[fld==='t1'?'r1':'r2']='';
+  save();renderAll();
+}
+function askFullText(r){
+  const v=prompt(t('lk_prompt'), r.ftUrl||'');
+  if(v===null)return;
+  r.ftUrl=v.trim(); save(); renderAll();
+}
+
+/* --- mode criblage : un article à la fois (façon Covidence) --- */
+let VIEW='list', FOCUS_I=0, LAST_ACT=null;
+function renderFocus(list,ph,fld){
+  const box=document.getElementById('focusWrap');
+  document.getElementById('refList').style.display='none';
+  box.style.display='';
+  if(!list.length){
+    box.innerHTML=`<div class="empty"><b>✓</b>${S.refs.length?t('foc_done'):t('norefd')}</div>`;return;
+  }
+  if(FOCUS_I>=list.length)FOCUS_I=list.length-1;
+  if(FOCUS_I<0)FOCUS_I=0;
+  const r=list[FOCUS_I], d=r[fld], rf=ph==='1'?'r1':'r2', R=EXC_REASONS[LANG];
+  box.innerHTML=`<div class="foc">
+    <div class="fh">
+      <div class="fn">${FOCUS_I+1} / ${list.length} · ${esc(r.source||'—')}${r.pmid?' · PMID '+esc(r.pmid):''}${ph==='2'?` · <span class="ftbadge ${r.ftUrl?'':'no'}">${r.ftUrl?t('ft_yes'):t('ft_no')}</span>`:''}</div>
+      <h3>${hilite(r.title)}</h3>
+      <div class="fmeta">${esc(r.authors||'—')}<br>${esc(r.journal||'—')}${r.year?' · '+esc(r.year):''}${r.volume?' · '+esc(r.volume):''}${r.pages?' : '+esc(r.pages):''}${r.doi?'<br>doi: '+esc(r.doi):''}</div>
+    </div>
+    <div class="fbody">
+      ${r.abstract?`<div class="fabs">${hilite(r.abstract)}</div>`
+        :`<div class="noabs">${t('noabs_d')}</div>`}
+      ${r.keywords?`<div class="fmeta" style="margin-top:12px"><b>${t('kw')} :</b> ${hilite(r.keywords)}</div>`:''}
+      ${(ph==='1'&&r.ai)?`<p class="aihint" style="margin-top:12px">◆ ${LANG==='fr'?'Suggestion IA':'AI suggestion'} : ${r.ai.d.toUpperCase()} (${r.ai.c} %)${r.ai.why?' — '+esc(r.ai.why):''}</p>`:''}
+      <div class="flinks">${ftLinks(r)}</div>
+      ${ph==='2'?`<div style="margin-top:12px"><label>${t('ftnote')}</label><textarea id="focNote" style="min-height:52px">${esc(r.ftNote||'')}</textarea></div>`:''}
+    </div>
+    <div class="ff">
+      <div class="dec">
+        <button class="di ${d==='include'?'on':''}" data-v="include">✓ ${t('include')} <kbd>I</kbd></button>
+        <button class="dm ${d==='maybe'?'on':''}" data-v="maybe">? ${t('maybe')} <kbd>M</kbd></button>
+        <button class="de ${d==='exclude'?'on':''}" data-v="exclude">✕ ${t('exclude')} <kbd>E</kbd></button>
+      </div>
+      ${(d==='exclude')?`<div class="reasonbox"><b>${ph==='2'?t('reason_req'):t('reason')}</b>
+        <div class="rgrid">${R.map(x=>`<button class="${r[rf]===x?'on':''}" data-reason="${esc(x)}">${esc(x)}</button>`).join('')}</div></div>`:''}
+      <div class="fnav">
+        <div style="display:flex;gap:8px">
+          <button class="btn sm" id="fPrev">← ${t('prev')}</button>
+          <button class="btn sm" id="fNext">${t('next')} →</button>
+          <button class="btn sm ghost" id="fUndo" ${LAST_ACT?'':'disabled'}>↶ ${t('undo')}</button>
+        </div>
+        <div class="kbdhint"><span><kbd>I</kbd> ${t('include')}</span><span><kbd>M</kbd> ${t('maybe')}</span><span><kbd>E</kbd> ${t('exclude')}</span><span><kbd>←</kbd><kbd>→</kbd> ${t('nav')}</span></div>
+      </div>
+    </div></div>`;
+  const nextOrStay=()=>{ if(document.getElementById('fState').value==='todo'){/* la liste se réduit */} else FOCUS_I=Math.min(FOCUS_I+1,list.length-1); };
+  box.querySelectorAll('.dec button').forEach(b=>b.onclick=()=>{
+    LAST_ACT={id:r.id,fld,prev:r[fld],prevR:r[rf]};
+    const v=b.dataset.v;
+    r[fld]=r[fld]===v?'':v;
+    if(fld==='t1'&&r.t1!=='include'){r.t2='';r.r2='';}
+    if(r[fld]!=='exclude')r[rf]='';
+    save();
+    if(r[fld]&&!(r[fld]==='exclude'))nextOrStay();
+    renderAll();
+  });
+  box.querySelectorAll('[data-reason]').forEach(b=>b.onclick=()=>{
+    r[rf]=b.dataset.reason; save(); nextOrStay(); renderAll();
+  });
+  const nt=document.getElementById('focNote');
+  if(nt)nt.onchange=()=>{r.ftNote=nt.value;save();};
+  box.querySelectorAll('[data-act="setft"]').forEach(b=>b.onclick=()=>askFullText(r));
+  document.getElementById('fPrev').onclick=()=>{FOCUS_I=Math.max(0,FOCUS_I-1);renderRefs();};
+  document.getElementById('fNext').onclick=()=>{FOCUS_I=Math.min(list.length-1,FOCUS_I+1);renderRefs();};
+  const un=document.getElementById('fUndo');
+  if(un)un.onclick=()=>{
+    if(!LAST_ACT)return;
+    const rr=S.refs.find(x=>x.id===LAST_ACT.id);
+    if(rr){rr[LAST_ACT.fld]=LAST_ACT.prev;rr[LAST_ACT.fld==='t1'?'r1':'r2']=LAST_ACT.prevR||'';}
+    LAST_ACT=null;save();renderAll();
+  };
 }
 const esc=s=>(s==null?'':String(s)).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const shortName=r=>{const a=(r.authors||'').split(/[;,]/)[0].trim()||(LANG==='fr'?'Anonyme':'Anon');return a.split(/\s+/)[0]+' '+(r.year||'s.d.');};
@@ -1187,12 +1914,22 @@ function renderBias(){
   const inc=counts().incRefs, box=document.getElementById('biasList');
   if(!inc.length){box.innerHTML=`<div class="empty"><b>${t('noinc')}</b>${t('noincd')}</div>`;document.getElementById('tlWrap').innerHTML='';return;}
   box.innerHTML=inc.map(r=>{
-    const T=TOOLS[r.tool||'rob2'];
+    const tk=toolFor(r), T=TOOLS[tk];
+    const dsn=r.design||guessDesign(r);
+    const reco=(DESIGNS.find(x=>x.k===dsn)||{}).tool;
+    const mismatch=reco&&reco!==tk;
     return `<div class="card" style="margin-bottom:12px" data-id="${r.id}">
       <div style="display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap">
         <h3 style="margin:0">${esc(shortName(r))} <span style="font-weight:400;color:var(--ink-3);font-size:12px">— ${esc(r.title.slice(0,72))}${r.title.length>72?'…':''}</span></h3>
-        <select data-act="tool" style="width:auto">${Object.keys(TOOLS).map(k=>`<option value="${k}" ${r.tool===k?'selected':''}>${TOOLS[k].name[LANG]}</option>`).join('')}</select>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <select data-act="design" style="width:auto" title="${t('design')}">
+            <option value="">${t('design')}…</option>
+            ${DESIGNS.map(d=>`<option value="${d.k}" ${dsn===d.k?'selected':''}>${d[LANG]}</option>`).join('')}
+          </select>
+          <select data-act="tool" style="width:auto">${Object.keys(TOOLS).map(k=>`<option value="${k}" ${tk===k?'selected':''}>${TOOLS[k].name[LANG]}</option>`).join('')}</select>
+        </div>
       </div>
+      ${mismatch?`<p class="hint" style="margin:8px 0 0;color:var(--rust)">⚠ ${t('reco_tool')} <b>${esc(TOOLS[reco].name[LANG])}</b> — <button class="btn sm" data-act="useReco" data-tool="${reco}">${t('reco_use')}</button></p>`:''}
       <div style="margin-top:8px">
       ${T.d.map(d=>`<div class="dom"><div class="lbl">${d[LANG][0]}<small>${d[LANG][1]}</small></div>
         <div class="judge">${T.j.map(j=>`<button class="${j.c} ${r.rob[d.id]===j.k?'on':''}" data-act="j" data-d="${d.id}" data-v="${j.k}">${j[LANG]}</button>`).join('')}</div></div>`).join('')}
@@ -1202,6 +1939,12 @@ function renderBias(){
   box.querySelectorAll('.card').forEach(el=>{
     const r=S.refs.find(x=>x.id===el.dataset.id);
     el.querySelectorAll('[data-act]').forEach(b=>{
+      if(b.dataset.act==='design')b.onchange=()=>{
+        r.design=b.value;
+        const reco=(DESIGNS.find(x=>x.k===b.value)||{}).tool;
+        if(reco&&reco!==toolFor(r)&&!Object.values(r.rob).some(Boolean)){r.tool=reco;r.rob={};r.robOverall='';}
+        save();renderBias();};
+      if(b.dataset.act==='useReco')b.onclick=()=>{r.tool=b.dataset.tool;r.rob={};r.robOverall='';save();renderBias();};
       if(b.dataset.act==='tool')b.onchange=()=>{r.tool=b.value;r.rob={};r.robOverall='';save();renderBias();};
       if(b.dataset.act==='j')b.onclick=()=>{r.rob[b.dataset.d]=r.rob[b.dataset.d]===b.dataset.v?'':b.dataset.v;autoOverall(r);save();renderBias();};
       if(b.dataset.act==='o')b.onclick=()=>{r.robOverall=r.robOverall===b.dataset.v?'':b.dataset.v;save();renderBias();};
@@ -1220,13 +1963,13 @@ function trafficLight(inc){
   const rated=inc.filter(r=>Object.values(r.rob).some(Boolean)||r.robOverall);
   if(!rated.length){document.getElementById('tlWrap').innerHTML='';return;}
   const groups={};
-  rated.forEach(r=>{(groups[r.tool]=groups[r.tool]||[]).push(r)});
+  rated.forEach(r=>{const k=toolFor(r);(groups[k]=groups[k]||[]).push(r)});
   let html=`<div class="card"><h3>${t('trafficlight')}</h3>`;
   Object.keys(groups).forEach(tk=>{
     const T=TOOLS[tk], rs=groups[tk];
     const NM=214, W=760, colW=Math.min(74,(W-NM)/(T.d.length+1)), top=40, H=top+rs.length*29+10;
     const cxOf=i=>NM+colW*i+colW/2;
-    let s=`<div style="overflow-x:auto"><svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif" font-size="11">`;
+    let s=`<div class="svgbox" data-fig="risque-de-biais-${tk}" data-figtitle="${esc(T.name[LANG])}" style="overflow-x:auto;margin-bottom:12px"><svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg" font-family="IBM Plex Sans, sans-serif" font-size="11">`;
     s+=`<text x="0" y="13" font-family="Fraunces,Georgia,serif" font-size="12.5" font-weight="600" fill="#17140f">${esc(T.name[LANG])}</text>`;
     // bandeau d'en-tête des domaines
     s+=`<rect x="${NM-6}" y="22" width="${colW*(T.d.length+1)+6}" height="20" fill="#faf8f3" rx="4"/>`;
@@ -1300,10 +2043,10 @@ function renderAnalysis(){
     ${res.piLo!==undefined?`<div class="ok" style="margin-bottom:0">${t('pi')} 95 % : <b class="num">${num(disp(res.piLo,m),2)} — ${num(disp(res.piHi,m),2)}</b> ${LANG==='fr'?'(effet attendu dans un futur contexte comparable)':'(expected effect in a future comparable setting)'}</div>`:''}
     ${res.I2>=50?`<div class="warn">${LANG==='fr'?'Hétérogénéité substantielle : privilégiez le modèle à effets aléatoires et explorez les sources (sous-groupes, méta-régression, qualité méthodologique).':'Substantial heterogeneity: prefer the random-effects model and explore sources (subgroups, meta-regression, study quality).'}</div>`:''}
   </div>`;
-  h+=`<div class="svgbox" style="margin-bottom:16px"><h3 style="font-family:var(--serif);font-size:15px;margin-bottom:10px">${t('forest')} — ${lab}</h3>${forest(it,res,m)}</div>`;
+  h+=`<div class="svgbox" data-fig="forest-plot" data-figtitle="${esc(t('forest')+' — '+lab)}" style="margin-bottom:16px"><h3 style="font-family:var(--serif);font-size:15px;margin-bottom:10px">${t('forest')} — ${lab}</h3>${forest(it,res,m)}</div>`;
   if(S.sub==='1')h+=subgroupBlock(it,m);
   const eg=egger(it);
-  h+=`<div class="svgbox"><h3 style="font-family:var(--serif);font-size:15px;margin-bottom:10px">${t('funnel')}</h3>${funnel(it,res,m)}
+  h+=`<div class="svgbox" data-fig="funnel-plot" data-figtitle="${esc(t('funnel'))}"><h3 style="font-family:var(--serif);font-size:15px;margin-bottom:10px">${t('funnel')}</h3>${funnel(it,res,m)}
     ${eg?`<p style="font-size:13px;margin:10px 0 0">${t('egger')} : ${LANG==='fr'?'ordonnée à l’origine':'intercept'} = <b class="num">${num(eg.b0,3)}</b> (SE ${num(eg.se,3)}), t(${eg.df}) = <b class="num">${num(eg.t,2)}</b>, p = <b class="num">${fmtP(eg.p)}</b> ${eg.p<.1?`— ${LANG==='fr'?'asymétrie évocatrice d’un biais de publication (ou d’effets liés à la taille des études)':'asymmetry suggestive of publication bias (or small-study effects)'}`:`— ${LANG==='fr'?'pas d’asymétrie significative':'no significant asymmetry'}`}</p>
     ${it.length<10?`<div class="warn">${LANG==='fr'?'Avec moins de 10 études, les tests d’asymétrie du funnel plot sont peu puissants (recommandation Cochrane) : interprétez avec prudence.':'With fewer than 10 studies, funnel-plot asymmetry tests are underpowered (Cochrane recommendation): interpret with caution.'}</div>`:''}`:''}
   </div>`;
@@ -1489,8 +2232,8 @@ function prismaSvg(){
 function renderReport(){
   const c=counts(), it=items(), m=S.measure;
   const res=it.length>=2?pool(it,S.model):null;
-  let h=`<div class="svgbox" style="margin-bottom:18px">${prismaSvg()}</div>`;
-  h+=`<div class="card"><h3>${t('synth')}</h3><div style="font-size:13.5px;line-height:1.7">`;
+  let h=`<div class="svgbox" data-fig="diagramme-prisma" data-figtitle="${esc(t('prisma'))}" style="margin-bottom:18px">${prismaSvg()}</div>`;
+  h+=`<div class="card"><h3>${t('synth')}</h3><div id="synthOut" style="font-size:13.5px;line-height:1.7">`;
   if(LANG==='fr'){
     h+=`<p><b>Sélection.</b> La recherche documentaire${S.sources?' dans '+esc(S.sources):''} a permis d'identifier <b>${c.id}</b> références. Après retrait de <b>${c.dup}</b> doublon(s), <b>${c.scr}</b> références ont été criblées sur titre et résumé, dont <b>${c.e1}</b> ont été exclues. <b>${c.ft}</b> articles ont été évalués en texte intégral et <b>${c.e2}</b> ont été exclus${Object.keys(c.e2Refs.reduce((a,r)=>{if(r.r2)a[r.r2]=1;return a},{})).length?' (motifs principaux : '+esc([...new Set(c.e2Refs.map(r=>r.r2).filter(Boolean))].slice(0,4).join(', '))+')':''}. Au total, <b>${c.inc}</b> étude(s) ont été incluses dans la revue systématique et <b>${c.ana}</b> dans la méta-analyse.</p>`;
     const rated=c.incRefs.filter(r=>r.robOverall);
@@ -1517,12 +2260,15 @@ function renderReport(){
     ${c.incRefs.map(r=>{const e=effect(r,m,S.cc);const d=r.data||{};
       return `<tr><td><b>${esc(shortName(r))}</b><br><span style="color:var(--ink-3);font-size:11px">${esc((r.title||'').slice(0,64))}</span></td>
       <td>${esc(d.design||'—')}</td><td class="num">${(d.n1||'—')} / ${(d.n2||'—')}</td><td>${esc(d.sg||'—')}</td>
-      <td>${r.robOverall?`<span class="dot" style="background:${COLOR[r.robOverall]}"></span> ${esc((TOOLS[r.tool].j.find(j=>j.k===r.robOverall)||{})[LANG]||'')}`:'—'}</td>
+      <td>${r.robOverall?`<span class="dot" style="background:${COLOR[r.robOverall]}"></span> ${esc(((TOOLS[toolFor(r)]||TOOLS.rob2).j.find(j=>j.k===r.robOverall)||{})[LANG]||'')}`:'—'}</td>
       <td class="num">${e?num(disp(e.y,m),2)+' ['+num(disp(e.y-1.96*Math.sqrt(e.v),m),2)+', '+num(disp(e.y+1.96*Math.sqrt(e.v),m),2)+']':'—'}</td></tr>`}).join('')}
     </tbody></table></div></div>`;
   }
   document.getElementById('reportOut').innerHTML=h;
   document.getElementById('btnSvg').onclick=()=>dlSvg(document.querySelector('#reportOut svg'),'prisma-flow');
+  document.getElementById('btnPrismaPng').onclick=()=>dlPng(document.querySelector('#reportOut svg'),'diagramme-prisma');
+  document.getElementById('btnAllFigs').onclick=exportAllFigures;
+  document.getElementById('btnDocx').onclick=exportReportDocx;
 }
 
 /* =========================================================================
@@ -1827,12 +2573,279 @@ function dl(name,txt,mime){
   const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500);
 }
 function dlSvg(svg,name){ if(!svg)return; dl(name+'.svg','<?xml version="1.0" encoding="UTF-8"?>\n'+svg.outerHTML,'image/svg+xml'); }
+function dlBlob(blob,name){
+  const u=URL.createObjectURL(blob);
+  const a=document.createElement('a');a.href=u;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(u),1500);
+}
+
+/* =========================================================================
+   11. EXPORT DES FIGURES (PNG) ET DU RAPPORT (WORD .docx)
+   ========================================================================= */
+function svgToPng(svg,scale){
+  scale=scale||2;
+  return new Promise((res,rej)=>{
+    if(!svg)return rej(new Error('svg'));
+    const clone=svg.cloneNode(true);
+    clone.setAttribute('xmlns','http://www.w3.org/2000/svg');
+    const vb=(clone.getAttribute('viewBox')||'').split(/[\s,]+/).map(Number);
+    const w=vb[2]||900, h=vb[3]||600;
+    clone.setAttribute('width',w); clone.setAttribute('height',h);
+    const str='<?xml version="1.0" encoding="UTF-8"?>'+new XMLSerializer().serializeToString(clone);
+    const url=URL.createObjectURL(new Blob([str],{type:'image/svg+xml;charset=utf-8'}));
+    const img=new Image();
+    img.onload=()=>{
+      try{
+        const c=document.createElement('canvas');
+        c.width=Math.round(w*scale); c.height=Math.round(h*scale);
+        const x=c.getContext('2d');
+        x.fillStyle='#ffffff'; x.fillRect(0,0,c.width,c.height);
+        x.drawImage(img,0,0,c.width,c.height);
+        URL.revokeObjectURL(url);
+        c.toBlob(b=>b?res({blob:b,w:c.width,h:c.height}):rej(new Error('png')),'image/png');
+      }catch(e){URL.revokeObjectURL(url);rej(e);}
+    };
+    img.onerror=()=>{URL.revokeObjectURL(url);rej(new Error('img'));};
+    img.src=url;
+  });
+}
+async function dlPng(svg,name){
+  try{ const r=await svgToPng(svg,2); dlBlob(r.blob,name+'.png'); }
+  catch(e){ alert(t('png_err')); }
+}
+
+/* ---- ZIP (écriture, sans compression) : sert au .docx ---- */
+const CRCT=(()=>{const t=new Uint32Array(256);
+  for(let i=0;i<256;i++){let c=i;for(let k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);t[i]=c>>>0;}return t;})();
+function crc32(u8){let c=0xFFFFFFFF;for(let i=0;i<u8.length;i++)c=CRCT[(c^u8[i])&0xFF]^(c>>>8);return (c^0xFFFFFFFF)>>>0;}
+function zipStore(files){ // files: [{name, data:Uint8Array}]
+  const enc=new TextEncoder(), parts=[], cd=[]; let off=0;
+  const u16=n=>[n&255,(n>>8)&255], u32=n=>[n&255,(n>>8)&255,(n>>16)&255,(n>>>24)&255];
+  files.forEach(f=>{
+    const nm=enc.encode(f.name), crc=crc32(f.data), sz=f.data.length;
+    const lh=new Uint8Array([...u32(0x04034b50),...u16(20),...u16(0),...u16(0),...u16(0),...u16(0),
+      ...u32(crc),...u32(sz),...u32(sz),...u16(nm.length),...u16(0)]);
+    parts.push(lh,nm,f.data);
+    cd.push(new Uint8Array([...u32(0x02014b50),...u16(20),...u16(20),...u16(0),...u16(0),...u16(0),...u16(0),
+      ...u32(crc),...u32(sz),...u32(sz),...u16(nm.length),...u16(0),...u16(0),...u16(0),...u16(0),...u32(0),...u32(off)]),nm);
+    off+=lh.length+nm.length+sz;
+  });
+  const cdStart=off; let cdLen=0; cd.forEach(x=>cdLen+=x.length);
+  const eocd=new Uint8Array([...u32(0x06054b50),...u16(0),...u16(0),...u16(files.length),...u16(files.length),
+    ...u32(cdLen),...u32(cdStart),...u16(0)]);
+  const all=[...parts,...cd,eocd];
+  let total=0; all.forEach(a=>total+=a.length);
+  const out=new Uint8Array(total); let p=0;
+  all.forEach(a=>{out.set(a,p);p+=a.length;});
+  return new Blob([out],{type:'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
+}
+
+/* ---- construction du document Word ---- */
+const xesc=s=>String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const EMU_W=5943600; // largeur utile d'une page A4 avec marges de 2,5 cm
+function wRun(txt,o){
+  o=o||{};
+  const rpr=`<w:rPr>${o.b?'<w:b/>':''}${o.i?'<w:i/>':''}${o.sz?`<w:sz w:val="${o.sz*2}"/><w:szCs w:val="${o.sz*2}"/>`:''}${o.color?`<w:color w:val="${o.color}"/>`:''}</w:rPr>`;
+  return String(txt).split('\n').map((line,i)=>
+    `${i?'<w:r><w:br/></w:r>':''}<w:r>${rpr}<w:t xml:space="preserve">${xesc(line)}</w:t></w:r>`).join('');
+}
+function wPara(txt,o){
+  o=o||{};
+  const jc=o.align?`<w:jc w:val="${o.align}"/>`:'';
+  const spc=`<w:spacing w:before="${o.before||0}" w:after="${o.after==null?120:o.after}"/>`;
+  return `<w:p><w:pPr>${spc}${jc}</w:pPr>${txt===''?'':wRun(txt,o)}</w:p>`;
+}
+const wH1=t0=>wPara(t0,{b:true,sz:16,before:240,after:120,color:'17140F'});
+const wH2=t0=>wPara(t0,{b:true,sz:13,before:200,after:100,color:'A5361F'});
+function wTable(rows,widths){
+  const n=rows[0].length;
+  const w=widths||Array(n).fill(Math.floor(9360/n));
+  const grid=`<w:tblGrid>${w.map(x=>`<w:gridCol w:w="${x}"/>`).join('')}</w:tblGrid>`;
+  const brd=`<w:tblBorders>${['top','left','bottom','right','insideH','insideV']
+    .map(s=>`<w:${s} w:val="single" w:sz="4" w:space="0" w:color="C7BDA8"/>`).join('')}</w:tblBorders>`;
+  const body=rows.map((r,ri)=>`<w:tr>${r.map((c,ci)=>
+    `<w:tc><w:tcPr><w:tcW w:w="${w[ci]}" w:type="dxa"/>${ri===0?'<w:shd w:val="clear" w:fill="FAF8F3"/>':''}</w:tcPr>`+
+    `<w:p><w:pPr><w:spacing w:before="20" w:after="20"/></w:pPr>${wRun(c==null?'':c,{b:ri===0,sz:8.5})}</w:p></w:tc>`).join('')}</w:tr>`).join('');
+  return `<w:tbl><w:tblPr><w:tblW w:w="9360" w:type="dxa"/>${brd}</w:tblPr>${grid}${body}</w:tbl>`;
+}
+function wImage(rid,idx,pxW,pxH,cap){
+  const cx=EMU_W, cy=Math.round(EMU_W*pxH/pxW);
+  return `<w:p><w:pPr><w:jc w:val="center"/><w:spacing w:before="120" w:after="60"/></w:pPr><w:r><w:drawing>
+   <wp:inline distT="0" distB="0" distL="0" distR="0">
+    <wp:extent cx="${cx}" cy="${cy}"/><wp:docPr id="${idx}" name="Figure ${idx}"/>
+    <a:graphic xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main">
+     <a:graphicData uri="http://schemas.openxmlformats.org/drawingml/2006/picture">
+      <pic:pic xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+       <pic:nvPicPr><pic:cNvPr id="${idx}" name="figure${idx}.png"/><pic:cNvPicPr/></pic:nvPicPr>
+       <pic:blipFill><a:blip r:embed="${rid}"/><a:stretch><a:fillRect/></a:stretch></pic:blipFill>
+       <pic:spPr><a:xfrm><a:off x="0" y="0"/><a:ext cx="${cx}" cy="${cy}"/></a:xfrm>
+        <a:prstGeom prst="rect"><a:avLst/></a:prstGeom></pic:spPr></pic:pic>
+     </a:graphicData></a:graphic></wp:inline></w:drawing></w:r></w:p>`+
+   (cap?wPara(cap,{i:true,sz:8.5,align:'center',after:200,color:'8A8175'}):'');
+}
+/* blocs : {h1|h2|p|table|image|caption} */
+async function buildDocx(blocks,meta){
+  const enc=new TextEncoder();
+  const media=[], rels=[];
+  let body='', idx=1;
+  for(const b of blocks){
+    if(b.type==='h1')body+=wH1(b.text);
+    else if(b.type==='h2')body+=wH2(b.text);
+    else if(b.type==='p')body+=wPara(b.text,b.opt||{sz:10.5});
+    else if(b.type==='table')body+=wTable(b.rows,b.widths)+wPara('',{after:120});
+    else if(b.type==='image'&&b.blob){
+      const buf=new Uint8Array(await b.blob.arrayBuffer());
+      const name=`media/image${idx}.png`, rid=`rId${100+idx}`;
+      media.push({name:'word/'+name,data:buf});
+      rels.push(`<Relationship Id="${rid}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/image" Target="${name}"/>`);
+      body+=wImage(rid,idx,b.w||900,b.h||600,b.caption||'');
+      idx++;
+    }
+  }
+  const doc=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<w:document xmlns:w="http://schemas.openxmlformats.org/wordprocessingml/2006/main"
+ xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"
+ xmlns:wp="http://schemas.openxmlformats.org/drawingml/2006/wordprocessingDrawing"
+ xmlns:a="http://schemas.openxmlformats.org/drawingml/2006/main"
+ xmlns:pic="http://schemas.openxmlformats.org/drawingml/2006/picture">
+<w:body>${body}<w:sectPr><w:pgSz w:w="11906" w:h="16838"/>
+<w:pgMar w:top="1418" w:right="1418" w:bottom="1418" w:left="1418" w:header="709" w:footer="709" w:gutter="0"/>
+</w:sectPr></w:body></w:document>`;
+  const ct=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">
+<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>
+<Default Extension="xml" ContentType="application/xml"/>
+<Default Extension="png" ContentType="image/png"/>
+<Override PartName="/word/document.xml" ContentType="application/vnd.openxmlformats-officedocument.wordprocessingml.document.main+xml"/>
+</Types>`;
+  const mainRels=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="word/document.xml"/>
+</Relationships>`;
+  const docRels=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${rels.join('')}</Relationships>`;
+  return zipStore([
+    {name:'[Content_Types].xml',data:enc.encode(ct)},
+    {name:'_rels/.rels',data:enc.encode(mainRels)},
+    {name:'word/document.xml',data:enc.encode(doc)},
+    {name:'word/_rels/document.xml.rels',data:enc.encode(docRels)},
+    ...media
+  ]);
+}
+
+/* ---- barre d'outils sur chaque figure ---- */
+function decorateFigures(){
+  document.querySelectorAll('.svgbox').forEach(box=>{
+    if(box.querySelector('.figbar'))return;
+    const svg=box.querySelector('svg'); if(!svg)return;
+    const nm=(box.dataset.fig||'figure');
+    const bar=document.createElement('div');
+    bar.className='figbar noprint';
+    bar.innerHTML=`<button class="btn sm" data-x="png">PNG</button><button class="btn sm ghost" data-x="svg">SVG</button><button class="btn sm ghost" data-x="doc">Word</button>`;
+    box.insertBefore(bar,box.firstChild);
+    bar.querySelector('[data-x="png"]').onclick=()=>dlPng(svg,nm);
+    bar.querySelector('[data-x="svg"]').onclick=()=>dlSvg(svg,nm);
+    bar.querySelector('[data-x="doc"]').onclick=async()=>{
+      try{
+        const r=await svgToPng(svg,2);
+        const b=await buildDocx([{type:'h1',text:box.dataset.figtitle||nm},
+          {type:'image',blob:r.blob,w:r.w,h:r.h,caption:box.dataset.figtitle||''}]);
+        dlBlob(b,nm+'.docx');
+      }catch(e){alert(t('png_err'));}
+    };
+  });
+}
+
+/* ---- rapport Word complet ---- */
+async function exportReportDocx(){
+  const btn=document.getElementById('btnDocx');
+  if(btn){btn.disabled=true;btn.innerHTML=`<span class="spin"></span>${t('wd_making')}`;}
+  try{
+    const c=counts(), B=[];
+    B.push({type:'h1',text:S.title||(LANG==='fr'?'Revue systématique':'Systematic review')});
+    B.push({type:'p',text:(LANG==='fr'?'Rapport généré le ':'Report generated on ')+new Date().toLocaleDateString(LANG==='fr'?'fr-FR':'en-GB')+
+      (S.authors?' — '+S.authors:'')+(S.inst?' · '+S.inst:''),opt:{sz:9.5,color:'8A8175'}});
+    if(S.question){B.push({type:'h2',text:LANG==='fr'?'Question de recherche':'Research question'});B.push({type:'p',text:S.question,opt:{sz:10.5}});}
+    const pico=[['P',S.p],['I',S.i],['C',S.c],['O',S.o]].filter(x=>x[1]);
+    if(pico.length){B.push({type:'table',rows:[[LANG==='fr'?'Élément':'Element',LANG==='fr'?'Description':'Description'],...pico],widths:[1400,7960]});}
+    if(S.incl||S.excl){
+      B.push({type:'h2',text:LANG==='fr'?'Critères d’éligibilité':'Eligibility criteria'});
+      if(S.incl)B.push({type:'p',text:(LANG==='fr'?'Inclusion : ':'Inclusion: ')+S.incl,opt:{sz:10.5}});
+      if(S.excl)B.push({type:'p',text:(LANG==='fr'?'Exclusion : ':'Exclusion: ')+S.excl,opt:{sz:10.5}});
+    }
+    if(S.sources||S.strategy){
+      B.push({type:'h2',text:LANG==='fr'?'Sources et stratégie de recherche':'Sources and search strategy'});
+      if(S.sources)B.push({type:'p',text:S.sources,opt:{sz:10.5}});
+      if(S.strategy)B.push({type:'p',text:S.strategy,opt:{sz:9.5}});
+    }
+    // PRISMA
+    B.push({type:'h2',text:LANG==='fr'?'Diagramme de flux PRISMA 2020':'PRISMA 2020 flow diagram'});
+    const pr=document.querySelector('#s-report svg');
+    if(pr){const r=await svgToPng(pr,2);B.push({type:'image',blob:r.blob,w:r.w,h:r.h,caption:LANG==='fr'?'Figure 1. Diagramme de flux PRISMA 2020.':'Figure 1. PRISMA 2020 flow diagram.'});}
+    B.push({type:'table',rows:[
+      [LANG==='fr'?'Étape':'Stage',LANG==='fr'?'Nombre':'Count'],
+      [LANG==='fr'?'Références identifiées':'Records identified',String(c.id)],
+      [LANG==='fr'?'Doublons retirés':'Duplicates removed',String(c.dup)],
+      [LANG==='fr'?'Références criblées':'Records screened',String(c.scr)],
+      [LANG==='fr'?'Textes intégraux évalués':'Full texts assessed',String(c.ft)],
+      [LANG==='fr'?'Études incluses':'Studies included',String(c.inc)],
+      [LANG==='fr'?'Études méta-analysées':'Studies meta-analysed',String(c.ana)]],widths:[6000,3360]});
+    // caractéristiques
+    if(c.incRefs.length){
+      B.push({type:'h2',text:LANG==='fr'?'Caractéristiques des études incluses':'Characteristics of included studies'});
+      B.push({type:'table',rows:[
+        [LANG==='fr'?'Étude':'Study',LANG==='fr'?'Année':'Year',LANG==='fr'?'Revue':'Journal',LANG==='fr'?'Outil':'Tool',LANG==='fr'?'Risque global':'Overall risk'],
+        ...c.incRefs.map(r=>{const T=TOOLS[toolFor(r)]||TOOLS.rob2;
+          return [shortName(r),r.year||'—',(r.journal||'—').slice(0,44),T.name[LANG].split('—')[0].trim(),
+            r.robOverall?((T.j.find(j=>j.k===r.robOverall)||{})[LANG]||'—'):'—'];})],widths:[2200,900,3400,1500,1360]});
+    }
+    // risque de biais
+    const tl=document.querySelector('#s-bias svg');
+    if(tl){
+      B.push({type:'h2',text:LANG==='fr'?'Évaluation du risque de biais':'Risk of bias assessment'});
+      const r=await svgToPng(tl,2);
+      B.push({type:'image',blob:r.blob,w:r.w,h:r.h,caption:LANG==='fr'?'Figure 2. Synthèse du risque de biais par domaine.':'Figure 2. Risk of bias summary by domain.'});
+    }
+    // figures d'analyse
+    const anaSvgs=[...document.querySelectorAll('#s-analysis svg')];
+    if(anaSvgs.length){
+      B.push({type:'h2',text:LANG==='fr'?'Résultats de la méta-analyse':'Meta-analysis results'});
+      let n=tl?3:2;
+      for(const s of anaSvgs){
+        const r=await svgToPng(s,2);
+        const cap=(LANG==='fr'?'Figure ':'Figure ')+(n++)+'. '+(s.textContent.slice(0,60).trim()||'');
+        B.push({type:'image',blob:r.blob,w:r.w,h:r.h,caption:cap});
+      }
+    }
+    // synthèse rédigée
+    const syn=document.getElementById('synthOut');
+    if(syn&&syn.textContent.trim()){
+      B.push({type:'h2',text:LANG==='fr'?'Synthèse rédigée':'Written synthesis'});
+      syn.textContent.split(/\n{2,}/).forEach(p=>{if(p.trim())B.push({type:'p',text:p.trim(),opt:{sz:10.5}});});
+    }
+    B.push({type:'p',text:'—',opt:{sz:9,color:'8A8175',before:240}});
+    B.push({type:'p',text:(LANG==='fr'
+      ?'Document produit avec SR·MA Studio (OUEDRAOGO W. Daniel). Les résultats statistiques doivent être vérifiés par un statisticien avant publication.'
+      :'Produced with SR·MA Studio (OUEDRAOGO W. Daniel). Statistical results should be checked by a statistician before publication.'),opt:{sz:8.5,i:true,color:'8A8175'}});
+    const blob=await buildDocx(B);
+    dlBlob(blob,(S.title?S.title.replace(/[^\w\sÀ-ÿ-]/g,'').slice(0,50).trim().replace(/\s+/g,'-'):'rapport-srma')+'.docx');
+  }catch(e){ alert(t('wd_err')+' '+(e.message||e)); }
+  finally{ if(btn){btn.disabled=false;btn.textContent=t('wd_btn');} }
+}
+async function exportAllFigures(){
+  const figs=[...document.querySelectorAll('.svgbox svg')];
+  if(!figs.length){alert(t('nofig'));return;}
+  for(let i=0;i<figs.length;i++){
+    const box=figs[i].closest('.svgbox');
+    await dlPng(figs[i],(box&&box.dataset.fig)||('figure-'+(i+1)));
+    await new Promise(r=>setTimeout(r,350));
+  }
+}
 function exportCsv(){
   const inc=counts().incRefs, m=S.measure, sep=';';
   const head=['Study','Title','Authors','Year','Journal','DOI','Design','Subgroup','n1','e1/m1','sd1','n2','e2/m2','sd2','Tool','RoB overall',m,'CI low','CI high'];
   const rows=inc.map(r=>{const e=effect(r,m,S.cc),d=r.data||{};
     return [shortName(r),r.title,r.authors,r.year,r.journal,r.doi,d.design||'',d.sg||'',d.n1||'',(S.datatype==='binary'?d.e1:d.m1)||'',d.sd1||'',d.n2||'',(S.datatype==='binary'?d.e2:d.m2)||'',d.sd2||'',
-      r.tool,r.robOverall||'',e?disp(e.y,m).toFixed(4):'',e?disp(e.y-1.96*Math.sqrt(e.v),m).toFixed(4):'',e?disp(e.y+1.96*Math.sqrt(e.v),m).toFixed(4):''];});
+      toolFor(r),r.robOverall||'',e?disp(e.y,m).toFixed(4):'',e?disp(e.y-1.96*Math.sqrt(e.v),m).toFixed(4):'',e?disp(e.y+1.96*Math.sqrt(e.v),m).toFixed(4):''];});
   const csv='\uFEFF'+[head].concat(rows).map(r=>r.map(x=>`"${String(x==null?'':x).replace(/"/g,'""')}"`).join(sep)).join('\n');
   dl('etudes-incluses.csv',csv,'text/csv;charset=utf-8');
 }
@@ -1905,6 +2918,24 @@ function bindAll(){
   FIELDS.forEach(k=>{const el=document.getElementById('f_'+k); if(el)el.value=S[k]||'';});
   ['datatype','g1','g2'].forEach(k=>{const el=document.getElementById('f_'+k); if(el)el.value=S[k]||'';});
   ['measure','model','cc','sub'].forEach(k=>{const el=document.getElementById('a_'+k); if(el)el.value=S[k];});
+  ['hlInc','hlExc'].forEach(k=>{const el=document.getElementById(k); if(el)el.value=S[k]||'';});
+}
+function renderHowto(){
+  const box=document.getElementById('howtoBox'); if(!box)return;
+  box.innerHTML=LANG==='fr'?`
+   <h5>PubMed</h5>Cochez les articles → <code>Send to</code> → <code>Citation manager</code> (fichier <code>.nbib</code>) ou <code>Save → Format : RIS/CSV</code>. Les trois formats sont acceptés ; le <code>.nbib</code> contient les résumés.
+   <h5>Cochrane Library (CENTRAL / CDSR)</h5><code>Export selected</code> → format <code>RIS</code> en cochant <b>Abstract</b> pour inclure les résumés.
+   <h5>Embase / Scopus / Web of Science</h5>Exportez en <code>RIS</code> ou <code>CSV</code> en sélectionnant les champs complets (résumé, DOI, mots-clés).
+   <h5>Zotero</h5>Clic droit sur la collection → <code>Exporter la collection…</code>. Formats acceptés : <b>RIS</b>, <b>BibTeX</b>, <b>CSL JSON</b>, <b>EndNote XML</b> et <b>Zotero RDF</b>. Cochez <b>Exporter les notes</b> pour conserver les résumés. Le <b>CSV</b> (Zotero &gt; clic droit → Exporter → CSV) fonctionne aussi.
+   <h5>Rayyan / Covidence</h5>Exportez en <code>CSV</code> ou <code>RIS</code> : les colonnes sont reconnues automatiquement.
+   <h5>Excel / tableur</h5>Un fichier <code>.xlsx</code> ou <code>.csv</code> avec une ligne d'en-tête. Colonnes reconnues : <code>Title</code>, <code>Authors</code>, <code>Year</code>, <code>Journal</code>, <code>DOI</code>, <code>Abstract</code>, <code>URL</code>, <code>PMID</code>, <code>Keywords</code> (en français aussi : Titre, Auteurs, Année, Revue, Résumé).`
+  :`
+   <h5>PubMed</h5>Select records → <code>Send to</code> → <code>Citation manager</code> (<code>.nbib</code>) or <code>Save → Format: RIS/CSV</code>. All three work; <code>.nbib</code> includes abstracts.
+   <h5>Cochrane Library (CENTRAL / CDSR)</h5><code>Export selected</code> → <code>RIS</code>, ticking <b>Abstract</b> to include abstracts.
+   <h5>Embase / Scopus / Web of Science</h5>Export as <code>RIS</code> or <code>CSV</code> with full fields (abstract, DOI, keywords).
+   <h5>Zotero</h5>Right-click the collection → <code>Export Collection…</code>. Accepted: <b>RIS</b>, <b>BibTeX</b>, <b>CSL JSON</b>, <b>EndNote XML</b>, <b>Zotero RDF</b>. Tick <b>Export Notes</b> to keep abstracts. Zotero <b>CSV</b> also works.
+   <h5>Rayyan / Covidence</h5>Export as <code>CSV</code> or <code>RIS</code>; columns are mapped automatically.
+   <h5>Excel / spreadsheet</h5>An <code>.xlsx</code> or <code>.csv</code> file with a header row. Recognised columns: <code>Title</code>, <code>Authors</code>, <code>Year</code>, <code>Journal</code>, <code>DOI</code>, <code>Abstract</code>, <code>URL</code>, <code>PMID</code>, <code>Keywords</code>.`;
 }
 function fillMeasures(){
   const sel=document.getElementById('a_measure'), bin=S.datatype==='binary';
@@ -1920,7 +2951,7 @@ function applyLang(){
   document.getElementById('fSearch').placeholder=LANG==='fr'?'🔎 titre, auteur, année…':'🔎 title, author, year…';
   fillMeasures(); buildTabs();
 }
-function renderAll(){ renderDash(); renderRefs(); renderBias(); renderExtract(); fillMeasures(); renderAnalysis(); renderReport(); renderAi(); renderStockage(); renderLicense(); bindCopy(); }
+function renderAll(){ renderDash(); renderRefs(); renderBias(); renderExtract(); fillMeasures(); renderAnalysis(); renderReport(); renderAi(); renderStockage(); renderLicense(); renderHowto(); bindCopy(); decorateFigures(); }
 
 document.getElementById('projTitle').oninput=e=>{S.title=e.target.value;save();};
 FIELDS.forEach(k=>{const el=document.getElementById('f_'+k); if(el)el.oninput=()=>{S[k]=el.value;save();renderReport();};});
@@ -1941,15 +2972,80 @@ document.getElementById('btnParse').onclick=()=>{
   const box=document.getElementById('importBox');
   if(importAllowance()<1){ openPaywall(); return; }
   const r=parseRefs(box.value,document.getElementById('importSrc').value);
-  if(!r||!r.total){alert(LANG==='fr'?'Aucune référence reconnue. Vérifiez le format (RIS, BibTeX ou lignes séparées par « | »).':'No reference recognised. Check the format (RIS, BibTeX or pipe-separated lines).');return;}
+  if(!r||!r.total){alert(t('imp_none'));return;}
   box.value='';save();renderAll();
-  if(r.dropped>0){
-    alert(t('trial_partial').replace('{n}',r.added));
-    openPaywall();
-  } else {
-    alert(r.added+(LANG==='fr'?' référence(s) importée(s).':' reference(s) imported.'));
-  }
+  logImport([{name:t('imp_paste'),fmt:r.fmt,added:r.added,dropped:r.dropped,total:r.total}]);
+  if(r.dropped>0){ alert(t('trial_partial').replace('{n}',r.added)); openPaywall(); }
 };
+
+/* ---------- import de fichiers (RIS, nbib, BibTeX, JSON, XML, CSV, XLSX) ---------- */
+function logImport(rows){
+  const box=document.getElementById('importLog'); if(!box)return;
+  box.innerHTML=`<div class="implog">${rows.map(r=>`<div class="l ${r.error?'err':''}">
+    <span class="fmt">${esc(r.error?'!':(FMT_LABEL[r.fmt]||r.fmt||'?'))}</span>
+    <span class="fn">${esc(r.name)}</span>
+    <span class="cnt">${r.error?esc(t('imp_err')+' : '+r.error):
+      (r.total?`${r.added} ${t('imp_added')}${r.dropped?` · ${r.dropped} ${t('imp_skipped')}`:''}`:t('imp_zero'))}</span>
+  </div>`).join('')}</div>`;
+}
+async function handleFiles(files){
+  if(!files||!files.length)return;
+  if(importAllowance()<1){ openPaywall(); return; }
+  const rows=[]; let totalAdded=0, totalDropped=0;
+  for(const f of files){
+    const bin=/\.(xlsx|xlsm)$/i.test(f.name);
+    try{
+      const content=bin?await f.arrayBuffer():await f.text();
+      const p=await parseContent(content,f.name);
+      if(p.error){rows.push({name:f.name,error:p.error});continue;}
+      if(!p.recs.length){rows.push({name:f.name,fmt:p.fmt,added:0,dropped:0,total:0});continue;}
+      const src=document.getElementById('importSrc').value||p.source||guessSource('',f.name,p.fmt)||'Autre';
+      const res=addRecords(p.recs,src);
+      totalAdded+=res.added; totalDropped+=res.dropped;
+      rows.push({name:f.name,fmt:p.fmt,added:res.added,dropped:res.dropped,total:res.total});
+    }catch(e){ rows.push({name:f.name,error:e.message||String(e)}); }
+  }
+  save(); renderAll(); logImport(rows);
+  if(totalDropped>0){ alert(t('trial_partial').replace('{n}',totalAdded)); openPaywall(); }
+}
+(function importUI(){
+  const dz=document.getElementById('dropZone'), fi=document.getElementById('fileRefs');
+  if(!dz)return;
+  dz.onclick=()=>fi.click();
+  fi.onchange=()=>{handleFiles([...fi.files]); fi.value='';};
+  ['dragenter','dragover'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('over');}));
+  ['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('over');}));
+  dz.addEventListener('drop',e=>{ if(e.dataTransfer&&e.dataTransfer.files)handleFiles([...e.dataTransfer.files]); });
+})();
+
+/* ---------- surlignage ---------- */
+['hlInc','hlExc'].forEach(k=>{
+  const el=document.getElementById(k);
+  if(el)el.oninput=()=>{S[k]=el.value;save();renderRefs();};
+});
+
+/* ---------- bascule liste / criblage ---------- */
+document.getElementById('viewSeg').querySelectorAll('button').forEach(b=>b.onclick=()=>{
+  VIEW=b.dataset.v; FOCUS_I=0;
+  document.getElementById('viewSeg').querySelectorAll('button').forEach(x=>x.classList.toggle('on',x===b));
+  renderRefs();
+});
+
+/* ---------- raccourcis clavier du criblage ---------- */
+document.addEventListener('keydown',e=>{
+  if(VIEW!=='focus')return;
+  const sec=document.getElementById('s-screen');
+  if(!sec||!sec.classList.contains('on'))return;
+  const tag=(e.target.tagName||'').toLowerCase();
+  if(tag==='input'||tag==='textarea'||tag==='select'||e.ctrlKey||e.metaKey||e.altKey)return;
+  const hit=v=>{const b=document.querySelector('#focusWrap .dec .'+v); if(b){e.preventDefault();b.click();}};
+  if(e.key==='i'||e.key==='I')hit('di');
+  else if(e.key==='m'||e.key==='M')hit('dm');
+  else if(e.key==='e'||e.key==='E')hit('de');
+  else if(e.key==='ArrowRight'){const b=document.getElementById('fNext');if(b){e.preventDefault();b.click();}}
+  else if(e.key==='ArrowLeft'){const b=document.getElementById('fPrev');if(b){e.preventDefault();b.click();}}
+  else if(e.key==='u'||e.key==='U'){const b=document.getElementById('fUndo');if(b&&!b.disabled){e.preventDefault();b.click();}}
+});
 document.getElementById('btnExport').onclick=()=>dl((S.title||'projet-sr-ma').replace(/[^\w\-]+/g,'-').slice(0,50)+'.json',JSON.stringify(S,null,2),'application/json');
 document.getElementById('btnImport').onclick=()=>document.getElementById('fileIn').click();
 document.getElementById('fileIn').onchange=e=>{
